@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="row" ng-controller="DataController as dc">
+        <h1>UTLEGG FOR EKSTERNE</h1>
+
+        <h2>Refusjon av flere utlegg</h2>
+
+        <table class="table table-bordered table-condensed table-hover output">
+            <thead>
+            <tr>
+                <th>Navn:</th>
+                <td colspan="3">{{ dc.data.user.name }}</td>
+            </tr>
+            <tr>
+                <th>Adresse:</th>
+                <td colspan="3">{{ dc.data.user.address }}, {{ dc.data.user.postcode }} {{ dc.data.user.town }}</td>
+            </tr>
+            <tr>
+                <th>Tlf/Mob:</th>
+                <td colspan="3">{{ dc.data.user.tlf }}</td>
+            </tr>
+            <tr>
+                <th>E-post:</th>
+                <td colspan="3">{{ dc.data.user.email }}</td>
+            </tr>
+            <tr>
+                <th>Kontonummer:</th>
+                <td colspan="3">{{ dc.data.user.account }}</td>
+            </tr>
+            <tr>
+                <th>Formål for utlegg:</th>
+                <td colspan="3">{{ dc.data.name }}</td>
+            </tr>
+            <tr>
+                <td colspan="4">&nbsp;</td>
+            </tr>
+            <tr>
+                <th>Dato</th>
+                <th>Anskaffet - brukt til hva?</th>
+                <th>Beløp inkl. mva</th>
+                <th>Avdeling</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in dc.data.items" ng-if="item.date && item.description && item.cost">
+                <td>{{ item.date }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.cost | currency:"NOK "}}</td>
+                <td class="locked">110 510</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td class="locked" colspan="2">Sum utlegg:</td>
+                <td class="locked">{{ dc.sum(dc.data.items) | currency:"NOK "}}</td>
+                <td class="locked"></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

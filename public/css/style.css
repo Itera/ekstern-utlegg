@@ -1,0 +1,5 @@
+body { padding-top: 70px; }
+
+table.output th { background-color: #c9d7eb }
+
+table.output td.locked { background-color: #d0d0d0; font-weight: bold }

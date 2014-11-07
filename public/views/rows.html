@@ -1,0 +1,49 @@
+<div class="container" ng-controller="DataController as dc">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Utlegg</h1>
+            <p>Legg til rader - en per utlegg. Tomme rader blir ikke med videre.</p>
+        </div>
+        <div class="row">
+            <form name="form" novalidate class="form" role="form">
+                <ng-form name="itemForm" ng-repeat="item in dc.data.items">
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            <input type="date" class="form-control" id="date" name="date" placeholder="Dato"
+                                   ng-model="item.date" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="description" name="description"
+                                   placeholder="Beskrivelse"
+                                   ng-minlength="4" ng-model="item.description" required>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" class="form-control" id="cost" name="cost"
+                                   placeholder="Beløp inkl. mva (NOK)"
+                                   ng-model="item.cost" required>
+                        </div>
+                        <div class="col-md-1">
+                            <span ng-show="itemForm.$valid" class="glyphicon glyphicon-ok"></span>
+                        </div>
+                    </div>
+                </ng-form>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-9 col-md-3">
+                <p>Sum: {{ dc.sum(dc.data.items) | currency:"NOK " }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-3">
+                <button type="button" ng-click="dc.addItem()" class="btn btn-default">Legg et rad
+                    til
+                </button>
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-primary" ng-href="#/done">Fortsett</a>
+            </div>
+        </div>
+    </div>
+</div>
