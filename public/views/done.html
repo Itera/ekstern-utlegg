@@ -53,10 +53,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-hide="dc.data.items">
+            <tr ng-hide="dc.rows()">
                 <td colspan="4"><a ng-href="#/rows"><span class="incomplete">Manglende utlegg</span></a></td>
-            </tr>   
-            <tr ng-repeat="item in dc.data.items" ng-if="item.date && item.description && item.cost">
+            </tr>
+            <tr ng-repeat="item in dc.rows()">
                 <td>{{ item.date }}</td>
                 <td>{{ item.description }}</td>
                 <td>{{ item.cost | currency:"NOK "}}</td>

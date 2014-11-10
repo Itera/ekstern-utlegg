@@ -7,7 +7,8 @@ expensesApp.controller("DataController", ["DataStore", function (DataStore) {
 
     var self = this;
 
-    self.data = DataStore;
+    self.data = DataStore.data;
+    self.rows = DataStore.rows;
 
     self.addItem = function () {
         self.data.items.push({
