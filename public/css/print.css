@@ -6,3 +6,7 @@ body {
 nav {
     display: none;
 }
+
+table.output th { background-color: #c9d7eb !important; }
+
+table.output td.locked { background-color: #d0d0d0 !important; font-weight: bold; }
