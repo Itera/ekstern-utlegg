@@ -5,3 +5,11 @@ table.output th { background-color: #c9d7eb; }
 table.output td.locked { background-color: #d0d0d0; font-weight: bold; }
 
 img.logo { width: 200px; float: right; }
+
+div.noprint { display: block; }
+
+span.incomplete {
+    color: red;
+    font-weight: bold;
+    text-transform: uppercase;
+}

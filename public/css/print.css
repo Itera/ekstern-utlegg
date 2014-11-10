@@ -1,6 +1,7 @@
 body {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    padding-top: 0px;
 }
 
 nav {
@@ -10,3 +11,5 @@ nav {
 table.output th { background-color: #c9d7eb !important; }
 
 table.output td.locked { background-color: #d0d0d0 !important; font-weight: bold; }
+
+div.noprint { display: none; }

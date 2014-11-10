@@ -1,4 +1,10 @@
 <div class="container">
+    <div class="row noprint">
+        <div class="jumbotron">
+            <h2>Når man skriver ut denne siden så husk å krysse av i print dialog for bakgrunnsfager ellers vil ikke
+                fargene på tabellen dukker opp.</h2>
+        </div>
+    </div>
     <div class="row" ng-controller="DataController as dc">
         <img class="logo" src="img/Itera_logo_red_large.png">
 
@@ -10,27 +16,31 @@
             <thead>
             <tr>
                 <th>Navn:</th>
-                <td colspan="3">{{ dc.data.user.name }}</td>
+                <td colspan="3"><span possible-missing text="{{ dc.data.user.name }}" name="navn" page="#/start"></span></td>
             </tr>
             <tr>
                 <th>Adresse:</th>
-                <td colspan="3">{{ dc.data.user.address }}, {{ dc.data.user.postcode }} {{ dc.data.user.town }}</td>
+                <td colspan="3">
+                    <span possible-missing text="{{ dc.data.user.address }}" name="adresse" page="#/start"></span>,
+                    <span possible-missing text="{{ dc.data.user.postcode }}" name="postnr" page="#/start"></span>
+                    <span possible-missing text="{{ dc.data.user.town}}" name="poststed" page="#/start"></span>
+                </td>
             </tr>
             <tr>
                 <th>Tlf/Mob:</th>
-                <td colspan="3">{{ dc.data.user.tlf }}</td>
+                <td colspan="3"><span possible-missing text="{{ dc.data.user.tlf}}" name="tlf/mob" page="#/start"></span></td>
             </tr>
             <tr>
                 <th>E-post:</th>
-                <td colspan="3">{{ dc.data.user.email }}</td>
+                <td colspan="3"><span possible-missing text="{{ dc.data.user.email}}" name="e-post" page="#/start"></span></td>
             </tr>
             <tr>
                 <th>Kontonummer:</th>
-                <td colspan="3">{{ dc.data.user.account }}</td>
+                <td colspan="3"><span possible-missing text="{{ dc.data.user.account}}" name="kontonr" page="#/start"></span></td>
             </tr>
             <tr>
                 <th>Formål for utlegg:</th>
-                <td colspan="3">{{ dc.data.name }}</td>
+                <td colspan="3"><span possible-missing text="{{ dc.data.name}}" name="formål" page="#/start"></span></td>
             </tr>
             <tr>
                 <td colspan="4">&nbsp;</td>
@@ -43,6 +53,9 @@
             </tr>
             </thead>
             <tbody>
+            <tr ng-hide="dc.data.items">
+                <td colspan="4"><a ng-href="#/rows"><span class="incomplete">Manglende utlegg</span></a></td>
+            </tr>   
             <tr ng-repeat="item in dc.data.items" ng-if="item.date && item.description && item.cost">
                 <td>{{ item.date }}</td>
                 <td>{{ item.description }}</td>
