@@ -49,7 +49,7 @@
 
                     <div class="col-sm-8">
                         <input type="tel" class="form-control" id="tlf" name="tlf" placeholder="Telefon eller mobil"
-                               ng-pattern="dc.tlfregex" ng-model="dc.data.user.tlf" required>
+                               ng-pattern="dc.tlfregex" ng-model="dc.data.user.tlf" ng-blur="dc.updateTlf()" required>
                     </div>
                     <div class="col-sm-2"><span ng-show="form.tlf.$valid" class="glyphicon glyphicon-ok"></span></div>
                 </div>
