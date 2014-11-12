@@ -76,7 +76,9 @@
 
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="account" name="account"
-                               ng-minlength="3" placeholder="Hvor skal pengene overføres" ng-model="dc.data.user.account" required>
+                               ng-pattern="/^[0-9]{4}[ .]?[0-9]{2}[ .]?[0-9]{5}$/" placeholder="Hvor skal pengene overføres" ng-model="dc.data.user.account"
+                               ng-blur="dc.updateAccount()"
+                               required>
                     </div>
                     <div class="col-sm-2"><span ng-show="form.account.$valid" class="glyphicon glyphicon-ok"></span></div>
                 </div>

@@ -3,6 +3,8 @@
 var expensesApp = angular.module("expensesApp");
 
 expensesApp.directive("possibleMissing", [function () {
+    "use strict";
+
     return {
         templateUrl: "views/possible.html",
         restrict: "A",
@@ -11,5 +13,5 @@ expensesApp.directive("possibleMissing", [function () {
             name: "@",
             page: "@"
         }
-    }
+    };
 }]);

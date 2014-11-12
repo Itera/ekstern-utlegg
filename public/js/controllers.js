@@ -23,4 +23,24 @@ expensesApp.controller("DataController", ["DataStore", function (DataStore) {
             return a + b.cost;
         }, 0);
     };
+
+    self.formatAccount = function(account) {
+        if (!account) {
+            return account;
+        }
+
+        var re = /^([0-9]{4})[. ]?([0-9]{2})[. ]?([0-9]{5})$/;
+
+        if (re.test(account)) {
+            var parts = re.exec(account);
+
+            return parts[1] + "." + parts[2] + "." + parts[3];
+        } else {
+            return account;
+        }
+    };
+
+    self.updateAccount = function() {
+        self.data.user.account = self.formatAccount(self.data.user.account);
+    };
 }]);
