@@ -17,7 +17,8 @@ expensesApp.controller("DataController", ["DataStore", function (DataStore) {
         self.data.items.push({
             date: "",
             description: "",
-            cost: ""
+            cost: "",
+            supplier: ""
         });
     };
 

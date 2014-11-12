@@ -12,7 +12,12 @@
                             <input type="date" class="form-control" id="date" name="date" placeholder="Dato"
                                    ng-model="item.date" required>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="supplier" name="supplier"
+                                   placeholder="Leverandør"
+                                   ng-minlength="2" ng-model="item.supplier" required>
+                        </div>
+                        <div class="col-md-4">
                             <input type="text" class="form-control" id="description" name="description"
                                    placeholder="Beskrivelse"
                                    ng-minlength="4" ng-model="item.description" required>

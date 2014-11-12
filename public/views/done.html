@@ -58,7 +58,7 @@
             </tr>
             <tr ng-repeat="item in dc.rows()">
                 <td>{{ item.date }}</td>
-                <td>{{ item.description }}</td>
+                <td>{{ item.supplier }} - {{ item.description }}</td>
                 <td>{{ item.cost | currency:"NOK "}}</td>
                 <td class="locked">110 510</td>
             </tr>
