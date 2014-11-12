@@ -78,7 +78,7 @@ expensesApp.controller("DataController", ["DataStore", function (DataStore) {
 
             var re;
 
-            if (prefix === 4 || prefix === 8 || prefix === 9) {
+            if (prefix === "4" || prefix === "8" || prefix === "9") {
                 re = /([0-9]{3})([0-9]{2})([0-9]{3})/;
             } else {
                 re = /([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/;
