@@ -2,6 +2,22 @@
 
 var expensesApp = angular.module("expensesApp");
 
+expensesApp.controller("TitleController", ["DataStore", function (DataStore) {
+    "use strict";
+
+    var self = this;
+
+    self.title = function() {
+        var date = moment().format("YYYY-MM-DD");
+
+        if (DataStore.data.user && DataStore.data.user.name) {
+            return date + " - " + DataStore.data.user.name + " - extern utlegg";
+        } else {
+            return date + " - extern utlegg";
+        }
+    };
+}]);
+
 expensesApp.controller("DataController", ["DataStore", function (DataStore) {
     "use strict";
 
