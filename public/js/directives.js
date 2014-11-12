@@ -1,4 +1,6 @@
 /* global angular */
+/* global setTimeout */
+/* global clearTimeout */
 
 var expensesApp = angular.module("expensesApp");
 
@@ -16,14 +18,20 @@ expensesApp.directive("possibleMissing", [function () {
     };
 }]);
 
-expensesApp.directive('initFocus', function() {
+expensesApp.directive("initFocus", function () {
+    "use strict";
+
     var timer;
 
-    return function(scope, elm, attr) {
-        if (timer) clearTimeout(timer);
+    /* eslint-disable no-unused-vars */
+    return function (scope, elm, attr) {
+        if (timer) {
+            clearTimeout(timer);
+        }
 
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
             elm[0].focus();
         }, 0);
     };
+    /* eslint-enable no-unused-vars */
 });
