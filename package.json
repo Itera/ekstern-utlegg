@@ -1,6 +1,6 @@
 {
-    "name": "student_expenses",
-    "description": "Student Expenses",
+    "name": "itera-external-expenses",
+    "description": "Itera External Expenses",
     "version": "0.0.1",
     "private": true,
     "engines": {
