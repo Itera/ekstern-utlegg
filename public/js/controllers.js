@@ -10,6 +10,9 @@ expensesApp.controller("DataController", ["DataStore", function (DataStore) {
     self.data = DataStore.data;
     self.rows = DataStore.rows;
 
+    self.tlfregex = /^(\+[0-9]{2} ?)?(([0-9]{3}[ -]?[0-9]{2}[ -]?[0-9]{3})|([0-9]{2}[ -]?[0-9]{2}[ -]?[0-9]{2}[ -]?[0-9]{2}))$/;
+    self.accountregex = /^([0-9]{4})[. ]?([0-9]{2})[. ]?([0-9]{5})$/;
+
     self.addItem = function () {
         self.data.items.push({
             date: "",
@@ -29,10 +32,8 @@ expensesApp.controller("DataController", ["DataStore", function (DataStore) {
             return account;
         }
 
-        var re = /^([0-9]{4})[. ]?([0-9]{2})[. ]?([0-9]{5})$/;
-
-        if (re.test(account)) {
-            var parts = re.exec(account);
+        if (self.accountregex.test(account)) {
+            var parts = self.accountregex.exec(account);
 
             return parts[1] + "." + parts[2] + "." + parts[3];
         } else {
