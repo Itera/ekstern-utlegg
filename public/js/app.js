@@ -8,7 +8,7 @@ expensesApp.config(["$routeProvider", function ($routeProvider) {
     $routeProvider.when("/", {
         templateUrl: "views/front.html"
     }).when("/start", {
-        templateUrl: "views/start.html"
+        templateUrl: "views/personalia.html"
     }).when("/rows", {
         templateUrl: "views/rows.html"
     }).when("/done", {
