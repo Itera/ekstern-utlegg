@@ -3,7 +3,7 @@
 
 var expensesApp = angular.module("expensesApp");
 
-expensesApp.controller("TitleController", ["DataStore", function (DataStore) {
+expensesApp.controller("TitleController", ["LocalStorage", function (LocalStorage) {
     "use strict";
 
     var self = this;
@@ -11,20 +11,22 @@ expensesApp.controller("TitleController", ["DataStore", function (DataStore) {
     self.title = function () {
         var date = moment().format("YYYY-MM-DD");
 
-        if (DataStore.data.user && DataStore.data.user.name) {
-            return date + " - " + DataStore.data.user.name + " - extern utlegg";
+        var data = LocalStorage.getData();
+
+        if (data.user && data.user.name) {
+            return date + " - " + data.user.name + " - extern utlegg";
         } else {
             return date + " - extern utlegg";
         }
     };
 }]);
 
-expensesApp.controller("DataController", ["DataStore", function (DataStore) {
+expensesApp.controller("DataController", ["LocalStorage", function (LocalStorage) {
     "use strict";
 
     var self = this;
 
-    self.data = DataStore.data;
+    self.data = LocalStorage.getData();
 
     self.rows = function() {
         return this.data.items.filter(function (candidate) {
@@ -114,9 +116,26 @@ expensesApp.controller("DataController", ["DataStore", function (DataStore) {
 
     self.updateAccount = function () {
         self.data.user.account = self.formatAccount(self.data.user.account);
+        self.updateStore();
     };
 
     self.updateTlf = function () {
         self.data.user.tlf = self.formatTlf(self.data.user.tlf);
+        self.updateStore();
+    };
+
+    self.updateStore = function() {
+        LocalStorage.setData(self.data);
+    };
+
+    self.clearPersonalia = function() {
+        self.data.user = {};
+        self.data.name = "";
+        self.updateStore();
+    };
+
+    self.clearRows = function() {
+        self.data.items = [];
+        self.updateStore();
     };
 }]);
