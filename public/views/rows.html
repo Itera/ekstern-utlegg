@@ -2,7 +2,8 @@
     <div class="row">
         <div class="col-md-12">
             <h1>Utlegg</h1>
-            <p>Legg til rader - en per utlegg. Tomme/uferdige rader blir ikke med videre.</p>
+
+            <p>Legg til rader - en per utlegg. Tomme/uferdige/ugyldige rader blir ikke med videre.</p>
         </div>
         <div class="row">
             <form name="form" novalidate class="form" role="form">
@@ -10,7 +11,7 @@
                     <div class="form-group">
                         <div class="col-md-2">
                             <input type="date" class="form-control" id="date" name="date" placeholder="Dato"
-                                   ng-model="item.date" required ng-change="dc.updateStore()" init-focus>
+                                   ng-model="item.date" min="{{ dc.minDate }}" max="{{ dc.maxDate }}" required ng-change="dc.updateStore()" init-focus>
                         </div>
                         <div class="col-md-2">
                             <input type="text" class="form-control" id="supplier" name="supplier"
@@ -20,7 +21,8 @@
                         <div class="col-md-4">
                             <input type="text" class="form-control" id="description" name="description"
                                    placeholder="Beskrivelse"
-                                   ng-minlength="4" ng-model="item.description" ng-change="dc.updateStore()" required>
+                                   ng-minlength="2" ng-model="item.description" ng-change="dc.updateStore()"
+                                   required>
                         </div>
                         <div class="col-md-3">
                             <input type="number" class="form-control" id="cost" name="cost"
@@ -28,6 +30,7 @@
                                    ng-model="item.cost" ng-change="dc.updateStore()" required>
                         </div>
                         <div class="col-md-1">
+                            <span ng-hide="itemForm.$valid" class="glyphicon glyphicon-warning-sign"></span>
                             <span ng-show="itemForm.$valid" class="glyphicon glyphicon-ok"></span>
                         </div>
                     </div>
@@ -45,7 +48,7 @@
                 <button type="button" ng-click="dc.addItem()" class="btn btn-default">Ny rad</button>
             </div>
             <div class="col-md-3">
-                <a class="btn btn-primary" ng-href="#/done"h>Fortsett</a>
+                <a class="btn btn-primary" ng-href="#/done" h>Fortsett</a>
             </div>
             <div class="col-md-3">
                 <button type="button" ng-click="dc.clearRows()" class="btn btn-warning">Fjern alle rader</button>

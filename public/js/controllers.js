@@ -45,6 +45,9 @@ expensesApp.controller("DataController", ["LocalStorage", function (LocalStorage
     self.tlfregex = /^(\+[0-9]{2} ?)?(([0-9]{3}[ -]?[0-9]{2}[ -]?[0-9]{3})|([0-9]{2}[ -]?[0-9]{2}[ -]?[0-9]{2}[ -]?[0-9]{2}))$/;
     self.accountregex = /^([0-9]{4})[. ]?([0-9]{2})[. ]?([0-9]{5})$/;
 
+    self.minDate = moment().subtract(1, 'years').format("YYYY-MM-DD");
+    self.maxDate = moment().format("YYYY-MM-DD");
+
     self.addItem = function () {
         self.data.items.push({
             date: "",

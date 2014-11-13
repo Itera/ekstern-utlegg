@@ -57,7 +57,7 @@
                 <td colspan="4"><a ng-href="#/rows"><span class="incomplete">Manglende utlegg</span></a></td>
             </tr>
             <tr ng-repeat="item in dc.rows()">
-                <td>{{ item.date }}</td>
+                <td>{{ item.date | date:'dd-MM-yyyy' }}</td>
                 <td>{{ item.supplier }} - {{ item.description }}</td>
                 <td>{{ item.cost | currency:"NOK "}}</td>
                 <td class="locked">110 510</td>

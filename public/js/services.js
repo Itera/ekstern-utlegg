@@ -23,7 +23,13 @@ expensesApp.service("LocalStorage", [function() {
             }));
         }
 
-        return JSON.parse(localStorage.getItem("itera-expenses"));
+        var data = JSON.parse(localStorage.getItem("itera-expenses"));
+
+        angular.forEach(data.items, function(item) {
+           item.date = moment(item.date).toDate();
+        });
+
+        return data;
     }
 
     function setData(data) {
