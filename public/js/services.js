@@ -1,5 +1,6 @@
 /* global angular */
 /* global localStorage */
+/* global moment */
 
 var expensesApp = angular.module("expensesApp");
 
