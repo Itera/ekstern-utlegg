@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "./node_modules/.bin/karma start test/config/karma.conf.js --single-run --browsers PhantomJS"
+    "test": "./node_modules/karma/bin/karma start test/config/karma.conf.js --single-run --browsers PhantomJS"
   },
   "dependencies": {
     "express": "4.9.7"
