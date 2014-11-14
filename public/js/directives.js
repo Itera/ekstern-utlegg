@@ -1,6 +1,4 @@
-/* global angular */
-/* global setTimeout */
-/* global clearTimeout */
+/* globals angular setTimeout clearTimeout */
 
 var expensesApp = angular.module("expensesApp");
 
