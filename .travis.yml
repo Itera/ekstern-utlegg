@@ -3,6 +3,7 @@ node_js:
 - 0.1
 deploy:
   provider: heroku
+  strategy: api
   api_key:
     secure: XPbr/bAcvpWT3m1WlxozhIL3vjqmc81TfAXgu8hRX+VRlX7bWwnxEO87WRfitEzX9eAYOnhUBAvCTGJpcRrv6a5jrLIjQw7ckE75V4+IKuG7PdHNrVcJ08gqMLvdp0FjJX12+mosGUnk41HdT5eN6asF62N53N32LoO40TkPrEA=
   app: itera-extern-utlegg
