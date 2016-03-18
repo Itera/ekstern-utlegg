@@ -48490,7 +48490,7 @@
 	                name = ' - ' + personalia.name.value + ' ';
 	            }
 
-	            var title = '' + (0, _moment2.default)().format('YYYY-MM-DD') + name + ' - external utlegg';
+	            var title = '' + (0, _moment2.default)().format('YYYY-MM-DD') + name + ' - extern utlegg';
 
 	            return _react2.default.createElement(
 	                _reactDocumentTitle2.default,
