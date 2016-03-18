@@ -5,7 +5,12 @@ import {updatePersonalia, clearPersonalia} from '../actions/personalia'
 
 const fieldPropTypes = PropTypes.shape({
     value: PropTypes.string.isRequired,
-    validReason: PropTypes.arrayOf(PropTypes.string)
+    validReason: PropTypes.oneOfType(
+        [
+            PropTypes.arrayOf(PropTypes.string),
+            PropTypes.string
+        ]
+    )
 }).isRequired
 
 export const personaliaFormPropTypes = PropTypes.shape({
