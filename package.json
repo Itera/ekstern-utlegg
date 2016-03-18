@@ -10,7 +10,7 @@
     "start:production": "webpack; NODE_ENV=production node server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js 'test/**/*.@(js)'",
     "test:watch": "npm run test -- --watch",
-    "deploy": "webpack; git commit -m 'Update bundles'; git push heroku master"
+    "deploy": "webpack; git add .; git commit -m 'Update bundles'; git push origin master; git push heroku master"
   },
   "author": "",
   "license": "ISC",
