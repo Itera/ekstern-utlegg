@@ -1,0 +1,40 @@
+{
+  "ecmaFeatures": {
+    "arrowFunctions": true,
+    "binaryLiterals": false,
+    "blockBindings": true,
+    "classes": true,
+    "defaultParams": true,
+    "destructuring": true,
+    "generators": false,
+    "modules": true,
+    "objectLiteralComputedProperties": true,
+    "objectLiteralDuplicateProperties": false,
+    "objectLiteralShorthandMethods": true,
+    "objectLiteralShorthandProperties": true,
+    "object": true,
+    "restParams": true,
+    "spread": true,
+    "super": false,
+    "templateStrings": true,
+    "jsx": true,
+    "experimentalObjectRestSpread": true
+  },
+  "environment": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    "eqeqeq": 2,
+    "semi": [2, "never"],
+    "no-var": 2,
+    "no-unused-vars": 0, // can't see JSX components as being used
+    "quotes": [2, "single"],
+    "prefer-const": 2,
+    "prefer-template": 2,
+    "no-trailing-spaces": 2,
+    "no-mixed-spaces-and-tabs": 2,
+    "indent": [2, 4, {"SwitchCase": 1}]
+  }
+}

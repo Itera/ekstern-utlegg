@@ -1,0 +1,17 @@
+body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    padding-top: 0;
+}
+
+nav {
+    display: none;
+}
+
+table.output th { background-color: #c9d7eb !important; }
+
+table.output td.locked { background-color: #d0d0d0 !important; font-weight: bold; }
+
+/* Force the following two - overriding bootstrap */
+.noprint { display: none !important; }
+footer { display: none !important; }
