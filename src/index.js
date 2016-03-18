@@ -41,7 +41,7 @@ const reducer = compose(
 
 const createPersistentStore = compose(
     persistState(storage, 'itera-external-expenses')
-)(window.devToolsExtension ? window.devToolsExtension()(createStore) : createStore);
+)(window.devToolsExtension ? window.devToolsExtension()(createStore) : createStore)
 
 const store = createPersistentStore(reducer)
 

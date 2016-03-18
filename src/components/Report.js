@@ -78,7 +78,7 @@ class DisplayReport extends React.Component {
             name = ` - ${personalia.name.value} `
         }
 
-        const title = `${moment().format("YYYY-MM-DD")}${name} - external utlegg`
+        const title = `${moment().format('YYYY-MM-DD')}${name} - external utlegg`
 
 
         return <DocumentTitle title={title}>
