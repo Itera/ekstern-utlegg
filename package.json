@@ -5,7 +5,7 @@
   "description": "Itera External Expenses",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint src",
+    "lint": "eslint src test",
     "start": "webpack-dev-server --inline --content-base public  --history-api-fallback",
     "start:production": "NODE_ENV=production webpack; NODE_ENV=production node server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js 'test/**/*.@(js)'",
