@@ -9,6 +9,7 @@
     "start": "webpack-dev-server --inline --content-base public  --history-api-fallback",
     "start:production": "NODE_ENV=production webpack; NODE_ENV=production node server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js 'test/**/*.@(js)'",
+    "test:coverage": "nyc npm run test; nyc report --reporter=lcov",
     "test:watch": "npm run test -- --watch",
     "deploy": "NODE_ENV=production webpack; git add .; git commit -m 'Update bundles'; git push origin master; git push heroku master"
   },
@@ -53,6 +54,7 @@
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
     "node-sass": "^3.4.2",
+    "nyc": "^6.1.1",
     "react-addons-test-utils": "^0.14.7",
     "redux-devtools": "^3.1.1",
     "resolve-url-loader": "^1.4.3",
