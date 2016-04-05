@@ -1,6 +1,7 @@
 # Itera External Expenses
 
 [![Build Status](https://travis-ci.org/Itera/ekstern-utlegg.svg?branch=master)](https://travis-ci.org/Itera/ekstern-utlegg)
+[![codecov.io](https://codecov.io/github/Itera/ekstern-utlegg/coverage.svg?branch=master)](https://codecov.io/github/Itera/ekstern-utlegg?branch=master)
 
 A very simple react/redux app that allows external/students to provide a standard cover page for expenses.
 

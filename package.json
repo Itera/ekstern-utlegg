@@ -12,6 +12,7 @@
     "test:coverage": "nyc -a --require babel-core/register --require babel-polyfill npm run test",
     "test:watch": "npm run test -- --watch",
     "coverage:report": "nyc report --reporter=lcov",
+    "coverage:codecov": "npm run coverage:report && codecov",
     "deploy": "NODE_ENV=production webpack; git add .; git commit -m 'Update bundles'; git push origin master; git push heroku master"
   },
   "author": "",
@@ -51,6 +52,7 @@
     "bootstrap-loader": "^1.0.5",
     "bootstrap-sass": "^3.3.6",
     "chai": "^3.5.0",
+    "codecov": "^1.0.1",
     "css-loader": "^0.23.1",
     "enzyme": "^2.2.0",
     "eslint": "^1.10.3",
