@@ -35,6 +35,7 @@
     "prefer-template": 2,
     "no-trailing-spaces": 2,
     "no-mixed-spaces-and-tabs": 2,
-    "indent": [2, 4, {"SwitchCase": 1}]
+    "indent": [2, 4, {"SwitchCase": 1}],
+    "eol-last": 2
   }
 }
