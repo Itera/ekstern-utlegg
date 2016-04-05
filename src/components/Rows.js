@@ -197,18 +197,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onAdd: () => {
-            dispatch(addRow())
-        },
-        onClear: () => {
-            dispatch(clearRows())
-        },
-        onUpdate: (row) => {
-            dispatch(updateRow(row))
-        }
-    }
-}
+const mapDispatchToProps = { onAdd: addRow, onClear: clearRows, onUpdate: updateRow }
 
 export const Rows = connect(mapStateToProps, mapDispatchToProps)(Form)

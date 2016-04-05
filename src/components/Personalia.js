@@ -112,7 +112,7 @@ export class Form extends React.Component {
                             <Link className="btn btn-primary" to="/rows">Fortsett</Link>
                         </div>
                         <div className="col-sm-2">
-                            <a className="btn btn-warning" onClick={() => this.props.onClear()}>Tøm feltene</a>
+                            <a className="btn btn-warning" ref="clear" onClick={() => this.props.onClear()}>Tøm feltene</a>
                         </div>
                         <div className="col-sm-6"></div>
                     </div>
@@ -129,21 +129,16 @@ Form.propTypes = {
     onClear: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
-    return {
-        personalia: state.personalia
+export const mapStateToProps = (state) => {
+    const props = {}
+
+    if (state.personalia) {
+        props.personalia = state.personalia
     }
+
+    return props
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onUpdate: (personalia) => {
-            dispatch(updatePersonalia(personalia))
-        },
-        onClear: () => {
-            dispatch(clearPersonalia())
-        }
-    }
-}
+const mapDispatchToProps = { onUpdate: updatePersonalia, onClear: clearPersonalia }
 
 export const Personalia = connect(mapStateToProps, mapDispatchToProps)(Form)
