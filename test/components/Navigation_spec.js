@@ -1,7 +1,7 @@
 /* globals describe, it */
 
 import React from 'react'
-import Navigation from '../../src/components/Navigation'
+import {Navigation} from '../../src/components/Navigation'
 import {expect} from 'chai'
 
 import {renderIntoDocument, findRenderedDOMComponentWithTag, scryRenderedDOMComponentsWithTag} from 'react-addons-test-utils'

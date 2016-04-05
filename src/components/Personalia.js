@@ -146,6 +146,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-const Personalia = connect(mapStateToProps, mapDispatchToProps)(Form)
-
-export default Personalia
+export const Personalia = connect(mapStateToProps, mapDispatchToProps)(Form)

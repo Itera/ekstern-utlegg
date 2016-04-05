@@ -169,6 +169,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-const Report = connect(mapStateToProps)(DisplayReport)
-
-export default Report
+export const Report = connect(mapStateToProps)(DisplayReport)

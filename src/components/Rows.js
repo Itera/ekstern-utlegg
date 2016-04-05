@@ -211,6 +211,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-const Rows = connect(mapStateToProps, mapDispatchToProps)(Form)
-
-export default Rows
+export const Rows = connect(mapStateToProps, mapDispatchToProps)(Form)

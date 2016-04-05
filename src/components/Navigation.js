@@ -1,7 +1,7 @@
 import React from 'react'
 import { IndexLink, Link } from 'react-router'
 
-export default React.createClass({
+export class Navigation extends React.Component {
     render() {
         return (
             <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -16,4 +16,4 @@ export default React.createClass({
             </nav>
         )
     }
-})
+}

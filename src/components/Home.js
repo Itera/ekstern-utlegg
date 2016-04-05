@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-export default React.createClass({
+export class Home extends React.Component {
     render() {
         return <div className="container">
             <div className="jumbotron">
@@ -25,4 +25,4 @@ export default React.createClass({
             </div>
         </div>
     }
-})
+}

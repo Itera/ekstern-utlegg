@@ -1,8 +1,8 @@
 import React from 'react'
-import Navigation from './Navigation'
+import {Navigation} from './Navigation'
 import DocumentTitle from 'react-document-title'
 
-export default React.createClass({
+export class App extends React.Component {
     render() {
         return (
             <DocumentTitle title="Itera - extern utlegg">
@@ -22,4 +22,4 @@ export default React.createClass({
             </DocumentTitle>
         )
     }
-})
+}
