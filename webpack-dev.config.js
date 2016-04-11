@@ -30,15 +30,16 @@ module.exports = {
         ]
     },
 
+    devServer: {
+        contentBase: './public',
+        historyApiFallback: true,
+        hot: true,
+        inline: true,
+        color: true
+    },
+
     plugins: [
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        })
+        new webpack.HotModuleReplacementPlugin()
     ]
 }
 
