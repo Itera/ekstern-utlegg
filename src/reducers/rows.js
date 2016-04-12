@@ -1,9 +1,11 @@
 import validate from 'validate.js'
 import moment from 'moment'
 
-const initialState = {
-    rows: [],
-    total: 0
+function initialState() {
+    return {
+        rows: [],
+        total: 0
+    }
 }
 
 let counter = 0
@@ -20,10 +22,10 @@ function updateState(state, action) {
             row = Object.assign({}, row, action.row)
 
             validate.extend(validate.validators.datetime, {
-                parse: function(value) {
+                parse: function (value) {
                     return +moment.utc(value)
                 },
-                format: function(value, options) {
+                format: function (value, options) {
                     const format = options.dateOnly ? 'YYYY-MM-DD' : 'YYYY-MM-DD hh:mm:ss'
                     return moment.utc(value).format(format)
                 }
@@ -84,10 +86,10 @@ function addRow(state) {
 }
 
 function clearState() {
-    return initialState
+    return initialState()
 }
 
-export default function updateRows(state = initialState, action) {
+export default function updateRows(state = initialState(), action) {
     switch (action.type) {
         case 'UPDATE_ROW':
             return updateState(state, action)
