@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react'
+import React from 'react'
 import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import {personaliaFormPropTypes} from './Personalia'
@@ -23,7 +23,7 @@ class ReportRow extends React.Component {
     }
 }
 
-ReportRow.PropTypes = {
+ReportRow.propTypes = {
     row: rowFieldPropTypes
 }
 

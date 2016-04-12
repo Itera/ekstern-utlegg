@@ -1,13 +1,12 @@
-/* globals describe, it */
+/* eslint-env mocha */
 
 import React from 'react'
-import {Form, Input, NumberInput, Row} from '../../src/components/Rows'
+import {Input, NumberInput, Row} from '../../src/components/Rows'
 import {expect} from 'chai'
 
 import {
     renderIntoDocument,
     findRenderedDOMComponentWithTag,
-    scryRenderedDOMComponentsWithTag,
     scryRenderedDOMComponentsWithClass,
     Simulate
 } from 'react-addons-test-utils'
@@ -123,8 +122,6 @@ describe('components', () => {
         })
 
         describe('Row', () => {
-            function updateCallback(update) {}
-
             it('renders a valid row', () => {
                 const row = {
                     id: 1,
@@ -136,7 +133,7 @@ describe('components', () => {
                 }
 
                 const component = renderIntoDocument(
-                    <Row row={row} onUpdate={updateCallback} width={7}/>
+                    <Row row={row} onUpdate={() => {}} width={7}/>
                 )
 
                 const validMarker = scryRenderedDOMComponentsWithClass(component, 'glyphicon')
@@ -156,7 +153,7 @@ describe('components', () => {
                 }
 
                 const component = renderIntoDocument(
-                    <Row row={row} onUpdate={updateCallback} width={7}/>
+                    <Row row={row} onUpdate={() => {}} width={7}/>
                 )
 
                 const validMarker = scryRenderedDOMComponentsWithClass(component, 'glyphicon')

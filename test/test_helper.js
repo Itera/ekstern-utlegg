@@ -1,7 +1,6 @@
-/* globals global, window, describe, it */
+/* globals global, window */
 
 import jsdom from 'jsdom'
-import chai from 'chai'
 
 const doc = jsdom.jsdom('<!doctype html><html><body><div id="app"></div></body></html>', {
     url: 'http://localhost'

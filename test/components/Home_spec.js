@@ -1,8 +1,7 @@
-/* globals describe, it */
+/* eslint-env mocha */
 
 import React from 'react'
 import {Home} from '../../src/components/Home'
-import {expect} from 'chai'
 
 import {renderIntoDocument, findRenderedDOMComponentWithClass} from 'react-addons-test-utils'
 

@@ -1,9 +1,9 @@
-/* globals describe, it */
+/* eslint-env mocha */
 
 import {expect} from 'chai'
 
 import reducer from '../../src/reducers/rows'
-import {addRow,clearRows,updateRow} from '../../src/actions/rows'
+import {addRow,clearRows} from '../../src/actions/rows'
 
 describe('reducers', () => {
     describe('rows', () => {

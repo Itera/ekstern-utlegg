@@ -1,4 +1,4 @@
-/* globals describe, it */
+/* eslint-env mocha */
 
 import React from 'react'
 import {Navigation} from '../../src/components/Navigation'

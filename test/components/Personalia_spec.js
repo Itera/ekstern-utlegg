@@ -1,12 +1,10 @@
-/* globals describe, it */
+/* eslint-env mocha */
 
 import React from 'react'
 import {Form, Input, mapStateToProps} from '../../src/components/Personalia'
 import {expect} from 'chai'
-import { shallow } from 'enzyme'
+import {shallow} from 'enzyme'
 import sinon from 'sinon'
-
-import TestUtils from 'react-addons-test-utils'
 
 import {
     renderIntoDocument,
@@ -17,13 +15,6 @@ import {
 } from 'react-addons-test-utils'
 
 describe('components', () => {
-    function emptyCallback1(x) {
-    }
-
-    function emptyCallback0() {
-    }
-
-
     describe('Personlia', () => {
         describe('Input', () => {
             it('renders a text input', () => {
@@ -80,7 +71,7 @@ describe('components', () => {
                 const component = renderIntoDocument(
                     <Input field="testField" inputType="email" name="Test Field" value={value}
                            placeholder="testPlaceholder"
-                           onUpdate={emptyCallback1}/>
+                           onUpdate={() => {}}/>
                 )
 
                 const input = findRenderedDOMComponentWithTag(component, 'input')
@@ -97,7 +88,7 @@ describe('components', () => {
                 const component = renderIntoDocument(
                     <Input field="testField" inputType="tel" name="Test Field" value={value}
                            placeholder="testPlaceholder"
-                           onUpdate={emptyCallback1}/>
+                           onUpdate={() => {}}/>
                 )
 
                 const input = findRenderedDOMComponentWithTag(component, 'input')
@@ -113,7 +104,7 @@ describe('components', () => {
                 const component = renderIntoDocument(
                     <Input field="testField" inputType="text" name="Test Field" value={value}
                            placeholder="testPlaceholder"
-                           onUpdate={emptyCallback1}/>
+                           onUpdate={() => {}}/>
                 )
 
                 const validMarker = scryRenderedDOMComponentsWithClass(component, 'glyphicon')
@@ -129,7 +120,7 @@ describe('components', () => {
                 const component = renderIntoDocument(
                     <Input field="testField" inputType="text" name="Test Field" value={value}
                            placeholder="testPlaceholder"
-                           onUpdate={emptyCallback1}/>
+                           onUpdate={() => {}}/>
                 )
 
                 const validMarker = scryRenderedDOMComponentsWithClass(component, 'glyphicon')
@@ -145,7 +136,7 @@ describe('components', () => {
 
                 const component = renderIntoDocument(
                     <Input field="testField" inputType="text" name="Test Field" value={value}
-                           onUpdate={emptyCallback1}/>
+                           onUpdate={() => {}}/>
                 )
 
                 const input = findRenderedDOMComponentWithTag(component, 'input')
@@ -201,27 +192,42 @@ describe('components', () => {
         }
 
         describe('Form', () => {
+            const onUpdate = () => {}
+            const onClear = () => {}
+
             it('creates the correct inputs', () => {
-                const wrapper = shallow(<Form personalia={emptyPersonalia} onUpdate={emptyCallback1} onClear={emptyCallback0}/>)
+                const wrapper = shallow(<Form personalia={emptyPersonalia} onUpdate={onUpdate} onClear={onClear}/>)
 
                 const inputs = wrapper.find(Input)
 
                 expect(inputs).to.have.length(8)
 
-                expect(inputs.contains(<Input field="name" name="Navn" inputType="text" value={emptyPersonalia.name} onUpdate={emptyCallback1}/>)).to.equal(true)
-                expect(inputs.contains(<Input field="address" name="Adresse" inputType="text" value={emptyPersonalia.address} onUpdate={emptyCallback1}/>)).to.equal(true)
-                expect(inputs.contains(<Input field="postcode" name="Postnr" inputType="text" value={emptyPersonalia.postcode} onUpdate={emptyCallback1}/>)).to.equal(true)
-                expect(inputs.contains(<Input field="town" name="Poststed" inputType="text" value={emptyPersonalia.town} onUpdate={emptyCallback1}/>)).to.equal(true)
-                expect(inputs.contains(<Input field="telephone" name="Tlf/Mob" placeholder="Telefon eller mobil" inputType="tel" value={emptyPersonalia.telephone} onUpdate={emptyCallback1}/>)).to.equal(true)
-                expect(inputs.contains(<Input field="email" name="E-post" placeholder="E-post adresse" inputType="email" value={emptyPersonalia.email} onUpdate={emptyCallback1}/>)).to.equal(true)
-                expect(inputs.contains(<Input field="event" name="Formål" placeholder="Hvilket arrangement" inputType="text" value={emptyPersonalia.event} onUpdate={emptyCallback1}/>)).to.equal(true)
-                expect(inputs.contains(<Input field="account" name="Kontonr" placeholder="Hvor skal pengene overføres" inputType="text" value={emptyPersonalia.account} onUpdate={emptyCallback1}/>)).to.equal(true)
+                expect(inputs.contains(<Input field="name" name="Navn" inputType="text" value={emptyPersonalia.name}
+                                              onUpdate={onUpdate}/>)).to.equal(true)
+                expect(inputs.contains(<Input field="address" name="Adresse" inputType="text"
+                                              value={emptyPersonalia.address} onUpdate={onUpdate}/>)).to.equal(true)
+                expect(inputs.contains(<Input field="postcode" name="Postnr" inputType="text"
+                                              value={emptyPersonalia.postcode} onUpdate={onUpdate}/>)).to.equal(true)
+                expect(inputs.contains(<Input field="town" name="Poststed" inputType="text" value={emptyPersonalia.town}
+                                              onUpdate={onUpdate}/>)).to.equal(true)
+                expect(inputs.contains(<Input field="telephone" name="Tlf/Mob" placeholder="Telefon eller mobil"
+                                              inputType="tel" value={emptyPersonalia.telephone}
+                                              onUpdate={onUpdate}/>)).to.equal(true)
+                expect(inputs.contains(<Input field="email" name="E-post" placeholder="E-post adresse" inputType="email"
+                                              value={emptyPersonalia.email} onUpdate={onUpdate}/>)).to.equal(true)
+                expect(inputs.contains(<Input field="event" name="Formål" placeholder="Hvilket arrangement"
+                                              inputType="text" value={emptyPersonalia.event}
+                                              onUpdate={onUpdate}/>)).to.equal(true)
+                expect(inputs.contains(<Input field="account" name="Kontonr" placeholder="Hvor skal pengene overføres"
+                                              inputType="text" value={emptyPersonalia.account}
+                                              onUpdate={onUpdate}/>)).to.equal(true)
             })
 
             it('triggers the clear event', () => {
                 const onButtonClick = sinon.spy()
 
-                const wrapper = shallow(<Form personalia={emptyPersonalia} onUpdate={emptyCallback1} onClear={onButtonClick}/>)
+                const wrapper = shallow(<Form personalia={emptyPersonalia} onUpdate={() => {}}
+                                              onClear={onButtonClick}/>)
 
                 wrapper.find('a').simulate('click')
 

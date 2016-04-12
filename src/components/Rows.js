@@ -162,7 +162,7 @@ export class Form extends React.Component {
 
             <div className="row">
                 <div className="col-md-offset-9 col-md-3">
-                    <p>Sum: {this.props.rows.total.toFixed(2)} NOK</p>
+                    <p>Sum: {total.toFixed(2)} NOK</p>
                 </div>
             </div>
 

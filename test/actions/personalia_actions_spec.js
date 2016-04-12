@@ -1,4 +1,4 @@
-/* globals describe, it */
+/* eslint-env mocha */
 
 import {expect} from 'chai'
 

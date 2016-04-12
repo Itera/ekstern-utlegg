@@ -1,9 +1,9 @@
-/* globals describe, it */
+/* eslint-env mocha */
 
 import {expect} from 'chai'
 
 import reducer from '../../src/reducers/personalia'
-import {clearPersonalia,updatePersonalia} from '../../src/actions/personalia'
+import {clearPersonalia} from '../../src/actions/personalia'
 
 describe('reducers', () => {
     describe('personalia', () => {
