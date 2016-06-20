@@ -34,8 +34,7 @@ module.exports = {
         contentBase: './public',
         historyApiFallback: true,
         hot: true,
-        inline: true,
-        color: true
+        inline: true
     },
 
     plugins: [
