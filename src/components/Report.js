@@ -85,7 +85,7 @@ class DisplayReport extends React.Component {
             <div className="container">
                 <div className="row noprint">
                     <div className="jumbotron">
-                        <h2>Når man skriver ut denne siden så husk å krysse av i print dialog for bakgrunnsfager ellers
+                        <h2>Når man skriver ut denne siden så husk å krysse av i print dialog for bakgrunnsfarger ellers
                             vil
                             ikke
                             fargene på tabellen dukke opp.</h2>
