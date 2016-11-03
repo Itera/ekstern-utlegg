@@ -162,11 +162,9 @@ DisplayReport.propTypes = {
     rows: rowsFormPropTypes
 }
 
-const mapStateToProps = (state) => {
-    return {
-        personalia: state.personalia,
-        rows: state.rows
-    }
-}
+const mapStateToProps = (state) => ({
+    personalia: state.personalia,
+    rows: state.rows
+})
 
 export const Report = connect(mapStateToProps)(DisplayReport)

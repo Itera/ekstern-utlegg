@@ -124,7 +124,7 @@ export class Row extends React.Component {
                    value={row.description}
                    onUpdate={this.props.onUpdate} width={4}/>
             <NumberInput id={row.id} name="cost" placeholder="Beløp inkl. mva (NOK)" inputType="number" value={row.cost}
-                   onUpdate={this.props.onUpdate} width={3}/>
+                         onUpdate={this.props.onUpdate} width={3}/>
 
             <div className="col-md-1">
                 {this.renderValid(row.valid)}
@@ -191,12 +191,10 @@ Form.propTypes = {
     onUpdate: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
-    return {
-        rows: state.rows
-    }
-}
+const mapStateToProps = (state) => ({
+    rows: state.rows
+})
 
-const mapDispatchToProps = { onAdd: addRow, onClear: clearRows, onUpdate: updateRow }
+const mapDispatchToProps = {onAdd: addRow, onClear: clearRows, onUpdate: updateRow}
 
 export const Rows = connect(mapStateToProps, mapDispatchToProps)(Form)

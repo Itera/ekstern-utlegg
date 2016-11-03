@@ -1,12 +1,8 @@
-export const updatePersonalia = (personalia) => {
-    return {
-        type: 'UPDATE_PERSONALIA',
-        personalia
-    }
-}
+export const updatePersonalia = (personalia) => ({
+    type: 'UPDATE_PERSONALIA',
+    personalia
+})
 
-export const clearPersonalia = () => {
-    return {
-        type: 'CLEAR_PERSONALIA'
-    }
-}
+export const clearPersonalia = () => ({
+    type: 'CLEAR_PERSONALIA'
+})
