@@ -11,7 +11,7 @@
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js 'test/**/*.@(js)'",
     "test:coverage": "nyc -a --require babel-core/register --require babel-polyfill npm run test",
     "test:watch": "npm run test -- --watch",
-    "coverage:reportci": "nyc report --reporter=lcov --report-dir $CIRCLE_ARTIFACTS/coverage"
+    "coverage:reportci": "nyc report --reporter=lcov --report-dir $CIRCLE_ARTIFACTS/coverage",
     "coverage:report": "nyc report --reporter=lcov",
     "coverage:codecov": "npm run coverage:report && codecov",
     "deploy": "NODE_ENV=production webpack -p; git add .; git commit -m 'Update bundles'; git push origin master; git push heroku master",
