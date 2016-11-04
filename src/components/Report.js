@@ -14,7 +14,7 @@ class ReportRow extends React.Component {
             <td>{row.date}</td>
             <td>
                 {row.supplier}
-                -
+                &nbsp;-&nbsp;
                 {row.description}
             </td>
             <td>{row.cost.toFixed(2)} NOK</td>
