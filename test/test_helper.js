@@ -9,7 +9,7 @@ const win = doc.defaultView
 
 win.localStorage = win.sessionStorage = {
     getItem: function (key) {
-        return this[key]
+        return this[key] || null
     },
     setItem: function (key, value) {
         this[key] = value
