@@ -13,4 +13,5 @@ dependencies:
 test:
   post:
     - yarn run lint
-    - yarn run test:coverageci
+    - yarn run test:coverage
+    - yarn run coverage:reportci
