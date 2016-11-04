@@ -8,8 +8,6 @@ function initialState() {
     }
 }
 
-let counter = 0
-
 function updateState(state, action) {
     const newState = Object.assign({}, state)
 
@@ -74,7 +72,7 @@ function addRow(state) {
     const newState = Object.assign({}, state)
 
     newState.rows.push({
-        id: counter++,
+        id: state.rows.length + 1,
         date: '',
         description: '',
         cost: 0,

@@ -41,7 +41,7 @@ describe('reducers', () => {
 
                 expect(state).to.deep.equal({
                     rows: [{
-                        id: 0,
+                        id: 1,
                         date: '',
                         description: '',
                         cost: 0,
@@ -68,7 +68,7 @@ describe('reducers', () => {
                         2,
                         3,
                         {
-                            id: 1,
+                            id: 4,
                             date: '',
                             description: '',
                             cost: 0,
