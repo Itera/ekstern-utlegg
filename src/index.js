@@ -1,5 +1,3 @@
-/* globals window document */
-
 import 'babel-polyfill'
 
 import React from 'react'

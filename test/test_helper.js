@@ -1,5 +1,3 @@
-/* globals global, window */
-
 import jsdom from 'jsdom'
 
 const doc = jsdom.jsdom('<!doctype html><html><body><div id="app"></div></body></html>', {
