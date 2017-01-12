@@ -44,7 +44,7 @@ function updateState(state, action) {
         newState.telephone.value = formatTlf(newState.telephone.value)
     }
 
-    if (!newState.dept || newState.dept == '') {
+    if (!newState.dept || newState.dept === '') {
         newState.dept = '110 410'
     }
 
