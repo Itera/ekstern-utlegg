@@ -16,7 +16,8 @@ function initialState() {
         telephone: Object.assign({}, emptyField),
         email: Object.assign({}, emptyField),
         event: Object.assign({}, emptyField),
-        account: Object.assign({}, emptyField)
+        account: Object.assign({}, emptyField),
+        dept: Object.assign({}, emptyField)
     }
 }
 
@@ -51,6 +52,7 @@ function updateState(state, action) {
     newState.event = validateField(newState.event, {length: {minimum: 3}})
     newState.account = validateField(newState.account, {format: accountregex})
     newState.email = validateField(newState.email, {email: true})
+    newState.dept = validateField(newState.dept, {length: {is: 7}, format: /^[0-9]{3} [0-9]{3}$/})
 
     return newState
 }

@@ -23,6 +23,61 @@ export const personaliaFormPropTypes = PropTypes.shape({
     account: fieldPropTypes
 }).isRequired
 
+export class Select extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.handleChange = this.handleChange.bind(this)
+    }
+
+    handleChange(event) {
+        const data = {}
+        data[this.props.field] = {value: event.target.value}
+        this.props.onUpdate(data)
+    }
+
+    renderValid(valid) {
+        if (!valid) {
+            return null
+        }
+
+        return <div className="col-sm-2">
+            <span className="glyphicon glyphicon-ok"/>
+        </div>
+    }
+
+    render() {
+        let value = '110410'
+        let valid = true
+
+        if (this.props.value) {
+            value = this.props.value.value
+            valid = this.props.value.valid
+        }
+
+        return <div className="form-group">
+            <label htmlFor={this.props.field} className="col-sm-2 control-label">{this.props.name}</label>
+            <div className="col-sm-8">
+                <select className="form-control" id={this.props.field} name={this.props.field}
+                        value={value}
+                        onChange={this.handleChange}>
+                    <option value="110 410">Teknologi</option>
+                    <option value="110 420">Prosjektledelse og Testledelse</option>
+                    <option value="110 450">Experience</option>
+                </select>
+            </div>
+            {this.renderValid(valid)}
+        </div>
+    }
+}
+
+Select.propTypes = {
+    field: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    value: fieldPropTypes,
+    onUpdate: PropTypes.func.isRequired
+}
+
 export class Input extends React.Component {
     constructor(props) {
         super(props)
@@ -104,6 +159,8 @@ export class Form extends React.Component {
                            placeholder="E-post adresse" onUpdate={this.props.onUpdate}/>
                     <Input field="event" name="Formål" inputType="text" value={personalia.event}
                            placeholder="Hvilket arrangement" onUpdate={this.props.onUpdate}/>
+                    <Select field="dept" name="Avdeling" value={personalia.dept}
+                           onUpdate={this.props.onUpdate}/>
                     <Input field="account" name="Kontonr" inputType="text" value={personalia.account}
                            placeholder="Hvor skal pengene overføres" onUpdate={this.props.onUpdate}/>
 

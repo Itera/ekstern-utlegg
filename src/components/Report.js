@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import {personaliaFormPropTypes} from './Personalia'
@@ -18,13 +18,14 @@ class ReportRow extends React.Component {
                 {row.description}
             </td>
             <td>{row.cost.toFixed(2)} NOK</td>
-            <td className="locked">110 410</td>
+            <td className="locked">{this.props.dept}</td>
         </tr>
     }
 }
 
 ReportRow.propTypes = {
-    row: rowFieldPropTypes
+    row: rowFieldPropTypes,
+    dept: PropTypes.string.isRequired
 }
 
 class DisplayReport extends React.Component {
@@ -50,7 +51,7 @@ class DisplayReport extends React.Component {
         return rows.filter((row) => row.valid)
     }
 
-    displayRows() {
+    displayRows(dept) {
         const rows = this.getValidRows(this.props.rows.rows)
 
         if (!rows.length > 0) {
@@ -64,7 +65,7 @@ class DisplayReport extends React.Component {
             </tr>
         } else {
             return rows.map(row =>
-                <ReportRow key={`report_row_${row.id}`} row={row}/>
+                <ReportRow key={`report_row_${row.id}`} row={row} dept={dept}/>
             )
         }
     }
@@ -141,7 +142,7 @@ class DisplayReport extends React.Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {this.displayRows()}
+                        {this.displayRows(this.props.personalia.dept.value)}
                         </tbody>
                         <tfoot>
                         <tr>

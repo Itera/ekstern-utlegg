@@ -47,6 +47,11 @@ describe('reducers', () => {
                         valid: false,
                         validReason: ''
                     },
+                    dept: {
+                        value: '',
+                        valid: false,
+                        validReason: ''
+                    },
                     account: {
                         value: '',
                         valid: false,
@@ -91,6 +96,11 @@ describe('reducers', () => {
                         validReason: ''
                     },
                     email: {
+                        value: '',
+                        valid: false,
+                        validReason: ''
+                    },
+                    dept: {
                         value: '',
                         valid: false,
                         validReason: ''
@@ -163,6 +173,13 @@ describe('reducers', () => {
                             'can\'t be blank'
                         ]
                     },
+                    dept: {
+                        value: '',
+                        valid: false,
+                        validReason: [
+                            'can\'t be blank'
+                        ]
+                    },
                     account: {
                         value: '',
                         valid: false,
@@ -198,6 +215,9 @@ describe('reducers', () => {
                     },
                     email: {
                         value: 'x'
+                    },
+                    dept: {
+                        value: '123'
                     }
                 }))
 
@@ -245,6 +265,14 @@ describe('reducers', () => {
                             'is not a valid email'
                         ]
                     },
+                    dept: {
+                        value: '123',
+                        valid: false,
+                        validReason: [
+                            'is the wrong length (should be 7 characters)',
+                            'is invalid'
+                        ]
+                    },
                     event: {
                         value: 'x',
                         valid: false,
@@ -287,6 +315,9 @@ describe('reducers', () => {
                     },
                     email: {
                         value: 'contact@itera.no'
+                    },
+                    dept: {
+                        value: '123 456'
                     }
                 }))
 
@@ -323,6 +354,11 @@ describe('reducers', () => {
                     },
                     account: {
                         value: '1234.56.78901',
+                        valid: true,
+                        validReason: undefined
+                    },
+                    dept: {
+                        value: '123 456',
                         valid: true,
                         validReason: undefined
                     },
