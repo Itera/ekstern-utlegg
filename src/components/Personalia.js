@@ -47,7 +47,7 @@ export class Select extends React.Component {
     }
 
     render() {
-        let value = '110410'
+        let value = '110 410'
         let valid = true
 
         if (this.props.value) {

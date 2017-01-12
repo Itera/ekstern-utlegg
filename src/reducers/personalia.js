@@ -44,6 +44,10 @@ function updateState(state, action) {
         newState.telephone.value = formatTlf(newState.telephone.value)
     }
 
+    if (!newState.dept || newState.dept == '') {
+        newState.dept = '110 410'
+    }
+
     newState.name = validateField(newState.name, {length: {minimum: 3}})
     newState.address = validateField(newState.address, {length: {minimum: 3}})
     newState.postcode = validateField(newState.postcode, {length: {is: 4}, format: /^[0-9]{4}$/})
