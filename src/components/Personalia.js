@@ -62,7 +62,7 @@ export class Select extends React.Component {
                         value={value}
                         onChange={this.handleChange}>
                     <option value="110 410">Teknologi</option>
-                    <option value="110 420">Prosjektledelse og Testledelse</option>
+                    <option value="110 420">Prosjekt- og Testledelse</option>
                     <option value="110 450">Experience</option>
                 </select>
             </div>
