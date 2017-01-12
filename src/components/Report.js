@@ -81,6 +81,11 @@ class DisplayReport extends React.Component {
 
         const title = `${moment().format('YYYY-MM-DD')}${name} - extern utlegg`
 
+        let dept = ''
+
+        if (this.props.personalia.dept) {
+            dept = this.props.personalia.dept.value
+        }
 
         return <DocumentTitle title={title}>
             <div className="container">
@@ -142,7 +147,7 @@ class DisplayReport extends React.Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {this.displayRows(this.props.personalia.dept.value)}
+                        {this.displayRows(dept)}
                         </tbody>
                         <tfoot>
                         <tr>
