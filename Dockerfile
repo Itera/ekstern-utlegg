@@ -1,4 +1,9 @@
-FROM nginx
+FROM node:8-alpine
 
-COPY default.conf /etc/nginx/conf.d/default.conf
-COPY build /usr/share/nginx/html
+RUN npm i -g serve
+
+WORKDIR /app
+
+COPY build .
+
+ENTRYPOINT ["serve", "--single", "/app"]
