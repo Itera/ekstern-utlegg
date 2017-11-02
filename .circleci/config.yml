@@ -1,0 +1,32 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.9.0
+
+    steps:
+      - checkout
+      - run:
+          name: install_yarn
+          command: curl -o- -L https://yarnpkg.com/install.sh | bash
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install_dependencies
+          command: yarn install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: lint
+          command: yarn run lint
+      - run:
+          name: test
+          command: yarn run test:coverage
+      - run:
+          name: report-coverage
+          command: yarn run coverage:reportci
+      - store_artifacts:
+          path: /tmp/coverage
