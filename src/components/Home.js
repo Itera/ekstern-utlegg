@@ -23,7 +23,7 @@ export class Home extends React.Component {
                     <li>Windows - enten må du ha en PDF printer installert eller bruk Chrome som har save as PDF som en del av sin print dialog</li>
                 </ul>
 
-                <Link className="btn btn-lg btn-primary" to="/start">Start</Link>
+                <Link className="btn btn-lg btn-primary" to={`${BASE_PATH}start`}>Start</Link>
             </div>
         </div>
     }

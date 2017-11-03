@@ -16,6 +16,7 @@ win.localStorage = win.sessionStorage = {
 
 global.document = doc
 global.window = win
+global.BASE_PATH = '/'
 
 Object.keys(window).forEach((key) => {
     if (!(key in global)) {

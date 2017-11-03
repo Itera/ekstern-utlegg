@@ -167,7 +167,7 @@ export class Form extends React.Component {
 
                     <div className="form-group">
                         <div className="col-sm-offset-2 col-sm-2">
-                            <Link className="btn btn-primary" to="/rows">Fortsett</Link>
+                            <Link className="btn btn-primary" to={`${BASE_PATH}rows`}>Fortsett</Link>
                         </div>
                         <div className="col-sm-2">
                             <a className="btn btn-warning" ref="clear" onClick={() => this.props.onClear()}>Tøm feltene</a>
