@@ -34,7 +34,7 @@ class DisplayReport extends React.Component {
             if (!value.valid) {
                 return <span className="incomplete">
                     Ugyldig {field} - {value.value}
-                    <Link className="btn btn-xs btn-warning pull-right noprint" to="/start">Fix</Link>
+                    <Link className="btn btn-xs btn-warning pull-right noprint" to={`${BASE_PATH}start`}>Fix</Link>
                 </span>
             }
 
@@ -42,7 +42,7 @@ class DisplayReport extends React.Component {
         } else {
             return <span className="incomplete">
                 Manglende {field}
-                <Link className="btn btn-xs btn-warning pull-right noprint" to="/start">Fix</Link>
+                <Link className="btn btn-xs btn-warning pull-right noprint" to={`${BASE_PATH}start`}>Fix</Link>
             </span>
         }
     }
@@ -59,7 +59,7 @@ class DisplayReport extends React.Component {
                 <td colSpan="4">
                     <span className="incomplete">
                         Manglende utlegg
-                        <Link className="btn btn-xs btn-warning pull-right noprint" to="/rows">Fix</Link>
+                        <Link className="btn btn-xs btn-warning pull-right noprint" to={`${BASE_PATH}rows`}>Fix</Link>
                     </span>
                 </td>
             </tr>

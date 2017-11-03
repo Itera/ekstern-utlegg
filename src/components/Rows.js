@@ -169,7 +169,7 @@ export class Form extends React.Component {
             <div className="row">
                 <div className="form-group">
                     <div className="col-sm-offset-2 col-sm-2">
-                        <Link className="btn btn-primary" to="/done">Fortsett</Link>
+                        <Link className="btn btn-primary" to={`${BASE_PATH}done`}>Fortsett</Link>
                     </div>
                     <div className="col-sm-2">
                         <a className="btn btn-default" onClick={() => this.props.onAdd()}>Ny rad</a>

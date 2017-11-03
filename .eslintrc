@@ -15,6 +15,9 @@
     "react",
     "mocha"
   ],
+  "globals": {
+    "BASE_PATH": false,
+  },
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "rules": {
     "eqeqeq": 2,
