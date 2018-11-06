@@ -9,7 +9,13 @@ export class Home extends React.Component {
 
                 <h2>Utlegg for eksterne</h2>
 
-                <p>Vennligst fyll ut følgende skjema. Når du er ferdig - så sender du resultat som PDF til Itera.</p>
+                <p>Vennligst fyll ut følgende skjema.</p>
+
+                <p className="text-primary">
+                    <strong>
+                        Når du er ferdig så må du sende resultat som PDF til din kontakt hos Itera via e-post.
+                    </strong>
+                </p>
 
                 <p>Husk å legge ved kvittering på alle utleggene du fører.</p>
 

@@ -91,10 +91,15 @@ class DisplayReport extends React.Component {
             <div className="container">
                 <div className="row noprint">
                     <div className="jumbotron">
-                        <h2>Når man skriver ut denne siden så husk å krysse av i print dialog for bakgrunnsfarger ellers
-                            vil
-                            ikke
-                            fargene på tabellen dukke opp.</h2>
+                        <h2>
+                            Når man skriver ut denne siden så husk å krysse av i print dialog for bakgrunnsfarger ellers
+                            vil ikke fargene på tabellen dukke opp.
+                        </h2>
+                        <p className="text-primary">
+                            <strong>
+                                Husk at du må sende resultat som PDF til din kontakt hos Itera via e-post.
+                            </strong>
+                        </p>
                     </div>
                 </div>
                 <div className="row">
