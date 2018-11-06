@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react'
 import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import {addRow, clearRows, updateRow} from '../actions/rows'
+import moment from 'moment'
 
 export const rowFieldPropTypes = PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -78,11 +79,20 @@ export class Input extends React.Component {
     }
 
     render() {
+        const inputProps = {
+            type: this.props.inputType,
+            id: `${this.props.name}_${this.props.id}`,
+            name: `${this.props.name}_${this.props.id}`,
+            placeholder: this.props.placeholder,
+            value: this.props.value
+        }
+
+        if (this.props.max) {
+            inputProps.max = this.props.max
+        }
+
         return <div className={`col-md-${this.props.width}`}>
-            <input type={this.props.inputType} className="form-control" id={`${this.props.name}_${this.props.id}`}
-                   name={`${this.props.name}_${this.props.id}`}
-                   placeholder={this.props.placeholder} value={this.props.value}
-                   onChange={this.handleChange}/>
+            <input {...inputProps} className="form-control" onChange={this.handleChange}/>
         </div>
     }
 }
@@ -94,7 +104,8 @@ Input.propTypes = {
     value: PropTypes.string,
     placeholder: PropTypes.string.isRequired,
     onUpdate: PropTypes.func.isRequired,
-    width: PropTypes.number.isRequired
+    width: PropTypes.number.isRequired,
+    max: PropTypes.string
 }
 
 export class Row extends React.Component {
@@ -117,7 +128,7 @@ export class Row extends React.Component {
 
         return <div className="form-group">
             <Input id={row.id} name="date" placeholder="Dato" inputType="date" value={row.date}
-                   onUpdate={this.props.onUpdate} width={2}/>
+                   onUpdate={this.props.onUpdate} width={2} max={moment().format('YYYY-MM-DD')}/>
             <Input id={row.id} name="supplier" placeholder="Leverandør" inputType="text" value={row.supplier}
                    onUpdate={this.props.onUpdate} width={2}/>
             <Input id={row.id} name="description" placeholder="Beskrivelse" inputType="text"
