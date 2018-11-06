@@ -17,7 +17,10 @@ function initialState() {
         email: Object.assign({}, emptyField),
         event: Object.assign({}, emptyField),
         account: Object.assign({}, emptyField),
-        dept: Object.assign({}, emptyField)
+        dept: Object.assign({}, {
+            value: '110 410',
+            valid: true
+        })
     }
 }
 
