@@ -48,9 +48,8 @@ describe('reducers', () => {
                         validReason: ''
                     },
                     dept: {
-                        value: '',
-                        valid: false,
-                        validReason: ''
+                        value: '110 410',
+                        valid: true
                     },
                     account: {
                         value: '',
@@ -101,9 +100,8 @@ describe('reducers', () => {
                         validReason: ''
                     },
                     dept: {
-                        value: '',
-                        valid: false,
-                        validReason: ''
+                        value: '110 410',
+                        valid: true
                     },
                     event: {
                         value: '',
@@ -174,11 +172,9 @@ describe('reducers', () => {
                         ]
                     },
                     dept: {
-                        value: '',
-                        valid: false,
-                        validReason: [
-                            'can\'t be blank'
-                        ]
+                        valid: true,
+                        validReason: undefined,
+                        value: '110 410'
                     },
                     account: {
                         value: '',
