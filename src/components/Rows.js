@@ -1,211 +1,253 @@
-import React, {PropTypes} from 'react'
-import {Link} from 'react-router'
-import {connect} from 'react-redux'
-import {addRow, clearRows, updateRow} from '../actions/rows'
-import moment from 'moment'
+import React from "react";
+import Helmet from "react-helmet";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import moment from "moment";
+import { Link } from "react-router-dom";
+
+import {
+  Container,
+  Form,
+  FormGroup,
+  Input,
+  Button,
+  Row,
+  Col
+} from "reactstrap";
+
+import Valid from "./Valid";
+
+import { addRow, clearRows, updateRow } from "../actions/rows";
+
+import "../styles/form-buttons.css";
 
 export const rowFieldPropTypes = PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    date: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    cost: PropTypes.number.isRequired,
-    supplier: PropTypes.string.isRequired,
-    valid: PropTypes.bool.isRequired,
-    validReason: PropTypes.shape({
-        date: PropTypes.arrayOf(PropTypes.string),
-        description: PropTypes.arrayOf(PropTypes.string),
-        supplier: PropTypes.arrayOf(PropTypes.string),
-        cost: PropTypes.arrayOf(PropTypes.string)
-    })
-}).isRequired
+  id: PropTypes.number.isRequired,
+  date: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  cost: PropTypes.number.isRequired,
+  supplier: PropTypes.string.isRequired,
+  valid: PropTypes.bool.isRequired,
+  validReason: PropTypes.shape({
+    date: PropTypes.arrayOf(PropTypes.string),
+    description: PropTypes.arrayOf(PropTypes.string),
+    supplier: PropTypes.arrayOf(PropTypes.string),
+    cost: PropTypes.arrayOf(PropTypes.string)
+  })
+}).isRequired;
 
 export const rowsFormPropTypes = PropTypes.shape({
-    rows: PropTypes.arrayOf(rowFieldPropTypes).isRequired,
-    total: PropTypes.number.isRequired
-}).isRequired
+  rows: PropTypes.arrayOf(rowFieldPropTypes).isRequired,
+  total: PropTypes.number.isRequired
+}).isRequired;
 
-export class NumberInput extends React.Component {
-    constructor(props) {
-        super(props)
+const NumberField = props => {
+  const onChange = (field, id, event) => {
+    const data = { id: id };
+    data[field] = event.target.value;
+    props.onUpdate(data);
+  };
 
-        this.handleChange = this.handleChange.bind(this)
-    }
+  return (
+    <Input
+      className={`col-sm-${props.width} mx-2`}
+      type={props.inputType}
+      id={`${props.name}_${props.id}`}
+      name={`${props.name}_${props.id}`}
+      placeholder={props.placeholder}
+      value={props.value}
+      step="0.01"
+      min="0"
+      onChange={event => onChange(props.name, props.id, event)}
+    />
+  );
+};
 
-    handleChange(event) {
-        const data = {
-            id: this.props.id
-        }
+NumberField.propTypes = {
+  id: PropTypes.number.isRequired,
+  inputType: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  onUpdate: PropTypes.func.isRequired,
+  width: PropTypes.number.isRequired
+};
 
-        data[this.props.name] = Number(event.target.value)
+const Field = props => {
+  const onChange = (field, id, event) => {
+    const data = { id: id };
+    data[field] = event.target.value;
+    props.onUpdate(data);
+  };
 
-        this.props.onUpdate(data)
-    }
+  let placeholder = props.name;
 
-    render() {
+  if (props.placeholder) {
+    placeholder = props.placeholder;
+  }
 
-        return <div className={`col-md-${this.props.width}`}>
-            <input type={this.props.inputType} className="form-control" id={`${this.props.name}_${this.props.id}`}
-                   name={`${this.props.name}_${this.props.id}`}
-                   placeholder={this.props.placeholder} value={this.props.value} step="0.01" min="0"
-                   onChange={this.handleChange}/>
+  const inputProps = {
+    type: props.inputType,
+    id: `${props.name}_${props.id}`,
+    name: `${props.name}_${props.id}`,
+    placeholder: placeholder,
+    value: props.value
+  };
+
+  if (props.max) {
+    inputProps.max = props.max;
+  }
+
+  return (
+    <Input
+      className={`col-sm-${props.width} mx-2`}
+      onChange={event => onChange(props.name, props.id, event)}
+      {...inputProps}
+    />
+  );
+};
+
+Field.propTypes = {
+  id: PropTypes.number.isRequired,
+  inputType: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  placeholder: PropTypes.string.isRequired,
+  onUpdate: PropTypes.func.isRequired,
+  width: PropTypes.number.isRequired,
+  max: PropTypes.string
+};
+
+const Entry = ({ row, onUpdate }) => {
+  console.log(row);
+  return (
+    <FormGroup className="row">
+      <Field
+        id={row.id}
+        name="date"
+        placeholder="Dato"
+        inputType="date"
+        value={row.date}
+        onUpdate={onUpdate}
+        width={2}
+        max={moment().format("YYYY-MM-DD")}
+      />
+      <Field
+        id={row.id}
+        name="supplier"
+        placeholder="Leverandør"
+        inputType="text"
+        value={row.supplier}
+        onUpdate={onUpdate}
+        width={2}
+      />
+      <Field
+        id={row.id}
+        name="description"
+        placeholder="Beskrivelse"
+        inputType="text"
+        value={row.description}
+        onUpdate={onUpdate}
+        width={4}
+      />
+      <NumberField
+        id={row.id}
+        name="cost"
+        placeholder="Beløp inkl. mva (NOK)"
+        inputType="number"
+        value={row.cost}
+        onUpdate={onUpdate}
+        width={2}
+      />
+
+      <Valid valid={row.valid} />
+    </FormGroup>
+  );
+};
+
+Entry.propTypes = {
+  row: rowFieldPropTypes,
+  onUpdate: PropTypes.func.isRequired
+};
+
+const Details = props => {
+  return (
+    <Form>
+      {props.rows.rows.map(row => (
+        <Entry key={`row_${row.id}`} row={row} onUpdate={props.onUpdate} />
+      ))}
+
+      <Row>
+        <Col className="col-sm-2 offset-sm-8">
+          <p className="float-right">Sum: {props.rows.total.toFixed(2)} NOK</p>
+        </Col>
+      </Row>
+
+      <FormGroup className="row">
+        <div className="col-sm-2" />
+        <div className="col-sm-2 form-buttons">
+          <Link to="/done">
+            <Button color="primary">Fortsett</Button>
+          </Link>
         </div>
-    }
-}
-
-NumberInput.propTypes = {
-    id: PropTypes.number.isRequired,
-    inputType: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
-    placeholder: PropTypes.string.isRequired,
-    onUpdate: PropTypes.func.isRequired,
-    width: PropTypes.number.isRequired
-}
-
-export class Input extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.handleChange = this.handleChange.bind(this)
-    }
-
-    handleChange(event) {
-        const data = {
-            id: this.props.id
-        }
-
-        data[this.props.name] = event.target.value
-        this.props.onUpdate(data)
-    }
-
-    render() {
-        const inputProps = {
-            type: this.props.inputType,
-            id: `${this.props.name}_${this.props.id}`,
-            name: `${this.props.name}_${this.props.id}`,
-            placeholder: this.props.placeholder,
-            value: this.props.value
-        }
-
-        if (this.props.max) {
-            inputProps.max = this.props.max
-        }
-
-        return <div className={`col-md-${this.props.width}`}>
-            <input {...inputProps} className="form-control" onChange={this.handleChange}/>
+        <div className="col-sm-2 form-buttons">
+          <Button color="secondary" onClick={() => props.onAdd()}>
+            Ny rad
+          </Button>
         </div>
-    }
-}
-
-Input.propTypes = {
-    id: PropTypes.number.isRequired,
-    inputType: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    value: PropTypes.string,
-    placeholder: PropTypes.string.isRequired,
-    onUpdate: PropTypes.func.isRequired,
-    width: PropTypes.number.isRequired,
-    max: PropTypes.string
-}
-
-export class Row extends React.Component {
-
-    renderValid(valid) {
-        if (!valid) {
-            return <div className="col-sm-1">
-                <span className="glyphicon glyphicon-warning-sign"/>
-            </div>
-
-        }
-
-        return <div className="col-sm-1">
-            <span className="glyphicon glyphicon-ok"/>
+        <div className="col-sm-2 form-buttons">
+          <Button color="danger" onClick={() => props.onClear()}>
+            Tøm feltene
+          </Button>
         </div>
-    }
+      </FormGroup>
+    </Form>
+  );
+};
 
-    render() {
-        const row = this.props.row
+Details.propTypes = {
+  rows: rowsFormPropTypes,
+  onAdd: PropTypes.func.isRequired,
+  onClear: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired
+};
 
-        return <div className="form-group">
-            <Input id={row.id} name="date" placeholder="Dato" inputType="date" value={row.date}
-                   onUpdate={this.props.onUpdate} width={2} max={moment().format('YYYY-MM-DD')}/>
-            <Input id={row.id} name="supplier" placeholder="Leverandør" inputType="text" value={row.supplier}
-                   onUpdate={this.props.onUpdate} width={2}/>
-            <Input id={row.id} name="description" placeholder="Beskrivelse" inputType="text"
-                   value={row.description}
-                   onUpdate={this.props.onUpdate} width={4}/>
-            <NumberInput id={row.id} name="cost" placeholder="Beløp inkl. mva (NOK)" inputType="number" value={row.cost}
-                         onUpdate={this.props.onUpdate} width={3}/>
+const Rows = props => {
+  return (
+    <div>
+      <Helmet>
+        <title>Itera - utleggsposter</title>
+      </Helmet>
 
-            <div className="col-md-1">
-                {this.renderValid(row.valid)}
-            </div>
-        </div>
-    }
-}
+      <Container>
+        <h1>Utlegg</h1>
 
-Row.propTypes = {
-    row: rowFieldPropTypes,
-    onUpdate: PropTypes.func.isRequired
-}
+        <p>
+          Legg til rader - en per utlegg. Tomme/uferdige/ugyldige rader blir
+          ikke med videre
+        </p>
+      </Container>
 
-export class Form extends React.Component {
-    render() {
-        const rows = this.props.rows.rows
-        const total = this.props.rows.total
+      <Container>
+        <Details {...props} />
+      </Container>
+    </div>
+  );
+};
 
-        return <div className="container">
-            <div className="row">
-                <div className="col-md-12">
-                    <h1>Utlegg</h1>
+Rows.propTypes = Details.propTypes;
 
-                    <p>Legg til rader - en per utlegg. Tomme/uferdige/ugyldige rader blir ikke med videre</p>
-                </div>
-            </div>
+const mapStateToProps = state => ({
+  rows: state.rows
+});
 
-            <div className="row">
-                <form className="form-horizontal" role="form">
-                    {rows.map(row =>
-                        <Row key={`row_${row.id}`} row={row} onUpdate={this.props.onUpdate}/>
-                    )}
-                </form>
-            </div>
+const mapDispatchToProps = {
+  onAdd: addRow,
+  onClear: clearRows,
+  onUpdate: updateRow
+};
 
-            <div className="row">
-                <div className="col-md-offset-9 col-md-3">
-                    <p>Sum: {total.toFixed(2)} NOK</p>
-                </div>
-            </div>
-
-            <div className="row">
-                <div className="form-group">
-                    <div className="col-sm-offset-2 col-sm-2">
-                        <Link className="btn btn-primary" to={`${BASE_PATH}done`}>Fortsett</Link>
-                    </div>
-                    <div className="col-sm-2">
-                        <a className="btn btn-default" onClick={() => this.props.onAdd()}>Ny rad</a>
-                    </div>
-                    <div className="col-sm-2">
-                        <a className="btn btn-warning" onClick={() => this.props.onClear()}>Tøm feltene</a>
-                    </div>
-                    <div className="col-sm-4"></div>
-                </div>
-            </div>
-        </div>
-    }
-}
-
-Form.propTypes = {
-    rows: rowsFormPropTypes,
-    onAdd: PropTypes.func.isRequired,
-    onClear: PropTypes.func.isRequired,
-    onUpdate: PropTypes.func.isRequired
-}
-
-const mapStateToProps = (state) => ({
-    rows: state.rows
-})
-
-const mapDispatchToProps = {onAdd: addRow, onClear: clearRows, onUpdate: updateRow}
-
-export const Rows = connect(mapStateToProps, mapDispatchToProps)(Form)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Rows);
