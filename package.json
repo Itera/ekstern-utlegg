@@ -1,100 +1,40 @@
 {
-  "name": "itera-external-expenses",
-  "version": "0.0.3",
+  "name": "ekstern-utlegg",
+  "version": "0.1.0",
   "private": true,
-  "description": "Itera External Expenses",
-  "main": "index.js",
-  "scripts": {
-    "lint": "eslint src test",
-    "start": "webpack-dev-server --config webpack-dev.config.js",
-    "start:production": "NODE_ENV=production webpack -p; NODE_ENV=production node server.js",
-    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js 'test/**/*.@(js)'",
-    "test:coverage": "nyc -a --require babel-core/register --require babel-polyfill npm run test",
-    "test:watch": "npm run test -- --watch",
-    "coverage:reportci": "nyc report --reporter=lcov --report-dir /tmp/coverage",
-    "coverage:report": "nyc report --reporter=lcov",
-    "coverage:codecov": "npm run coverage:report && codecov",
-    "deploy": "NODE_ENV=production webpack -p; git add .; git commit -m 'Update bundles'; git push origin master; git push heroku master",
-    "validate:dev": "webpack-validator webpack-dev.config.js",
-    "validate:prod": "webpack-validator webpack.config.js",
-    "image:prepare": "NODE_ENV=production webpack -p; rm -rf build; mkdir build; cp -r public/* build/",
-    "image": "NODE_ENV=production webpack -p; rm -rf build; mkdir build; cp -r public/* build/; docker build -t docker.mad.itera.no/itera/ekstern_utlegg:latest ."
-  },
-  "author": {
-    "name": "Chris Searle",
-    "web": "https://github.com/chrissearle"
-  },
-  "contributors": [],
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:Itera/ekstern-utlegg.git"
-  },
-  "homepage": "https://itera-extern-utlegg.herokuapp.com",
-  "bugs": {
-    "url": "https://github.com/itera/ekstern-utlegg/issues"
-  },
-  "engines": {
-    "node": "8.9.0"
-  },
-  "license": "ISC",
-  "babel": {
-    "presets": [
-      "es2015",
-      "react"
-    ]
-  },
-  "nyc": {
-    "include": [
-      "src/**"
-    ]
-  },
   "dependencies": {
-    "express": "4.14.0",
-    "moment": "2.15.2",
-    "react": "15.3.2",
-    "react-document-title": "2.0.2",
-    "react-dom": "15.3.2",
-    "react-redux": "4.4.5",
-    "react-router": "3.0.0",
-    "react-router-redux": "4.0.7",
-    "redux": "3.6.0",
-    "redux-localstorage": "1.0.0-rc4",
-    "redux-localstorage-filter": "0.1.1",
-    "validate.js": "0.10.0"
+    "bootstrap": "^4.2.1",
+    "moment": "^2.24.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-helmet": "^5.2.0",
+    "react-octicon": "^3.0.1",
+    "react-redux": "^6.0.0",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.3",
+    "reactstrap": "^7.1.0",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.8",
+    "serve": "^10.1.2",
+    "validate.js": "^0.12.0"
   },
-  "devDependencies": {
-    "babel-core": "6.18.2",
-    "babel-loader": "6.2.7",
-    "babel-plugin-transform-object-rest-spread": "6.16.0",
-    "babel-polyfill": "6.16.0",
-    "babel-preset-es2015": "6.18.0",
-    "babel-preset-react": "6.16.0",
-    "bootstrap-loader": "1.3.0",
-    "bootstrap-sass": "3.3.7",
-    "chai": "3.5.0",
-    "codecov": "1.0.1",
-    "css-loader": "0.25.0",
-    "enzyme": "2.5.1",
-    "eslint": "3.9.1",
-    "eslint-plugin-mocha": "4.7.0",
-    "eslint-plugin-react": "6.5.0",
-    "file-loader": "0.9.0",
-    "http-server": "0.9.0",
-    "imports-loader": "0.6.5",
-    "jquery": "3.1.1",
-    "jsdom": "9.8.3",
-    "mocha": "3.1.2",
-    "node-sass": "3.11.1",
-    "nyc": "8.4.0",
-    "react-addons-test-utils": "15.3.2",
-    "redux-devtools": "3.3.1",
-    "resolve-url-loader": "^1.6.0",
-    "sass-loader": "4.0.2",
-    "sinon": "^1.17.6",
-    "style-loader": "0.13.1",
-    "url-loader": "0.5.7",
-    "webpack": "^1.13.3",
-    "webpack-dev-server": "^1.16.2",
-    "webpack-validator": "^2.2.9"
-  }
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "serve": "yarn build && serve -s build",
+    "package": "yarn build && docker build -t docker.mad.itera.no/itera/ekstern_utlegg:latest .",
+    "run-package": "docker run -d -p5000:5000 --name utlegg docker.mad.itera.no/itera/ekstern_utlegg:latest"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

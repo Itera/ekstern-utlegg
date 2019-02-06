@@ -1,60 +1,7 @@
-import 'babel-polyfill'
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./components/App";
 
-import React from 'react'
-import {render} from 'react-dom'
-import {Router, Route, IndexRoute, browserHistory} from 'react-router'
+import "bootstrap/dist/css/bootstrap.min.css";
 
-import {createStore, combineReducers, compose} from 'redux'
-
-import {Provider} from 'react-redux'
-
-import {syncHistoryWithStore, routerReducer} from 'react-router-redux'
-
-import persistState, {mergePersistedState} from 'redux-localstorage'
-import adapter from 'redux-localstorage/lib/adapters/localStorage'
-import filter from 'redux-localstorage-filter'
-
-import {App} from './components/App'
-import {Home} from './components/Home'
-import {Personalia} from './components/Personalia'
-import {Rows} from './components/Rows'
-import {Report} from './components/Report'
-
-import personalia from './reducers/personalia'
-import rows from './reducers/rows'
-
-const storage = compose(
-    filter(['personalia', 'rows'])
-)(adapter(window.localStorage))
-
-const rootReducer = combineReducers({
-    personalia,
-    rows,
-    routing: routerReducer
-})
-
-const reducer = compose(
-    mergePersistedState()
-)(rootReducer)
-
-const createPersistentStore = compose(
-    persistState(storage, 'itera-external-expenses')
-)(window.devToolsExtension ? window.devToolsExtension()(createStore) : createStore)
-
-const store = createPersistentStore(reducer)
-
-const history = syncHistoryWithStore(browserHistory, store)
-
-render((
-    <Provider store={store}>
-        <Router history={history}>
-            <Route path={BASE_PATH} component={App}>
-                <IndexRoute component={Home}/>
-
-                <Route path={`${BASE_PATH}start`} component={Personalia}/>
-                <Route path={`${BASE_PATH}rows`} component={Rows}/>
-                <Route path={`${BASE_PATH}done`} component={Report}/>
-            </Route>
-        </Router>
-    </Provider>
-), document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById("root"));

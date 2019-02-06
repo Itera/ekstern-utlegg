@@ -1,201 +1,254 @@
-import React, {PropTypes} from 'react'
-import {Link} from 'react-router'
-import {connect} from 'react-redux'
-import {updatePersonalia, clearPersonalia} from '../actions/personalia'
+import React from "react";
+import Helmet from "react-helmet";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
+import { Container, Form, FormGroup, Label, Input, Button } from "reactstrap";
+
+import { updatePersonalia, clearPersonalia } from "../actions/personalia";
+import Valid from "./Valid";
+
+import "../styles/form-buttons.css";
 
 const fieldPropTypes = PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    validReason: PropTypes.oneOfType(
-        [
-            PropTypes.arrayOf(PropTypes.string),
-            PropTypes.string
-        ]
-    )
-}).isRequired
+  value: PropTypes.string.isRequired,
+  validReason: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.string
+  ])
+}).isRequired;
 
 export const personaliaFormPropTypes = PropTypes.shape({
-    address: fieldPropTypes,
-    postcode: fieldPropTypes,
-    town: fieldPropTypes,
-    telephone: fieldPropTypes,
-    email: fieldPropTypes,
-    event: fieldPropTypes,
-    account: fieldPropTypes
-}).isRequired
+  address: fieldPropTypes,
+  postcode: fieldPropTypes,
+  town: fieldPropTypes,
+  telephone: fieldPropTypes,
+  email: fieldPropTypes,
+  event: fieldPropTypes,
+  account: fieldPropTypes
+}).isRequired;
 
-export class Select extends React.Component {
-    constructor(props) {
-        super(props)
+const Select = props => {
+  const onChange = (field, event) => {
+    const data = {};
+    data[field] = { value: event.target.value };
+    props.onUpdate(data);
+  };
 
-        this.handleChange = this.handleChange.bind(this)
-    }
+  return (
+    <FormGroup className="row">
+      <Label className="col-sm-2" for={props.field}>
+        {props.name}
+      </Label>
 
-    handleChange(event) {
-        const data = {}
-        data[this.props.field] = {value: event.target.value}
-        this.props.onUpdate(data)
-    }
-
-    renderValid(valid) {
-        if (!valid) {
-            return null
-        }
-
-        return <div className="col-sm-2">
-            <span className="glyphicon glyphicon-ok"/>
-        </div>
-    }
-
-    render() {
-        let value = '110 410'
-        let valid = true
-
-        if (this.props.value) {
-            value = this.props.value.value
-            valid = this.props.value.valid
-        }
-
-        return <div className="form-group">
-            <label htmlFor={this.props.field} className="col-sm-2 control-label">{this.props.name}</label>
-            <div className="col-sm-8">
-                <select className="form-control" id={this.props.field} name={this.props.field}
-                        value={value}
-                        onChange={this.handleChange}>
-                    <option value="110 410">Teknologi</option>
-                    <option value="110 420">Prosjekt- og Testledelse</option>
-                    <option value="110 460">DBX</option>
-                </select>
-            </div>
-            {this.renderValid(valid)}
-        </div>
-    }
-}
+      <Input
+        className="col-sm-9"
+        type="select"
+        name={props.field}
+        id={props.field}
+        value={props.value.value}
+        onChange={event => onChange(props.field, event)}
+      >
+        <option value="110 410">Teknologi</option>
+        <option value="110 420">Prosjekt- og Testledelse</option>
+        <option value="110 460">DBX</option>
+      </Input>
+      <Valid valid={props.value.valid} />
+    </FormGroup>
+  );
+};
 
 Select.propTypes = {
-    field: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    value: fieldPropTypes,
-    onUpdate: PropTypes.func.isRequired
-}
+  field: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: fieldPropTypes,
+  onUpdate: PropTypes.func.isRequired
+};
 
-export class Input extends React.Component {
-    constructor(props) {
-        super(props)
+const Field = props => {
+  const onChange = (field, event) => {
+    const data = {};
+    data[field] = { value: event.target.value };
+    props.onUpdate(data);
+  };
 
-        this.handleChange = this.handleChange.bind(this)
-    }
+  let placeholder = props.name;
 
-    handleChange(event) {
-        const data = {}
-        data[this.props.field] = {value: event.target.value}
-        this.props.onUpdate(data)
-    }
+  if (props.placeholder) {
+    placeholder = props.placeholder;
+  }
 
-    renderValid(valid) {
-        if (!valid) {
-            return null
-        }
+  return (
+    <FormGroup className="row">
+      <Label className="col-sm-2" for={props.field}>
+        {props.name}
+      </Label>
+      <Input
+        className="col-sm-9"
+        type={props.type}
+        name={props.field}
+        id={props.field}
+        value={props.value.value}
+        placeholder={placeholder}
+        onChange={event => onChange(props.field, event)}
+      />
+      <Valid valid={props.value.valid} />
+    </FormGroup>
+  );
+};
 
-        return <div className="col-sm-2">
-            <span className="glyphicon glyphicon-ok"/>
+Field.propTypes = {
+  field: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  value: fieldPropTypes,
+  name: PropTypes.string.isRequired
+};
+
+const Details = ({ personalia, onUpdate, onClear }) => {
+  return (
+    <Form>
+      <Field
+        field="name"
+        name="Navn"
+        type="text"
+        value={personalia.name}
+        onUpdate={onUpdate}
+      />
+
+      <Field
+        field="address"
+        name="Adresse"
+        type="text"
+        value={personalia.address}
+        onUpdate={onUpdate}
+      />
+
+      <Field
+        field="postcode"
+        name="Postnr"
+        type="text"
+        value={personalia.postcode}
+        onUpdate={onUpdate}
+      />
+
+      <Field
+        field="town"
+        name="Poststed"
+        type="text"
+        value={personalia.town}
+        onUpdate={onUpdate}
+      />
+
+      <Field
+        field="telephone"
+        name="Tlf/Mob"
+        type="tel"
+        placeholder="Telefon eller mobil"
+        value={personalia.telephone}
+        onUpdate={onUpdate}
+      />
+
+      <Field
+        field="email"
+        name="E-post"
+        type="email"
+        placeholder="E-post adresse"
+        value={personalia.email}
+        onUpdate={onUpdate}
+      />
+
+      <Field
+        field="event"
+        name="Formål"
+        type="text"
+        placeholder="Hvilket arrangement"
+        value={personalia.event}
+        onUpdate={onUpdate}
+      />
+
+      <Select
+        field="dept"
+        name="Avdeling"
+        value={personalia.dept}
+        onUpdate={onUpdate}
+      />
+
+      <Field
+        field="account"
+        name="Kontonr"
+        type="text"
+        placeholder="Hvor skal pengene overføres"
+        value={personalia.account}
+        onUpdate={onUpdate}
+      />
+
+      <FormGroup className="row">
+        <div className="col-sm-2" />
+        <div className="col-sm-2 form-buttons">
+          <Link to="/rows">
+            <Button color="primary">Fortsett</Button>
+          </Link>
         </div>
-    }
-
-    render() {
-        let placeholder = this.props.name
-
-        if (this.props.placeholder) {
-            placeholder = this.props.placeholder
-        }
-
-        return <div className="form-group">
-            <label htmlFor={this.props.field} className="col-sm-2 control-label">{this.props.name}</label>
-            <div className="col-sm-8">
-                <input type={this.props.inputType} className="form-control" id={this.props.field}
-                       name={this.props.field} placeholder={placeholder}
-                       value={this.props.value.value}
-                       onChange={this.handleChange}/>
-            </div>
-            {this.renderValid(this.props.value.valid)}
+        <div className="col-sm-2 form-buttons">
+          <Button color="danger" onClick={() => onClear()}>
+            Tøm feltene
+          </Button>
         </div>
-    }
-}
+      </FormGroup>
+    </Form>
+  );
+};
 
-Input.propTypes = {
-    field: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    inputType: PropTypes.string.isRequired,
-    value: fieldPropTypes,
-    placeholder: PropTypes.string,
-    onUpdate: PropTypes.func.isRequired
-}
+Details.propTypes = {
+  personalia: personaliaFormPropTypes,
+  onUpdate: PropTypes.func.isRequired,
+  onClear: PropTypes.func.isRequired
+};
 
-export class Form extends React.Component {
-    render() {
-        const personalia = this.props.personalia
+const Personalia = props => {
+  return (
+    <div>
+      <Helmet>
+        <title>Itera - om deg</title>
+      </Helmet>
 
-        return <div className="container">
-            <div className="row">
-                <div className="col-md-12">
-                    <h1>Dine detaljer</h1>
+      <Container>
+        <h1>Dine detaljer</h1>
 
-                    <p>Alle felter nedenfor er påkrevd</p>
-                </div>
-            </div>
+        <p>Alle felter nedenfor er påkrevd</p>
+      </Container>
 
-            <div className="row">
-                <form className="form-horizontal" role="form">
-                    <Input field="name" name="Navn" inputType="text" value={personalia.name}
-                           onUpdate={this.props.onUpdate}/>
-                    <Input field="address" name="Adresse" inputType="text" value={personalia.address}
-                           onUpdate={this.props.onUpdate}/>
-                    <Input field="postcode" name="Postnr" inputType="text" value={personalia.postcode}
-                           onUpdate={this.props.onUpdate}/>
-                    <Input field="town" name="Poststed" inputType="text" value={personalia.town}
-                           onUpdate={this.props.onUpdate}/>
-                    <Input field="telephone" name="Tlf/Mob" inputType="tel" value={personalia.telephone}
-                           placeholder="Telefon eller mobil" onUpdate={this.props.onUpdate}/>
-                    <Input field="email" name="E-post" inputType="email" value={personalia.email}
-                           placeholder="E-post adresse" onUpdate={this.props.onUpdate}/>
-                    <Input field="event" name="Formål" inputType="text" value={personalia.event}
-                           placeholder="Hvilket arrangement" onUpdate={this.props.onUpdate}/>
-                    <Select field="dept" name="Avdeling" value={personalia.dept}
-                           onUpdate={this.props.onUpdate}/>
-                    <Input field="account" name="Kontonr" inputType="text" value={personalia.account}
-                           placeholder="Hvor skal pengene overføres" onUpdate={this.props.onUpdate}/>
+      <Container>
+        <Details {...props} />
+      </Container>
+    </div>
+  );
+};
 
-                    <div className="form-group">
-                        <div className="col-sm-offset-2 col-sm-2">
-                            <Link className="btn btn-primary" to={`${BASE_PATH}rows`}>Fortsett</Link>
-                        </div>
-                        <div className="col-sm-2">
-                            <a className="btn btn-warning" ref="clear" onClick={() => this.props.onClear()}>Tøm feltene</a>
-                        </div>
-                        <div className="col-sm-6"></div>
-                    </div>
+Personalia.propTypes = {
+  personalia: personaliaFormPropTypes,
+  onUpdate: PropTypes.func.isRequired,
+  onClear: PropTypes.func.isRequired
+};
 
-                </form>
-            </div>
-        </div>
-    }
-}
+export const mapStateToProps = state => {
+  const props = {};
 
-Form.propTypes = {
-    personalia: personaliaFormPropTypes,
-    onUpdate: PropTypes.func.isRequired,
-    onClear: PropTypes.func.isRequired
-}
+  if (state.personalia) {
+    props.personalia = state.personalia;
+  }
 
-export const mapStateToProps = (state) => {
-    const props = {}
+  return props;
+};
 
-    if (state.personalia) {
-        props.personalia = state.personalia
-    }
+const mapDispatchToProps = {
+  onUpdate: updatePersonalia,
+  onClear: clearPersonalia
+};
 
-    return props
-}
-
-const mapDispatchToProps = { onUpdate: updatePersonalia, onClear: clearPersonalia }
-
-export const Personalia = connect(mapStateToProps, mapDispatchToProps)(Form)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Personalia);
