@@ -1,5 +1,5 @@
 {
-  "name": "ekstern-utlegg",
+  "name": "itera-external-expenses",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
