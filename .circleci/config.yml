@@ -21,3 +21,10 @@ jobs:
           command: yarn test --coverage
       - store_artifacts:
           path: coverage
+      - run: |
+          TAG=$CIRCLE_SHA1
+          # docker login -u $DOCKER_USER -p $DOCKER_PASS docker.mad.itera.no
+          docker build -t docker.mad.itera.no/itera/ekstern_utlegg:$TAG .
+          # docker push docker.mad.itera.no/itera/ekstern_utlegg:$TAG
+          docker build -t docker.mad.itera.no/itera/ekstern_utlegg:latest .
+          # docker push docker.mad.itera.no/itera/ekstern_utlegg:latest
