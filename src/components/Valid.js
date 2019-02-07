@@ -1,7 +1,7 @@
 import React from "react";
 import Octicon from "react-octicon";
 
-const Valid = valid => {
+const Valid = ({ valid }) => {
   const icon = valid ? "check" : "alert";
 
   return (
