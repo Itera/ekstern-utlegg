@@ -15,26 +15,25 @@ const emptyField = {
 
 const initialState = () => {
   return {
-    name: Object.assign({}, emptyField),
-    address: Object.assign({}, emptyField),
-    postcode: Object.assign({}, emptyField),
-    town: Object.assign({}, emptyField),
-    telephone: Object.assign({}, emptyField),
-    email: Object.assign({}, emptyField),
-    event: Object.assign({}, emptyField),
-    account: Object.assign({}, emptyField),
-    dept: Object.assign(
-      {},
-      {
+    name: { ...emptyField },
+    address: { ...emptyField },
+    postcode: { ...emptyField },
+    town: { ...emptyField },
+    telephone: { ...emptyField },
+    email: { ...emptyField },
+    event: { ...emptyField },
+    account: { ...emptyField },
+    dept: {
+      ...{
         value: "110 410",
         valid: true
       }
-    )
+    }
   };
 };
 
 const validateField = (field, validations) => {
-  const fieldState = Object.assign({}, emptyField);
+  const fieldState = { ...emptyField };
 
   validations.presence = true;
 
@@ -46,7 +45,7 @@ const validateField = (field, validations) => {
 };
 
 const updateState = (state, action) => {
-  const newState = Object.assign({}, state, action.personalia);
+  const newState = { ...state, ...action.personalia };
 
   if (newState.account.value) {
     newState.account.value = formatAccount(newState.account.value);
@@ -54,10 +53,6 @@ const updateState = (state, action) => {
 
   if (newState.telephone.value) {
     newState.telephone.value = formatTlf(newState.telephone.value);
-  }
-
-  if (!newState.dept || newState.dept === "") {
-    newState.dept = "110 410";
   }
 
   newState.name = validateField(newState.name, { length: { minimum: 3 } });

@@ -9,7 +9,7 @@ const initialState = () => {
 };
 
 const updateState = (state, action) => {
-  const newState = Object.assign({}, state);
+  const newState = { ...state };
 
   let sum = 0;
 
@@ -17,7 +17,7 @@ const updateState = (state, action) => {
     let row = newState.rows[idx];
 
     if (row.id === action.row.id) {
-      row = Object.assign({}, row, action.row);
+      row = { ...row, ...action.row };
 
       validate.extend(validate.validators.datetime, {
         parse: function(value) {
@@ -71,7 +71,7 @@ const updateState = (state, action) => {
 };
 
 const addRow = state => {
-  const newState = Object.assign({}, state);
+  const newState = { ...state };
 
   newState.rows.push({
     id: state.rows.length + 1,
