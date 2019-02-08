@@ -3,14 +3,14 @@ import {
   formatTlf,
   tlfregex,
   accountregex
-} from "../formatters";
+} from '../formatters';
 
-import { single } from "validate.js";
+import { single } from 'validate.js';
 
 const emptyField = {
-  value: "",
+  value: '',
   valid: false,
-  validReason: ""
+  validReason: ''
 };
 
 const initialState = () => {
@@ -25,7 +25,7 @@ const initialState = () => {
     account: { ...emptyField },
     dept: {
       ...{
-        value: "110 410",
+        value: '110 410',
         valid: true
       }
     }
@@ -82,9 +82,9 @@ const clearState = () => {
 
 const updatePersonalia = (state = initialState(), action) => {
   switch (action.type) {
-    case "UPDATE_PERSONALIA":
+    case 'UPDATE_PERSONALIA':
       return updateState(state, action);
-    case "CLEAR_PERSONALIA":
+    case 'CLEAR_PERSONALIA':
       return clearState();
     default:
       return state;

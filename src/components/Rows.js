@@ -1,9 +1,9 @@
-import React from "react";
-import Helmet from "react-helmet";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import moment from "moment";
-import { Link } from "react-router-dom";
+import React from 'react';
+import Helmet from 'react-helmet';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 import {
   Container,
@@ -13,13 +13,13 @@ import {
   Button,
   Row,
   Col
-} from "reactstrap";
+} from 'reactstrap';
 
-import Valid from "./Valid";
+import Valid from './Valid';
 
-import { addRow, clearRows, updateRow } from "../actions/rows";
+import { addRow, clearRows, updateRow } from '../actions/rows';
 
-import "../styles/form-buttons.css";
+import '../styles/form-buttons.css';
 
 export const rowFieldPropTypes = PropTypes.shape({
   id: PropTypes.number.isRequired,
@@ -130,7 +130,7 @@ const Entry = ({ row, onUpdate }) => {
         value={row.date}
         onUpdate={onUpdate}
         width={2}
-        max={moment().format("YYYY-MM-DD")}
+        max={moment().format('YYYY-MM-DD')}
       />
       <Field
         id={row.id}

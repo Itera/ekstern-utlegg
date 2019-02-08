@@ -1,26 +1,26 @@
-import React from "react";
-import Helmet from "react-helmet";
-import { Container, Row, Col } from "reactstrap";
+import React from 'react';
+import Helmet from 'react-helmet';
+import { Container, Row, Col } from 'reactstrap';
 import {
   BrowserRouter as Router,
   Route,
   NavLink,
   Link
-} from "react-router-dom";
+} from 'react-router-dom';
 
-import { createStore } from "redux";
-import { devToolsEnhancer } from "redux-devtools-extension";
+import { createStore } from 'redux';
+import { devToolsEnhancer } from 'redux-devtools-extension';
 
-import { Provider } from "react-redux";
+import { Provider } from 'react-redux';
 
-import Home from "./Home";
-import Personalia from "./Personalia";
-import Rows from "./Rows";
-import Report from "./Report";
+import Home from './Home';
+import Personalia from './Personalia';
+import Rows from './Rows';
+import Report from './Report';
 
-import reducers from "../reducers";
+import reducers from '../reducers';
 
-import "../styles/app.css";
+import '../styles/app.css';
 
 const store = createStore(reducers, devToolsEnhancer());
 

@@ -1,12 +1,12 @@
 export const addRow = () => ({
-    type: 'ADD_ROW'
-})
+  type: 'ADD_ROW'
+});
 
 export const clearRows = () => ({
-    type: 'CLEAR_ROWS'
-})
+  type: 'CLEAR_ROWS'
+});
 
-export const updateRow = (row) => ({
-    type: 'UPDATE_ROW',
-    row
-})
+export const updateRow = row => ({
+  type: 'UPDATE_ROW',
+  row
+});

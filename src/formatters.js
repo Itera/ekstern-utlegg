@@ -21,7 +21,7 @@ export const formatTlf = tlf => {
 
     let re;
 
-    if (prefix === "4" || prefix === "8" || prefix === "9") {
+    if (prefix === '4' || prefix === '8' || prefix === '9') {
       re = /([0-9]{3})([0-9]{2})([0-9]{3})/;
     } else {
       re = /([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/;
@@ -29,7 +29,7 @@ export const formatTlf = tlf => {
 
     const numberParts = re.exec(number);
 
-    return numberParts.slice(1).join(" ");
+    return numberParts.slice(1).join(' ');
   };
 
   if (!tlf) {
@@ -43,11 +43,11 @@ export const formatTlf = tlf => {
     let number = parts[2];
 
     if (!land) {
-      land = "+47";
+      land = '+47';
     }
 
-    land = land.replace(/ /g, "");
-    number = number.replace(/ /g, "");
+    land = land.replace(/ /g, '');
+    number = number.replace(/ /g, '');
 
     return `${land} ${format(number)}`;
   } else {

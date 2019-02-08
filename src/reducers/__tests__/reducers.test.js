@@ -1,15 +1,15 @@
-import { createStore } from "redux";
-import moment from "moment";
+import { createStore } from 'redux';
+import moment from 'moment';
 
-import reducers from "../index";
+import reducers from '../index';
 
-import { clearPersonalia, updatePersonalia } from "../../actions/personalia";
-import { addRow, clearRows, updateRow } from "../../actions/rows";
+import { clearPersonalia, updatePersonalia } from '../../actions/personalia';
+import { addRow, clearRows, updateRow } from '../../actions/rows';
 
-describe("reducers", () => {
-  describe("personalia", () => {
-    describe("clearPersonalia", () => {
-      it("returns initial state if no state present", () => {
+describe('reducers', () => {
+  describe('personalia', () => {
+    describe('clearPersonalia', () => {
+      it('returns initial state if no state present', () => {
         const store = createStore(reducers);
 
         store.dispatch(clearPersonalia());
@@ -18,57 +18,57 @@ describe("reducers", () => {
 
         expect(state).toEqual({
           name: {
-            value: "",
+            value: '',
             valid: false,
-            validReason: ""
+            validReason: ''
           },
           address: {
-            value: "",
+            value: '',
             valid: false,
-            validReason: ""
+            validReason: ''
           },
           postcode: {
-            value: "",
+            value: '',
             valid: false,
-            validReason: ""
+            validReason: ''
           },
           town: {
-            value: "",
+            value: '',
             valid: false,
-            validReason: ""
+            validReason: ''
           },
           telephone: {
-            value: "",
+            value: '',
             valid: false,
-            validReason: ""
+            validReason: ''
           },
           email: {
-            value: "",
+            value: '',
             valid: false,
-            validReason: ""
+            validReason: ''
           },
           event: {
-            value: "",
+            value: '',
             valid: false,
-            validReason: ""
+            validReason: ''
           },
           dept: {
-            value: "110 410",
+            value: '110 410',
             valid: true
           },
           account: {
-            value: "",
+            value: '',
             valid: false,
-            validReason: ""
+            validReason: ''
           }
         });
       });
 
-      it("returns inital state with state present", () => {
+      it('returns inital state with state present', () => {
         const store = createStore(reducers, {
           personalia: {
             name: {
-              value: "name",
+              value: 'name',
               valid: true,
               validReason: undefined
             }
@@ -81,55 +81,55 @@ describe("reducers", () => {
 
         expect(state).toEqual({
           name: {
-            value: "",
+            value: '',
             valid: false,
-            validReason: ""
+            validReason: ''
           },
           address: {
-            value: "",
+            value: '',
             valid: false,
-            validReason: ""
+            validReason: ''
           },
           postcode: {
-            value: "",
+            value: '',
             valid: false,
-            validReason: ""
+            validReason: ''
           },
           town: {
-            value: "",
+            value: '',
             valid: false,
-            validReason: ""
+            validReason: ''
           },
           telephone: {
-            value: "",
+            value: '',
             valid: false,
-            validReason: ""
+            validReason: ''
           },
           email: {
-            value: "",
+            value: '',
             valid: false,
-            validReason: ""
+            validReason: ''
           },
           dept: {
-            value: "110 410",
+            value: '110 410',
             valid: true
           },
           event: {
-            value: "",
+            value: '',
             valid: false,
-            validReason: ""
+            validReason: ''
           },
           account: {
-            value: "",
+            value: '',
             valid: false,
-            validReason: ""
+            validReason: ''
           }
         });
       });
     });
 
-    describe("updatePersonalia", () => {
-      it("returns initial state if no state present", () => {
+    describe('updatePersonalia', () => {
+      it('returns initial state if no state present', () => {
         const store = createStore(reducers);
 
         store.dispatch(updatePersonalia());
@@ -137,76 +137,76 @@ describe("reducers", () => {
         const state = store.getState().personalia;
 
         expect(state).toEqual({
-          account: { valid: false, validReason: ["is invalid"], value: "" },
+          account: { valid: false, validReason: ['is invalid'], value: '' },
           address: {
             valid: false,
-            validReason: ["is too short (minimum is 3 characters)"],
-            value: ""
+            validReason: ['is too short (minimum is 3 characters)'],
+            value: ''
           },
-          dept: { valid: true, validReason: undefined, value: "110 410" },
+          dept: { valid: true, validReason: undefined, value: '110 410' },
           email: {
             valid: false,
-            validReason: ["is not a valid email"],
-            value: ""
+            validReason: ['is not a valid email'],
+            value: ''
           },
           event: {
             valid: false,
-            validReason: ["is too short (minimum is 3 characters)"],
-            value: ""
+            validReason: ['is too short (minimum is 3 characters)'],
+            value: ''
           },
           name: {
             valid: false,
-            validReason: ["is too short (minimum is 3 characters)"],
-            value: ""
+            validReason: ['is too short (minimum is 3 characters)'],
+            value: ''
           },
           postcode: {
             valid: false,
             validReason: [
-              "is the wrong length (should be 4 characters)",
-              "is invalid"
+              'is the wrong length (should be 4 characters)',
+              'is invalid'
             ],
-            value: ""
+            value: ''
           },
-          telephone: { valid: false, validReason: ["is invalid"], value: "" },
+          telephone: { valid: false, validReason: ['is invalid'], value: '' },
           town: {
             valid: false,
-            validReason: ["is too short (minimum is 2 characters)"],
-            value: ""
+            validReason: ['is too short (minimum is 2 characters)'],
+            value: ''
           }
         });
       });
 
-      it("performs validations", () => {
+      it('performs validations', () => {
         const store = createStore(reducers);
 
         store.dispatch(
           updatePersonalia({
             name: {
-              value: "x"
+              value: 'x'
             },
             address: {
-              value: "x"
+              value: 'x'
             },
             postcode: {
-              value: "x"
+              value: 'x'
             },
             telephone: {
-              value: "x"
+              value: 'x'
             },
             town: {
-              value: "x"
+              value: 'x'
             },
             event: {
-              value: "x"
+              value: 'x'
             },
             account: {
-              value: "x"
+              value: 'x'
             },
             email: {
-              value: "x"
+              value: 'x'
             },
             dept: {
-              value: "123"
+              value: '123'
             }
           })
         );
@@ -215,90 +215,90 @@ describe("reducers", () => {
 
         expect(state).toEqual({
           name: {
-            value: "x",
+            value: 'x',
             valid: false,
-            validReason: ["is too short (minimum is 3 characters)"]
+            validReason: ['is too short (minimum is 3 characters)']
           },
           address: {
-            value: "x",
+            value: 'x',
             valid: false,
-            validReason: ["is too short (minimum is 3 characters)"]
+            validReason: ['is too short (minimum is 3 characters)']
           },
           postcode: {
-            value: "x",
+            value: 'x',
             valid: false,
             validReason: [
-              "is the wrong length (should be 4 characters)",
-              "is invalid"
+              'is the wrong length (should be 4 characters)',
+              'is invalid'
             ]
           },
           town: {
-            value: "x",
+            value: 'x',
             valid: false,
-            validReason: ["is too short (minimum is 2 characters)"]
+            validReason: ['is too short (minimum is 2 characters)']
           },
           telephone: {
-            value: "x",
+            value: 'x',
             valid: false,
-            validReason: ["is invalid"]
+            validReason: ['is invalid']
           },
           email: {
-            value: "x",
+            value: 'x',
             valid: false,
-            validReason: ["is not a valid email"]
+            validReason: ['is not a valid email']
           },
           dept: {
-            value: "123",
+            value: '123',
             valid: false,
             validReason: [
-              "is the wrong length (should be 7 characters)",
-              "is invalid"
+              'is the wrong length (should be 7 characters)',
+              'is invalid'
             ]
           },
           event: {
-            value: "x",
+            value: 'x',
             valid: false,
-            validReason: ["is too short (minimum is 3 characters)"]
+            validReason: ['is too short (minimum is 3 characters)']
           },
           account: {
-            value: "x",
+            value: 'x',
             valid: false,
-            validReason: ["is invalid"]
+            validReason: ['is invalid']
           }
         });
       });
 
-      it("accepts valid data", () => {
+      it('accepts valid data', () => {
         const store = createStore(reducers);
 
         store.dispatch(
           updatePersonalia({
             name: {
-              value: "Alice"
+              value: 'Alice'
             },
             address: {
-              value: "Sognsveien 77b"
+              value: 'Sognsveien 77b'
             },
             postcode: {
-              value: "0805"
+              value: '0805'
             },
             telephone: {
-              value: "23007650"
+              value: '23007650'
             },
             town: {
-              value: "Oslo"
+              value: 'Oslo'
             },
             event: {
-              value: "Test"
+              value: 'Test'
             },
             account: {
-              value: "12345678901"
+              value: '12345678901'
             },
             email: {
-              value: "contact@itera.no"
+              value: 'contact@itera.no'
             },
             dept: {
-              value: "123 456"
+              value: '123 456'
             }
           })
         );
@@ -307,81 +307,81 @@ describe("reducers", () => {
 
         expect(state).toEqual({
           name: {
-            value: "Alice",
+            value: 'Alice',
             valid: true,
             validReason: undefined
           },
           address: {
-            value: "Sognsveien 77b",
+            value: 'Sognsveien 77b',
             valid: true,
             validReason: undefined
           },
           postcode: {
-            value: "0805",
+            value: '0805',
             valid: true,
             validReason: undefined
           },
           telephone: {
-            value: "+47 23 00 76 50",
+            value: '+47 23 00 76 50',
             valid: true,
             validReason: undefined
           },
           town: {
-            value: "Oslo",
+            value: 'Oslo',
             valid: true,
             validReason: undefined
           },
           event: {
-            value: "Test",
+            value: 'Test',
             valid: true,
             validReason: undefined
           },
           account: {
-            value: "1234.56.78901",
+            value: '1234.56.78901',
             valid: true,
             validReason: undefined
           },
           dept: {
-            value: "123 456",
+            value: '123 456',
             valid: true,
             validReason: undefined
           },
           email: {
-            value: "contact@itera.no",
+            value: 'contact@itera.no',
             valid: true,
             validReason: undefined
           }
         });
       });
 
-      it("defaults dept", () => {
+      it('defaults dept', () => {
         const store = createStore(reducers);
 
         store.dispatch(
           updatePersonalia({
             name: {
-              value: "Alice"
+              value: 'Alice'
             },
             address: {
-              value: "Sognsveien 77b"
+              value: 'Sognsveien 77b'
             },
             postcode: {
-              value: "0805"
+              value: '0805'
             },
             telephone: {
-              value: "23007650"
+              value: '23007650'
             },
             town: {
-              value: "Oslo"
+              value: 'Oslo'
             },
             event: {
-              value: "Test"
+              value: 'Test'
             },
             account: {
-              value: "12345678901"
+              value: '12345678901'
             },
             email: {
-              value: "contact@itera.no"
+              value: 'contact@itera.no'
             }
           })
         );
@@ -390,47 +390,47 @@ describe("reducers", () => {
 
         expect(state).toEqual({
           name: {
-            value: "Alice",
+            value: 'Alice',
             valid: true,
             validReason: undefined
           },
           address: {
-            value: "Sognsveien 77b",
+            value: 'Sognsveien 77b',
             valid: true,
             validReason: undefined
           },
           postcode: {
-            value: "0805",
+            value: '0805',
             valid: true,
             validReason: undefined
           },
           telephone: {
-            value: "+47 23 00 76 50",
+            value: '+47 23 00 76 50',
             valid: true,
             validReason: undefined
           },
           town: {
-            value: "Oslo",
+            value: 'Oslo',
             valid: true,
             validReason: undefined
           },
           event: {
-            value: "Test",
+            value: 'Test',
             valid: true,
             validReason: undefined
           },
           account: {
-            value: "1234.56.78901",
+            value: '1234.56.78901',
             valid: true,
             validReason: undefined
           },
           dept: {
-            value: "110 410",
+            value: '110 410',
             valid: true,
             validReason: undefined
           },
           email: {
-            value: "contact@itera.no",
+            value: 'contact@itera.no',
             valid: true,
             validReason: undefined
           }
@@ -439,9 +439,9 @@ describe("reducers", () => {
     });
   });
 
-  describe("rows", () => {
-    describe("clearRows", () => {
-      it("returns initial state if no state present", () => {
+  describe('rows', () => {
+    describe('clearRows', () => {
+      it('returns initial state if no state present', () => {
         const store = createStore(reducers);
 
         store.dispatch(clearRows());
@@ -454,7 +454,7 @@ describe("reducers", () => {
         });
       });
 
-      it("returns initial state with state present", () => {
+      it('returns initial state with state present', () => {
         const store = createStore(reducers, {
           rows: {
             rows: [1, 2, 3],
@@ -473,8 +473,8 @@ describe("reducers", () => {
       });
     });
 
-    describe("addRow", () => {
-      it("returns initial state plus one row if no state present", () => {
+    describe('addRow', () => {
+      it('returns initial state plus one row if no state present', () => {
         const store = createStore(reducers);
 
         store.dispatch(addRow());
@@ -485,10 +485,10 @@ describe("reducers", () => {
           rows: [
             {
               id: 1,
-              date: "",
-              description: "",
+              date: '',
+              description: '',
               cost: 0,
-              supplier: "",
+              supplier: '',
               valid: false
             }
           ],
@@ -496,7 +496,7 @@ describe("reducers", () => {
         });
       });
 
-      it("returns state plus one row with state present", () => {
+      it('returns state plus one row with state present', () => {
         const store = createStore(reducers, {
           rows: {
             rows: [1, 2, 3],
@@ -515,10 +515,10 @@ describe("reducers", () => {
             3,
             {
               id: 4,
-              date: "",
-              description: "",
+              date: '',
+              description: '',
               cost: 0,
-              supplier: "",
+              supplier: '',
               valid: false
             }
           ],
@@ -527,8 +527,8 @@ describe("reducers", () => {
       });
     });
 
-    describe("updateRow", () => {
-      it("returns empty row set if no state present", () => {
+    describe('updateRow', () => {
+      it('returns empty row set if no state present', () => {
         const store = createStore(reducers);
 
         store.dispatch(updateRow());
@@ -541,15 +541,15 @@ describe("reducers", () => {
         });
       });
 
-      it("returns state untouched if row is not present", () => {
+      it('returns state untouched if row is not present', () => {
         const initialState = {
           rows: [
             {
               id: 1,
-              date: "date",
-              description: "desc",
+              date: 'date',
+              description: 'desc',
               cost: 10,
-              supplier: "supplier",
+              supplier: 'supplier',
               valid: true
             }
           ],
@@ -561,10 +561,10 @@ describe("reducers", () => {
         store.dispatch(
           updateRow({
             id: 2,
-            date: "date2",
-            description: "desc2",
+            date: 'date2',
+            description: 'desc2',
             cost: 20,
-            supplier: "supplier2"
+            supplier: 'supplier2'
           })
         );
 
@@ -573,23 +573,23 @@ describe("reducers", () => {
         expect(state).toEqual(initialState);
       });
 
-      it("validates passed row", () => {
+      it('validates passed row', () => {
         const initialState = {
           rows: [
             {
               id: 1,
-              date: "date",
-              description: "desc",
+              date: 'date',
+              description: 'desc',
               cost: 10,
-              supplier: "supplier",
+              supplier: 'supplier',
               valid: true
             },
             {
               id: 2,
-              date: "date2",
-              description: "desc2",
+              date: 'date2',
+              description: 'desc2',
               cost: 20,
-              supplier: "supplier2",
+              supplier: 'supplier2',
               valid: true
             }
           ],
@@ -601,42 +601,42 @@ describe("reducers", () => {
         store.dispatch(
           updateRow({
             id: 2,
-            date: "2010-01-01",
-            description: "x",
+            date: '2010-01-01',
+            description: 'x',
             cost: 30,
-            supplier: "x"
+            supplier: 'x'
           })
         );
 
         const state = store.getState().rows;
 
         const earliest = moment()
-          .subtract(1, "years")
-          .format("YYYY-MM-DD");
+          .subtract(1, 'years')
+          .format('YYYY-MM-DD');
 
         expect(state).toEqual({
           rows: [
             {
               id: 1,
-              date: "date",
-              description: "desc",
+              date: 'date',
+              description: 'desc',
               cost: 10,
-              supplier: "supplier",
+              supplier: 'supplier',
               valid: true
             },
             {
               id: 2,
-              date: "2010-01-01",
-              description: "x",
+              date: '2010-01-01',
+              description: 'x',
               cost: 30,
-              supplier: "x",
+              supplier: 'x',
               valid: false,
               validReason: {
                 date: [`Date must be no earlier than ${earliest}`],
                 description: [
-                  "Description is too short (minimum is 2 characters)"
+                  'Description is too short (minimum is 2 characters)'
                 ],
-                supplier: ["Supplier is too short (minimum is 2 characters)"]
+                supplier: ['Supplier is too short (minimum is 2 characters)']
               }
             }
           ],
@@ -645,23 +645,23 @@ describe("reducers", () => {
       });
     });
 
-    it("handles valid updates", () => {
+    it('handles valid updates', () => {
       const initialState = {
         rows: [
           {
             id: 1,
-            date: "date",
-            description: "desc",
+            date: 'date',
+            description: 'desc',
             cost: 10,
-            supplier: "supplier",
+            supplier: 'supplier',
             valid: true
           },
           {
             id: 2,
-            date: "date2",
-            description: "desc2",
+            date: 'date2',
+            description: 'desc2',
             cost: 20,
-            supplier: "supplier2",
+            supplier: 'supplier2',
             valid: true
           }
         ],
@@ -669,8 +669,8 @@ describe("reducers", () => {
       };
 
       const lastMonth = moment()
-        .subtract(1, "months")
-        .format("YYYY-MM-DD");
+        .subtract(1, 'months')
+        .format('YYYY-MM-DD');
 
       const store = createStore(reducers, { rows: initialState });
 
@@ -678,9 +678,9 @@ describe("reducers", () => {
         updateRow({
           id: 2,
           date: lastMonth,
-          description: "Updated desc",
+          description: 'Updated desc',
           cost: 40,
-          supplier: "Updated supplier"
+          supplier: 'Updated supplier'
         })
       );
 
@@ -690,18 +690,18 @@ describe("reducers", () => {
         rows: [
           {
             id: 1,
-            date: "date",
-            description: "desc",
+            date: 'date',
+            description: 'desc',
             cost: 10,
-            supplier: "supplier",
+            supplier: 'supplier',
             valid: true
           },
           {
             id: 2,
             date: lastMonth,
-            description: "Updated desc",
+            description: 'Updated desc',
             cost: 40,
-            supplier: "Updated supplier",
+            supplier: 'Updated supplier',
             valid: true,
             validReason: undefined
           }

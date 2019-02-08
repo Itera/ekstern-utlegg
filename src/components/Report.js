@@ -1,17 +1,17 @@
-import React from "react";
-import Helmet from "react-helmet";
-import { Link } from "react-router-dom";
-import { Container, Table, Jumbotron, Button } from "reactstrap";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import moment from "moment";
+import React from 'react';
+import Helmet from 'react-helmet';
+import { Link } from 'react-router-dom';
+import { Container, Table, Jumbotron, Button } from 'reactstrap';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import moment from 'moment';
 
-import { personaliaFormPropTypes } from "./Personalia";
-import { rowFieldPropTypes, rowsFormPropTypes } from "./Rows";
+import { personaliaFormPropTypes } from './Personalia';
+import { rowFieldPropTypes, rowsFormPropTypes } from './Rows';
 
-import logo from "../media/itera_logo.png";
+import logo from '../media/itera_logo.png';
 
-import "../styles/report.css";
+import '../styles/report.css';
 
 const displayValue = (value, field) => {
   if (value.value) {
@@ -19,7 +19,7 @@ const displayValue = (value, field) => {
       return (
         <span className="incomplete">
           Ugyldig {field} - {value.value}
-          <Link className="float-right noprint" to={"/start"}>
+          <Link className="float-right noprint" to={'/start'}>
             <Button size="sm" color="warning" className="ml-1">
               Fix
             </Button>
@@ -33,7 +33,7 @@ const displayValue = (value, field) => {
     return (
       <span className="incomplete">
         Manglende {field}
-        <Link className="float-right noprint" to={"/start"}>
+        <Link className="float-right noprint" to={'/start'}>
           <Button size="sm" color="warning" className="ml-1">
             Fix
           </Button>
@@ -91,15 +91,15 @@ const Report = ({ personalia, rows }) => {
     }
   };
 
-  let name = "";
+  let name = '';
 
   if (personalia.name && personalia.name.valid) {
     name = ` - ${personalia.name.value} `;
   }
 
-  const title = `${moment().format("YYYY-MM-DD")}${name} - extern utlegg`;
+  const title = `${moment().format('YYYY-MM-DD')}${name} - extern utlegg`;
 
-  let dept = "";
+  let dept = '';
 
   if (personalia.dept) {
     dept = personalia.dept.value;
@@ -137,37 +137,37 @@ const Report = ({ personalia, rows }) => {
           <thead>
             <tr>
               <th>Navn:</th>
-              <td colSpan="3">{displayValue(personalia.name, "navn")}</td>
+              <td colSpan="3">{displayValue(personalia.name, 'navn')}</td>
             </tr>
             <tr>
               <th>Adresse:</th>
               <td colSpan="3">
-                {displayValue(personalia.address, "adresse")}, &nbsp;
-                {displayValue(personalia.postcode, "postnummer")}
+                {displayValue(personalia.address, 'adresse')}, &nbsp;
+                {displayValue(personalia.postcode, 'postnummer')}
                 &nbsp;
-                {displayValue(personalia.town, "poststed")}
+                {displayValue(personalia.town, 'poststed')}
               </td>
             </tr>
             <tr>
               <th>Tlf/Mob:</th>
               <td colSpan="3">
-                {displayValue(personalia.telephone, "tlf/mob")}
+                {displayValue(personalia.telephone, 'tlf/mob')}
               </td>
             </tr>
             <tr>
               <th>E-post:</th>
-              <td colSpan="3">{displayValue(personalia.email, "e-post")}</td>
+              <td colSpan="3">{displayValue(personalia.email, 'e-post')}</td>
             </tr>
             <tr>
               <th>Kontonummer:</th>
               <td colSpan="3">
-                {displayValue(personalia.account, "kontonummer")}
+                {displayValue(personalia.account, 'kontonummer')}
               </td>
             </tr>
             <tr>
               <th>Formål for utlegg:</th>
               <td colSpan="3">
-                {displayValue(personalia.event, "formål/arrangement")}
+                {displayValue(personalia.event, 'formål/arrangement')}
               </td>
             </tr>
             <tr>

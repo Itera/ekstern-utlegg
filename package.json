@@ -26,10 +26,14 @@
     "eject": "react-scripts eject",
     "serve": "yarn build && serve -s build",
     "package": "yarn build && docker build -t docker.mad.itera.no/itera/ekstern_utlegg:latest .",
-    "run-package": "docker run -d -p5000:5000 --name utlegg docker.mad.itera.no/itera/ekstern_utlegg:latest"
+    "run-package": "docker run -d -p5000:5000 --name utlegg docker.mad.itera.no/itera/ekstern_utlegg:latest",
+    "format": "prettier 'src/**/*.{js,ts,jsx,tsx,css,md}' --write"
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "prettier": {
+    "singleQuote": true
   },
   "browserslist": [
     ">0.2%",

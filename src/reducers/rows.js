@@ -1,5 +1,5 @@
-import validate from "validate.js";
-import moment from "moment";
+import validate from 'validate.js';
+import moment from 'moment';
 
 const initialState = () => {
   return {
@@ -25,8 +25,8 @@ const updateState = (state, action) => {
         },
         format: function(value, options) {
           const format = options.dateOnly
-            ? "YYYY-MM-DD"
-            : "YYYY-MM-DD hh:mm:ss";
+            ? 'YYYY-MM-DD'
+            : 'YYYY-MM-DD hh:mm:ss';
           return moment.utc(value).format(format);
         }
       });
@@ -36,9 +36,9 @@ const updateState = (state, action) => {
           presence: true,
           date: {
             earliest: moment()
-              .subtract(1, "years")
-              .format("YYYY-MM-DD"),
-            latest: moment().format("YYYY-MM-DD")
+              .subtract(1, 'years')
+              .format('YYYY-MM-DD'),
+            latest: moment().format('YYYY-MM-DD')
           }
         },
         description: {
@@ -75,10 +75,10 @@ const addRow = state => {
 
   newState.rows.push({
     id: state.rows.length + 1,
-    date: "",
-    description: "",
+    date: '',
+    description: '',
     cost: 0,
-    supplier: "",
+    supplier: '',
     valid: false
   });
 
@@ -91,11 +91,11 @@ const clearState = () => {
 
 const updateRows = (state = initialState(), action) => {
   switch (action.type) {
-    case "UPDATE_ROW":
+    case 'UPDATE_ROW':
       return updateState(state, action);
-    case "ADD_ROW":
+    case 'ADD_ROW':
       return addRow(state);
-    case "CLEAR_ROWS":
+    case 'CLEAR_ROWS':
       return clearState();
     default:
       return state;

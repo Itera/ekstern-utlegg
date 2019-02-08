@@ -1,15 +1,15 @@
-import React from "react";
-import Helmet from "react-helmet";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React from 'react';
+import Helmet from 'react-helmet';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import { Container, Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
-import { updatePersonalia, clearPersonalia } from "../actions/personalia";
-import Valid from "./Valid";
+import { updatePersonalia, clearPersonalia } from '../actions/personalia';
+import Valid from './Valid';
 
-import "../styles/form-buttons.css";
+import '../styles/form-buttons.css';
 
 const fieldPropTypes = PropTypes.shape({
   value: PropTypes.string.isRequired,
