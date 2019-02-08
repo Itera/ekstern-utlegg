@@ -1,49 +1,82 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 import {
+  Button,
+  Col,
   Container,
   Form,
   FormGroup,
   Input,
-  Button,
-  Row,
-  Col
+  Row
 } from 'reactstrap';
+import { InputType } from 'reactstrap/lib/Input';
+
+import {
+  AddRow,
+  ClearRows,
+  RowFieldProps,
+  RowsFormProps,
+  UpdateRow
+} from '../types';
 
 import Valid from './Valid';
 
 import { addRow, clearRows, updateRow } from '../actions/rows';
 
 import '../styles/form-buttons.css';
+import { type } from 'os';
 
-export const rowFieldPropTypes = PropTypes.shape({
-  id: PropTypes.number.isRequired,
-  date: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  cost: PropTypes.number.isRequired,
-  supplier: PropTypes.string.isRequired,
-  valid: PropTypes.bool.isRequired,
-  validReason: PropTypes.shape({
-    date: PropTypes.arrayOf(PropTypes.string),
-    description: PropTypes.arrayOf(PropTypes.string),
-    supplier: PropTypes.arrayOf(PropTypes.string),
-    cost: PropTypes.arrayOf(PropTypes.string)
-  })
-}).isRequired;
+interface DetailsProps {
+  rows: RowsFormProps;
+  onAdd: AddRow;
+  onClear: ClearRows;
+  onUpdate: UpdateRow;
+}
 
-export const rowsFormPropTypes = PropTypes.shape({
-  rows: PropTypes.arrayOf(rowFieldPropTypes).isRequired,
-  total: PropTypes.number.isRequired
-}).isRequired;
+interface RowsProps {
+  rows: RowsFormProps;
+  onAdd: AddRow;
+  onClear: ClearRows;
+  onUpdate: UpdateRow;
+}
 
-const NumberField = props => {
-  const onChange = (field, id, event) => {
-    const data = { id: id };
+interface EntryProps {
+  row: RowFieldProps;
+  onUpdate: UpdateRow;
+}
+
+interface NumberFieldProps {
+  id: number;
+  inputType: InputType;
+  name: keyof RowFieldProps;
+  fieldValue?: number;
+  placeholder: string;
+  onUpdate: UpdateRow;
+  width: number;
+}
+
+interface EntryFieldProps {
+  id: number;
+  inputType: InputType;
+  name: keyof RowFieldProps;
+  fieldValue?: string;
+  placeholder: string;
+  onUpdate: UpdateRow;
+  width: number;
+  max?: string;
+}
+
+const NumberField = (props: NumberFieldProps) => {
+  const onChange = (
+    field: keyof RowFieldProps,
+    id: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const data: RowFieldProps = { id: id };
     data[field] = event.target.value;
     props.onUpdate(data);
   };
@@ -55,7 +88,7 @@ const NumberField = props => {
       id={`${props.name}_${props.id}`}
       name={`${props.name}_${props.id}`}
       placeholder={props.placeholder}
-      value={props.value}
+      value={props.fieldValue}
       step="0.01"
       min="0"
       onChange={event => onChange(props.name, props.id, event)}
@@ -63,24 +96,18 @@ const NumberField = props => {
   );
 };
 
-NumberField.propTypes = {
-  id: PropTypes.number.isRequired,
-  inputType: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  onUpdate: PropTypes.func.isRequired,
-  width: PropTypes.number.isRequired
-};
-
-const Field = props => {
-  const onChange = (field, id, event) => {
-    const data = { id: id };
+const Field = (props: EntryFieldProps) => {
+  const onChange = (
+    field: keyof RowFieldProps,
+    id: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const data: RowFieldProps = { id: id };
     data[field] = event.target.value;
     props.onUpdate(data);
   };
 
-  let placeholder = props.name;
+  let placeholder = props.name as string;
 
   if (props.placeholder) {
     placeholder = props.placeholder;
@@ -91,12 +118,9 @@ const Field = props => {
     id: `${props.name}_${props.id}`,
     name: `${props.name}_${props.id}`,
     placeholder: placeholder,
-    value: props.value
+    value: props.fieldValue,
+    max: props.max
   };
-
-  if (props.max) {
-    inputProps.max = props.max;
-  }
 
   return (
     <Input
@@ -107,19 +131,9 @@ const Field = props => {
   );
 };
 
-Field.propTypes = {
-  id: PropTypes.number.isRequired,
-  inputType: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  value: PropTypes.string,
-  placeholder: PropTypes.string.isRequired,
-  onUpdate: PropTypes.func.isRequired,
-  width: PropTypes.number.isRequired,
-  max: PropTypes.string
-};
+const Entry = (props: EntryProps) => {
+  const { row, onUpdate } = props;
 
-const Entry = ({ row, onUpdate }) => {
-  console.log(row);
   return (
     <FormGroup className="row">
       <Field
@@ -127,7 +141,7 @@ const Entry = ({ row, onUpdate }) => {
         name="date"
         placeholder="Dato"
         inputType="date"
-        value={row.date}
+        fieldValue={row.date}
         onUpdate={onUpdate}
         width={2}
         max={moment().format('YYYY-MM-DD')}
@@ -137,7 +151,7 @@ const Entry = ({ row, onUpdate }) => {
         name="supplier"
         placeholder="Leverandør"
         inputType="text"
-        value={row.supplier}
+        fieldValue={row.supplier}
         onUpdate={onUpdate}
         width={2}
       />
@@ -146,7 +160,7 @@ const Entry = ({ row, onUpdate }) => {
         name="description"
         placeholder="Beskrivelse"
         inputType="text"
-        value={row.description}
+        fieldValue={row.description}
         onUpdate={onUpdate}
         width={4}
       />
@@ -155,7 +169,7 @@ const Entry = ({ row, onUpdate }) => {
         name="cost"
         placeholder="Beløp inkl. mva (NOK)"
         inputType="number"
-        value={row.cost}
+        fieldValue={row.cost}
         onUpdate={onUpdate}
         width={2}
       />
@@ -165,12 +179,8 @@ const Entry = ({ row, onUpdate }) => {
   );
 };
 
-Entry.propTypes = {
-  row: rowFieldPropTypes,
-  onUpdate: PropTypes.func.isRequired
-};
-
-const Details = props => {
+const Details = (props: DetailsProps) => {
+  const sum = +props.rows.total;
   return (
     <Form>
       {props.rows.rows.map(row => (
@@ -179,7 +189,7 @@ const Details = props => {
 
       <Row>
         <Col className="col-sm-2 offset-sm-8">
-          <p className="float-right">Sum: {props.rows.total.toFixed(2)} NOK</p>
+          <p className="float-right">Sum: {sum.toFixed(2)} NOK</p>
         </Col>
       </Row>
 
@@ -205,14 +215,7 @@ const Details = props => {
   );
 };
 
-Details.propTypes = {
-  rows: rowsFormPropTypes,
-  onAdd: PropTypes.func.isRequired,
-  onClear: PropTypes.func.isRequired,
-  onUpdate: PropTypes.func.isRequired
-};
-
-const Rows = props => {
+const Rows = (props: RowsProps) => {
   return (
     <div>
       <Helmet>
@@ -235,9 +238,7 @@ const Rows = props => {
   );
 };
 
-Rows.propTypes = Details.propTypes;
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   rows: state.rows
 });
 

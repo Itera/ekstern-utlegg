@@ -1,24 +1,37 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
-import { Container, Table, Jumbotron, Button } from 'reactstrap';
+import { Button, Container, Jumbotron, Table } from 'reactstrap';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import { personaliaFormPropTypes } from './Personalia';
-import { rowFieldPropTypes, rowsFormPropTypes } from './Rows';
+import {
+  FieldProps,
+  PersonaliaFormProps,
+  RowFieldProps,
+  RowsFormProps
+} from '../types';
 
 import logo from '../media/itera_logo.png';
 
 import '../styles/report.css';
 
-const displayValue = (value, field) => {
-  if (value.value) {
-    if (!value.valid) {
+interface ReportProps {
+  personalia: PersonaliaFormProps;
+  rows: RowsFormProps;
+}
+
+interface ReportRowProps {
+  row: RowFieldProps;
+  dept: string;
+}
+
+const displayValue = (fieldValue: FieldProps | undefined, field: string) => {
+  if (fieldValue && fieldValue.value) {
+    if (!fieldValue.valid) {
       return (
         <span className="incomplete">
-          Ugyldig {field} - {value.value}
+          Ugyldig {field} - {fieldValue.value}
           <Link className="float-right noprint" to={'/start'}>
             <Button size="sm" color="warning" className="ml-1">
               Fix
@@ -28,7 +41,7 @@ const displayValue = (value, field) => {
       );
     }
 
-    return value.value;
+    return fieldValue.value;
   } else {
     return (
       <span className="incomplete">
@@ -43,7 +56,9 @@ const displayValue = (value, field) => {
   }
 };
 
-const ReportRow = ({ row, dept }) => {
+const ReportRow = (props: ReportRowProps) => {
+  const { row, dept } = props;
+
   return (
     <tr>
       <td>{row.date}</td>
@@ -52,27 +67,24 @@ const ReportRow = ({ row, dept }) => {
         &nbsp;-&nbsp;
         {row.description}
       </td>
-      <td>{Number.parseFloat(row.cost).toFixed(2)} NOK</td>
+      <td>{(+(row.cost || 0)).toFixed(2)} NOK</td>
       <td className="locked">{dept}</td>
     </tr>
   );
 };
 
-ReportRow.propTypes = {
-  row: rowFieldPropTypes,
-  dept: PropTypes.string.isRequired
-};
+const Report = (props: ReportProps) => {
+  const { personalia, rows } = props;
 
-const Report = ({ personalia, rows }) => {
-  const getValidRows = rows => {
-    return rows.filter(row => row.valid);
+  const getValidRows = (rows: RowFieldProps[]) => {
+    return rows.filter((row: RowFieldProps) => row.valid);
   };
 
-  const displayRows = (dept, rows) => {
-    if (!rows.length > 0) {
+  const displayRows = (dept: string, rows: RowFieldProps[]) => {
+    if (!(rows.length > 0)) {
       return (
         <tr>
-          <td colSpan="4">
+          <td colSpan={4}>
             <span className="incomplete">
               Manglende utlegg
               <Link className="float-right noprint" to="/rows">
@@ -85,7 +97,7 @@ const Report = ({ personalia, rows }) => {
         </tr>
       );
     } else {
-      return rows.map(row => (
+      return rows.map((row: RowFieldProps) => (
         <ReportRow key={`report_row_${row.id}`} row={row} dept={dept} />
       ));
     }
@@ -137,11 +149,11 @@ const Report = ({ personalia, rows }) => {
           <thead>
             <tr>
               <th>Navn:</th>
-              <td colSpan="3">{displayValue(personalia.name, 'navn')}</td>
+              <td colSpan={3}>{displayValue(personalia.name, 'navn')}</td>
             </tr>
             <tr>
               <th>Adresse:</th>
-              <td colSpan="3">
+              <td colSpan={3}>
                 {displayValue(personalia.address, 'adresse')}, &nbsp;
                 {displayValue(personalia.postcode, 'postnummer')}
                 &nbsp;
@@ -150,28 +162,28 @@ const Report = ({ personalia, rows }) => {
             </tr>
             <tr>
               <th>Tlf/Mob:</th>
-              <td colSpan="3">
+              <td colSpan={3}>
                 {displayValue(personalia.telephone, 'tlf/mob')}
               </td>
             </tr>
             <tr>
               <th>E-post:</th>
-              <td colSpan="3">{displayValue(personalia.email, 'e-post')}</td>
+              <td colSpan={3}>{displayValue(personalia.email, 'e-post')}</td>
             </tr>
             <tr>
               <th>Kontonummer:</th>
-              <td colSpan="3">
+              <td colSpan={3}>
                 {displayValue(personalia.account, 'kontonummer')}
               </td>
             </tr>
             <tr>
               <th>Formål for utlegg:</th>
-              <td colSpan="3">
+              <td colSpan={3}>
                 {displayValue(personalia.event, 'formål/arrangement')}
               </td>
             </tr>
             <tr>
-              <td colSpan="4">&nbsp;</td>
+              <td colSpan={4}>&nbsp;</td>
             </tr>
             <tr>
               <th>Dato</th>
@@ -183,10 +195,10 @@ const Report = ({ personalia, rows }) => {
           <tbody>{displayRows(dept, getValidRows(rows.rows))}</tbody>
           <tfoot>
             <tr>
-              <td className="locked" colSpan="2">
+              <td className="locked" colSpan={2}>
                 Sum utlegg:
               </td>
-              <td className="locked">{rows.total.toFixed(2)} NOK</td>
+              <td className="locked">{(+rows.total).toFixed(2)} NOK</td>
               <td className="locked" />
             </tr>
           </tfoot>
@@ -196,12 +208,7 @@ const Report = ({ personalia, rows }) => {
   );
 };
 
-Report.propTypes = {
-  personalia: personaliaFormPropTypes,
-  rows: rowsFormPropTypes
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   personalia: state.personalia,
   rows: state.rows
 });

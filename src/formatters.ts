@@ -1,7 +1,7 @@
 export const tlfregex = /^(\+[0-9]{2} ?)?(([0-9]{3}[ -]?[0-9]{2}[ -]?[0-9]{3})|([0-9]{2}[ -]?[0-9]{2}[ -]?[0-9]{2}[ -]?[0-9]{2}))$/;
 export const accountregex = /^([0-9]{4})[. ]?([0-9]{2})[. ]?([0-9]{5})$/;
 
-export const formatAccount = account => {
+export const formatAccount = (account: string) => {
   if (!account) {
     return account;
   }
@@ -9,14 +9,14 @@ export const formatAccount = account => {
   if (accountregex.test(account)) {
     const parts = accountregex.exec(account);
 
-    return `${parts[1]}.${parts[2]}.${parts[3]}`;
+    return `${parts![1]}.${parts![2]}.${parts![3]}`;
   } else {
     return account;
   }
 };
 
-export const formatTlf = tlf => {
-  const format = number => {
+export const formatTlf = (tlf: string) => {
+  const format = (number: string) => {
     const prefix = number.substring(0, 1);
 
     let re;
@@ -29,7 +29,7 @@ export const formatTlf = tlf => {
 
     const numberParts = re.exec(number);
 
-    return numberParts.slice(1).join(' ');
+    return numberParts!.slice(1).join(' ');
   };
 
   if (!tlf) {
@@ -39,8 +39,8 @@ export const formatTlf = tlf => {
   if (tlfregex.test(tlf)) {
     const parts = tlfregex.exec(tlf);
 
-    let land = parts[1];
-    let number = parts[2];
+    let land = parts![1];
+    let number = parts![2];
 
     if (!land) {
       land = '+47';

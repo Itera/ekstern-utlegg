@@ -2,36 +2,57 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
-import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
+import { InputType } from 'reactstrap/lib/Input';
 
-import { updatePersonalia, clearPersonalia } from '../actions/personalia';
+import {
+  ClearPersonalia,
+  FieldProps,
+  PersonaliaFormProps,
+  UpdatePersonalia
+} from '../types';
+
+import { clearPersonalia, updatePersonalia } from '../actions/personalia';
+
 import Valid from './Valid';
 
 import '../styles/form-buttons.css';
 
-const fieldPropTypes = PropTypes.shape({
-  value: PropTypes.string.isRequired,
-  validReason: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.string),
-    PropTypes.string
-  ])
-}).isRequired;
+interface PersonaliaProps {
+  personalia: PersonaliaFormProps;
+  onUpdate: UpdatePersonalia;
+  onClear: ClearPersonalia;
+}
 
-export const personaliaFormPropTypes = PropTypes.shape({
-  address: fieldPropTypes,
-  postcode: fieldPropTypes,
-  town: fieldPropTypes,
-  telephone: fieldPropTypes,
-  email: fieldPropTypes,
-  event: fieldPropTypes,
-  account: fieldPropTypes
-}).isRequired;
+interface DetailsProps {
+  personalia: PersonaliaFormProps;
+  onUpdate: UpdatePersonalia;
+  onClear: ClearPersonalia;
+}
 
-const Select = props => {
-  const onChange = (field, event) => {
-    const data = {};
+interface InputFieldProps {
+  field: keyof PersonaliaFormProps;
+  type: InputType;
+  placeholder?: string;
+  fieldValue?: FieldProps;
+  name: string;
+  onUpdate: UpdatePersonalia;
+}
+
+interface SelectFieldProps {
+  field: keyof PersonaliaFormProps;
+  name: string;
+  fieldValue?: FieldProps;
+  onUpdate: UpdatePersonalia;
+}
+
+const Select = (props: SelectFieldProps) => {
+  const onChange = (
+    field: keyof PersonaliaFormProps,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const data: PersonaliaFormProps = {};
     data[field] = { value: event.target.value };
     props.onUpdate(data);
   };
@@ -47,28 +68,24 @@ const Select = props => {
         type="select"
         name={props.field}
         id={props.field}
-        value={props.value.value}
+        value={(props.fieldValue || ({} as FieldProps)).value}
         onChange={event => onChange(props.field, event)}
       >
         <option value="110 410">Teknologi</option>
         <option value="110 420">Prosjekt- og Testledelse</option>
         <option value="110 460">DBX</option>
       </Input>
-      <Valid valid={props.value.valid} />
+      <Valid valid={(props.fieldValue || ({} as FieldProps)).valid} />
     </FormGroup>
   );
 };
 
-Select.propTypes = {
-  field: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  value: fieldPropTypes,
-  onUpdate: PropTypes.func.isRequired
-};
-
-const Field = props => {
-  const onChange = (field, event) => {
-    const data = {};
+const Field = (props: InputFieldProps) => {
+  const onChange = (
+    field: keyof PersonaliaFormProps,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const data: PersonaliaFormProps = {};
     data[field] = { value: event.target.value };
     props.onUpdate(data);
   };
@@ -89,31 +106,23 @@ const Field = props => {
         type={props.type}
         name={props.field}
         id={props.field}
-        value={props.value.value}
+        value={(props.fieldValue || ({} as FieldProps)).value}
         placeholder={placeholder}
         onChange={event => onChange(props.field, event)}
       />
-      <Valid valid={props.value.valid} />
+      <Valid valid={(props.fieldValue || ({} as FieldProps)).valid} />
     </FormGroup>
   );
 };
 
-Field.propTypes = {
-  field: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
-  value: fieldPropTypes,
-  name: PropTypes.string.isRequired
-};
-
-const Details = ({ personalia, onUpdate, onClear }) => {
+const Details = ({ personalia, onUpdate, onClear }: DetailsProps) => {
   return (
     <Form>
       <Field
         field="name"
         name="Navn"
         type="text"
-        value={personalia.name}
+        fieldValue={personalia.name}
         onUpdate={onUpdate}
       />
 
@@ -121,7 +130,7 @@ const Details = ({ personalia, onUpdate, onClear }) => {
         field="address"
         name="Adresse"
         type="text"
-        value={personalia.address}
+        fieldValue={personalia.address}
         onUpdate={onUpdate}
       />
 
@@ -129,7 +138,7 @@ const Details = ({ personalia, onUpdate, onClear }) => {
         field="postcode"
         name="Postnr"
         type="text"
-        value={personalia.postcode}
+        fieldValue={personalia.postcode}
         onUpdate={onUpdate}
       />
 
@@ -137,7 +146,7 @@ const Details = ({ personalia, onUpdate, onClear }) => {
         field="town"
         name="Poststed"
         type="text"
-        value={personalia.town}
+        fieldValue={personalia.town}
         onUpdate={onUpdate}
       />
 
@@ -146,7 +155,7 @@ const Details = ({ personalia, onUpdate, onClear }) => {
         name="Tlf/Mob"
         type="tel"
         placeholder="Telefon eller mobil"
-        value={personalia.telephone}
+        fieldValue={personalia.telephone}
         onUpdate={onUpdate}
       />
 
@@ -155,7 +164,7 @@ const Details = ({ personalia, onUpdate, onClear }) => {
         name="E-post"
         type="email"
         placeholder="E-post adresse"
-        value={personalia.email}
+        fieldValue={personalia.email}
         onUpdate={onUpdate}
       />
 
@@ -164,14 +173,14 @@ const Details = ({ personalia, onUpdate, onClear }) => {
         name="Formål"
         type="text"
         placeholder="Hvilket arrangement"
-        value={personalia.event}
+        fieldValue={personalia.event}
         onUpdate={onUpdate}
       />
 
       <Select
         field="dept"
         name="Avdeling"
-        value={personalia.dept}
+        fieldValue={personalia.dept}
         onUpdate={onUpdate}
       />
 
@@ -180,7 +189,7 @@ const Details = ({ personalia, onUpdate, onClear }) => {
         name="Kontonr"
         type="text"
         placeholder="Hvor skal pengene overføres"
-        value={personalia.account}
+        fieldValue={personalia.account}
         onUpdate={onUpdate}
       />
 
@@ -201,13 +210,7 @@ const Details = ({ personalia, onUpdate, onClear }) => {
   );
 };
 
-Details.propTypes = {
-  personalia: personaliaFormPropTypes,
-  onUpdate: PropTypes.func.isRequired,
-  onClear: PropTypes.func.isRequired
-};
-
-const Personalia = props => {
+const Personalia = (props: PersonaliaProps) => {
   return (
     <div>
       <Helmet>
@@ -227,21 +230,9 @@ const Personalia = props => {
   );
 };
 
-Personalia.propTypes = {
-  personalia: personaliaFormPropTypes,
-  onUpdate: PropTypes.func.isRequired,
-  onClear: PropTypes.func.isRequired
-};
-
-export const mapStateToProps = state => {
-  const props = {};
-
-  if (state.personalia) {
-    props.personalia = state.personalia;
-  }
-
-  return props;
-};
+export const mapStateToProps = (state: any) => ({
+  personalia: state.personalia
+});
 
 const mapDispatchToProps = {
   onUpdate: updatePersonalia,

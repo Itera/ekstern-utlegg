@@ -8,7 +8,8 @@ import {
   Link
 } from 'react-router-dom';
 
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { save, load } from 'redux-localstorage-simple';
 
 import { Provider } from 'react-redux';
@@ -22,12 +23,10 @@ import reducers from '../reducers';
 
 import '../styles/app.css';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
 const store = createStore(
   reducers,
   load(),
-  composeEnhancers(applyMiddleware(save()))
+  composeWithDevTools(applyMiddleware(save()))
 );
 
 const App = () => {

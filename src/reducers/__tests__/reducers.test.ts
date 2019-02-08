@@ -132,7 +132,7 @@ describe('reducers', () => {
       it('returns initial state if no state present', () => {
         const store = createStore(reducers);
 
-        store.dispatch(updatePersonalia());
+        store.dispatch(updatePersonalia({}));
 
         const state = store.getState().personalia;
 
