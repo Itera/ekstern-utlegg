@@ -1,4 +1,7 @@
-version: 2
+version: 2.1
+
+orbs:
+  codecov: codecov/codecov@1.0.3
 
 jobs:
   build:
@@ -19,6 +22,8 @@ jobs:
       - run:
           name: test
           command: yarn test --coverage
+      - codecov/upload:
+          file: coverage
       - store_artifacts:
           path: coverage
       - run:
