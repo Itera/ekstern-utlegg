@@ -16,6 +16,7 @@
     "reactstrap": "^7.1.0",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
+    "redux-localstorage-simple": "^2.1.4",
     "serve": "^10.1.2",
     "validate.js": "^0.12.0"
   },
