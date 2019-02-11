@@ -32,31 +32,42 @@ const updateState = (state: RowsFormProps, action: UpdateRowAction) => {
         }
       });
 
-      row.validReason = validate(row, {
-        date: {
-          presence: true,
+      row.validReason = validate(
+        row,
+        {
           date: {
-            earliest: moment()
-              .subtract(1, 'years')
-              .format('YYYY-MM-DD'),
-            latest: moment().format('YYYY-MM-DD')
+            presence: {
+              message: 'må være en gyldig dato som ikke er i fremtid'
+            },
+            date: {
+              earliest: moment()
+                .subtract(1, 'years')
+                .format('YYYY-MM-DD'),
+              latest: moment().format('YYYY-MM-DD'),
+              message: 'må være en gyldig dato som ikke er i fremtid'
+            }
+          },
+          description: {
+            presence: { message: 'må være minst 2 tegn' },
+            length: { minimum: 2, message: 'må være minst 2 tegn' }
+          },
+          supplier: {
+            presence: { message: 'må være minst 2 tegn' },
+            length: { minimum: 2, message: 'må være minst 2 tegn' }
+          },
+          cost: {
+            presence: { message: 'må være + NOK' },
+            numericality: { greaterThan: 0, message: 'må være + NOK' }
           }
         },
-        description: {
-          presence: true,
-          length: { minimum: 2 }
-        },
-        supplier: {
-          presence: true,
-          length: { minimum: 2 }
-        },
-        cost: {
-          presence: true,
-          numericality: { greaterThan: 0 }
-        }
-      });
+        { fullMessages: false }
+      );
 
       row.valid = row.validReason === undefined;
+
+      if (row.valid) {
+        row.dirty = false;
+      }
 
       newState.rows[idx] = row;
     }
@@ -92,7 +103,8 @@ const addRow = (state: RowsFormProps) => {
     description: '',
     cost: 0,
     supplier: '',
-    valid: false
+    valid: false,
+    dirty: false
   });
 
   return newState;

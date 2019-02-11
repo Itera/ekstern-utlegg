@@ -2,6 +2,7 @@ export interface FieldProps {
   value: string;
   validReason?: string | string[];
   valid?: boolean;
+  dirty?: boolean;
 }
 
 export interface PersonaliaFormProps {
@@ -16,6 +17,13 @@ export interface PersonaliaFormProps {
   dept?: FieldProps;
 }
 
+export type RowValidationReason = {
+  date: string[];
+  description: string[];
+  supplier: string[];
+  cost: string[];
+};
+
 export interface RowFieldProps {
   id: number;
   date?: string;
@@ -23,12 +31,8 @@ export interface RowFieldProps {
   cost?: number | string;
   supplier?: string;
   valid?: boolean;
-  validReason?: {
-    date: string[];
-    description: string[];
-    supplier: string[];
-    cost: string[];
-  };
+  validReason?: RowValidationReason;
+  dirty?: boolean;
 }
 
 export interface RowsFormProps {

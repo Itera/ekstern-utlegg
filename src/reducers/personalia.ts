@@ -16,7 +16,8 @@ import {
 const emptyField: FieldProps = {
   value: '',
   valid: false,
-  validReason: ''
+  validReason: '',
+  dirty: false
 };
 
 const initialState = () => {
@@ -32,7 +33,8 @@ const initialState = () => {
     dept: {
       ...{
         value: '110 410',
-        valid: true
+        valid: true,
+        dirty: false
       }
     }
   };
@@ -47,6 +49,12 @@ const validateField = (validations: any, field?: FieldProps) => {
     fieldState.value = field.value;
     fieldState.validReason = single(field.value, validations);
     fieldState.valid = fieldState.validReason === undefined;
+
+    if (fieldState.valid) {
+      fieldState.dirty = false;
+    } else {
+      fieldState.dirty = field.dirty;
+    }
 
     return fieldState;
   }
@@ -66,25 +74,45 @@ const updateState = (
     newState.telephone.value = formatTlf(newState.telephone.value);
   }
 
-  newState.name = validateField({ length: { minimum: 3 } }, newState.name);
+  newState.name = validateField(
+    { length: { minimum: 3, message: 'må være minst 3 tegn' } },
+    newState.name
+  );
   newState.address = validateField(
     {
-      length: { minimum: 3 }
+      length: { minimum: 3, message: 'må være minst 3 tegn' }
     },
     newState.address
   );
   newState.postcode = validateField(
     {
-      length: { is: 4 },
-      format: /^[0-9]{4}$/
+      length: { is: 4, message: 'må være 4 siffer' },
+      format: { pattern: /^[0-9]{4}$/, message: 'må være 4 siffer' }
     },
     newState.postcode
   );
-  newState.telephone = validateField({ format: tlfregex }, newState.telephone);
-  newState.town = validateField({ length: { minimum: 2 } }, newState.town);
-  newState.event = validateField({ length: { minimum: 3 } }, newState.event);
-  newState.account = validateField({ format: accountregex }, newState.account);
-  newState.email = validateField({ email: true }, newState.email);
+  newState.telephone = validateField(
+    {
+      format: { pattern: tlfregex, message: 'må være en norsk telefonnummer' }
+    },
+    newState.telephone
+  );
+  newState.town = validateField(
+    { length: { minimum: 2, message: 'må være minst 2 tegn' } },
+    newState.town
+  );
+  newState.event = validateField(
+    { length: { minimum: 3, message: 'må være minst 3 tegn' } },
+    newState.event
+  );
+  newState.account = validateField(
+    { format: { pattern: accountregex, message: 'må være 11 siffer' } },
+    newState.account
+  );
+  newState.email = validateField(
+    { email: { message: 'må være en epost adresse' } },
+    newState.email
+  );
   newState.dept = validateField(
     {
       length: { is: 7 },

@@ -3,7 +3,15 @@ import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
+import {
+  Button,
+  Container,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  FormFeedback
+} from 'reactstrap';
 import { InputType } from 'reactstrap/lib/Input';
 
 import {
@@ -18,6 +26,7 @@ import { clearPersonalia, updatePersonalia } from '../actions/personalia';
 import Valid from './Valid';
 
 import '../styles/form-buttons.css';
+import { type } from 'os';
 
 interface PersonaliaProps {
   personalia: PersonaliaFormProps;
@@ -57,6 +66,10 @@ const Select = (props: SelectFieldProps) => {
     props.onUpdate(data);
   };
 
+  const field = props.fieldValue || ({} as FieldProps);
+
+  const valid: boolean = field.valid || false;
+
   return (
     <FormGroup className="row">
       <Label className="col-sm-2" for={props.field}>
@@ -64,18 +77,19 @@ const Select = (props: SelectFieldProps) => {
       </Label>
 
       <Input
-        className="col-sm-9"
+        className="col-sm-10"
         type="select"
         name={props.field}
         id={props.field}
         value={(props.fieldValue || ({} as FieldProps)).value}
         onChange={event => onChange(props.field, event)}
+        valid={valid}
+        invalid={!valid}
       >
         <option value="110 410">Teknologi</option>
         <option value="110 420">Prosjekt- og Testledelse</option>
         <option value="110 460">DBX</option>
       </Input>
-      <Valid valid={(props.fieldValue || ({} as FieldProps)).valid} />
     </FormGroup>
   );
 };
@@ -86,7 +100,7 @@ const Field = (props: InputFieldProps) => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const data: PersonaliaFormProps = {};
-    data[field] = { value: event.target.value };
+    data[field] = { value: event.target.value, dirty: true };
     props.onUpdate(data);
   };
 
@@ -96,28 +110,54 @@ const Field = (props: InputFieldProps) => {
     placeholder = props.placeholder;
   }
 
+  const field = props.fieldValue || ({} as FieldProps);
+
+  const valid: boolean = field.valid || false;
+  const dirty: boolean = field.dirty || false;
+  const invalid: boolean = dirty && !valid;
+
+  let reason = '';
+
+  if (field.validReason) {
+    if (field.validReason instanceof Array) {
+      reason = field.validReason[0];
+    } else {
+      reason = field.validReason;
+    }
+  }
+
   return (
     <FormGroup className="row">
       <Label className="col-sm-2" for={props.field}>
         {props.name}
       </Label>
       <Input
-        className="col-sm-9"
+        className="col-sm-10"
         type={props.type}
         name={props.field}
         id={props.field}
         value={(props.fieldValue || ({} as FieldProps)).value}
         placeholder={placeholder}
         onChange={event => onChange(props.field, event)}
+        valid={valid}
+        invalid={invalid}
       />
-      <Valid valid={(props.fieldValue || ({} as FieldProps)).valid} />
+      {invalid && (
+        <FormFeedback
+          className="offset-sm-2 col-sm-10"
+          valid={valid}
+          invalid={invalid}
+        >
+          {reason}
+        </FormFeedback>
+      )}
     </FormGroup>
   );
 };
 
 const Details = ({ personalia, onUpdate, onClear }: DetailsProps) => {
   return (
-    <Form>
+    <Form noValidate>
       <Field
         field="name"
         name="Navn"

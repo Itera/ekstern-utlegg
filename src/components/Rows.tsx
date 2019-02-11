@@ -11,7 +11,8 @@ import {
   Form,
   FormGroup,
   Input,
-  Row
+  Row,
+  FormFeedback
 } from 'reactstrap';
 import { InputType } from 'reactstrap/lib/Input';
 
@@ -20,7 +21,8 @@ import {
   ClearRows,
   RowFieldProps,
   RowsFormProps,
-  UpdateRow
+  UpdateRow,
+  RowValidationReason
 } from '../types';
 
 import Valid from './Valid';
@@ -30,7 +32,6 @@ import { addRow, clearRows, updateRow } from '../actions/rows';
 import { formatCost } from '../formatters';
 
 import '../styles/form-buttons.css';
-import { type } from 'os';
 
 interface DetailsProps {
   rows: RowsFormProps;
@@ -51,52 +52,19 @@ interface EntryProps {
   onUpdate: UpdateRow;
 }
 
-interface NumberFieldProps {
-  id: number;
-  inputType: InputType;
-  name: keyof RowFieldProps;
-  fieldValue?: number | string;
-  placeholder: string;
-  onUpdate: UpdateRow;
-  width: number;
-}
-
 interface EntryFieldProps {
   id: number;
   inputType: InputType;
   name: keyof RowFieldProps;
-  fieldValue?: string;
+  fieldValue?: string | number;
   placeholder: string;
   onUpdate: UpdateRow;
   width: number;
   max?: string;
+  valid?: boolean;
+  dirty?: boolean;
+  validReason?: RowValidationReason;
 }
-
-const NumberField = (props: NumberFieldProps) => {
-  const onChange = (
-    field: keyof RowFieldProps,
-    id: number,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const data: RowFieldProps = { id: id };
-    data[field] = event.target.value;
-    props.onUpdate(data);
-  };
-
-  return (
-    <Input
-      className={`col-sm-${props.width} mx-2`}
-      type={props.inputType}
-      id={`${props.name}_${props.id}`}
-      name={`${props.name}_${props.id}`}
-      placeholder={props.placeholder}
-      value={props.fieldValue}
-      step="0.01"
-      min="0"
-      onChange={event => onChange(props.name, props.id, event)}
-    />
-  );
-};
 
 const Field = (props: EntryFieldProps) => {
   const onChange = (
@@ -104,32 +72,38 @@ const Field = (props: EntryFieldProps) => {
     id: number,
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const data: RowFieldProps = { id: id };
+    const data: RowFieldProps = { id: id, dirty: true };
     data[field] = event.target.value;
     props.onUpdate(data);
   };
 
-  let placeholder = props.name as string;
+  const reason = props.validReason && (props.validReason as any)[props.name];
 
-  if (props.placeholder) {
-    placeholder = props.placeholder;
-  }
-
-  const inputProps = {
-    type: props.inputType,
-    id: `${props.name}_${props.id}`,
-    name: `${props.name}_${props.id}`,
-    placeholder: placeholder,
-    value: props.fieldValue,
-    max: props.max
-  };
+  const valid: boolean = props.valid || false;
+  const dirty: boolean = props.dirty || false;
+  const invalid: boolean = dirty && !valid && !!reason;
 
   return (
-    <Input
-      className={`col-sm-${props.width} mx-2`}
-      onChange={event => onChange(props.name, props.id, event)}
-      {...inputProps}
-    />
+    <div className={`col-sm-${props.width} mx-2`}>
+      <Input
+        onChange={event => onChange(props.name, props.id, event)}
+        id={`${props.name}_${props.id}`}
+        type={props.inputType}
+        name={`${props.name}_${props.id}`}
+        placeholder={props.placeholder}
+        value={props.fieldValue}
+        max={props.max}
+        valid={valid}
+        invalid={invalid}
+        step={props.inputType === 'number' ? '0.01' : undefined}
+        min={props.inputType === 'number' ? '0' : undefined}
+      />
+      {invalid && (
+        <FormFeedback valid={valid} invalid={invalid}>
+          {reason}
+        </FormFeedback>
+      )}
+    </div>
   );
 };
 
@@ -147,6 +121,9 @@ const Entry = (props: EntryProps) => {
         onUpdate={onUpdate}
         width={2}
         max={moment().format('YYYY-MM-DD')}
+        valid={row.valid}
+        dirty={row.dirty}
+        validReason={row.validReason}
       />
       <Field
         id={row.id}
@@ -156,6 +133,9 @@ const Entry = (props: EntryProps) => {
         fieldValue={row.supplier}
         onUpdate={onUpdate}
         width={2}
+        valid={row.valid}
+        dirty={row.dirty}
+        validReason={row.validReason}
       />
       <Field
         id={row.id}
@@ -165,8 +145,11 @@ const Entry = (props: EntryProps) => {
         fieldValue={row.description}
         onUpdate={onUpdate}
         width={4}
+        valid={row.valid}
+        dirty={row.dirty}
+        validReason={row.validReason}
       />
-      <NumberField
+      <Field
         id={row.id}
         name="cost"
         placeholder="Beløp inkl. mva (NOK)"
@@ -174,6 +157,9 @@ const Entry = (props: EntryProps) => {
         fieldValue={row.cost}
         onUpdate={onUpdate}
         width={2}
+        valid={row.valid}
+        dirty={row.dirty}
+        validReason={row.validReason}
       />
 
       <Valid valid={row.valid} />
