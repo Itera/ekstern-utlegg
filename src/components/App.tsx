@@ -5,7 +5,8 @@ import {
   BrowserRouter as Router,
   Route,
   NavLink,
-  Link
+  Link,
+  Redirect
 } from 'react-router-dom';
 
 import { createStore, applyMiddleware } from 'redux';
@@ -29,6 +30,11 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(save()))
 );
 
+const redirectToHomePage = (): null => {
+  (window as any).location = 'https://utlegg.mad.itera.no/';
+  return null;
+};
+
 const App = () => {
   return (
     <Provider store={store}>
@@ -42,6 +48,7 @@ const App = () => {
           <Route path="/start" component={Personalia} />
           <Route path="/rows" component={Rows} />
           <Route path="/done" component={Report} />
+          <Route path="/ekstern-utlegg" render={redirectToHomePage} />
 
           <footer className="footer">
             <Container>
