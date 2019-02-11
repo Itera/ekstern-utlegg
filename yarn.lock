@@ -6856,11 +6856,6 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-octicons-react-ts@^1.81.0:
-  version "1.81.0"
-  resolved "https://registry.yarnpkg.com/octicons-react-ts/-/octicons-react-ts-1.81.0.tgz#e94661f2919a40a4cff63df136cd163b78df991d"
-  integrity sha512-gb67tVcq9LYkqAtW8BDWlyXk35nW/ij5qGb3k6iUmqyrYDclD0yCHT9z5hH5ye8fq1RYLoSnl9wIbW8Kl+S/wA==
-
 on-finished@~2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/on-finished/-/on-finished-2.3.0.tgz#20f1336481b083cd75337992a16971aa2d906947"
