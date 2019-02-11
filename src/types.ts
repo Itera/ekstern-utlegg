@@ -20,7 +20,7 @@ export interface RowFieldProps {
   id: number;
   date?: string;
   description?: string;
-  cost?: number;
+  cost?: number | string;
   supplier?: string;
   valid?: boolean;
   validReason?: {

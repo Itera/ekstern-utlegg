@@ -62,7 +62,17 @@ const updateState = (state: RowsFormProps, action: UpdateRowAction) => {
     }
 
     if (row.valid) {
-      const cost = +row.cost!;
+      let cost: number = 0;
+
+      if (row.cost) {
+        if (typeof row.cost === 'string') {
+          cost = +row.cost;
+        } else if (typeof row.cost === 'number') {
+          cost = row.cost;
+        }
+      }
+
+      row.cost = cost;
 
       sum += cost;
     }

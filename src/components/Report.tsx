@@ -12,6 +12,8 @@ import {
   RowsFormProps
 } from '../types';
 
+import { formatCost } from '../formatters';
+
 import logo from '../media/itera_logo.png';
 
 import '../styles/report.css';
@@ -59,6 +61,8 @@ const displayValue = (fieldValue: FieldProps | undefined, field: string) => {
 const ReportRow = (props: ReportRowProps) => {
   const { row, dept } = props;
 
+  const cost = row.cost || 0;
+
   return (
     <tr>
       <td>{row.date}</td>
@@ -67,7 +71,7 @@ const ReportRow = (props: ReportRowProps) => {
         &nbsp;-&nbsp;
         {row.description}
       </td>
-      <td>{(+(row.cost || 0)).toFixed(2)} NOK</td>
+      <td>{formatCost(row.cost)} NOK</td>
       <td className="locked">{dept}</td>
     </tr>
   );
@@ -198,7 +202,7 @@ const Report = (props: ReportProps) => {
               <td className="locked" colSpan={2}>
                 Sum utlegg:
               </td>
-              <td className="locked">{(+rows.total).toFixed(2)} NOK</td>
+              <td className="locked">{formatCost(rows.total)} NOK</td>
               <td className="locked" />
             </tr>
           </tfoot>

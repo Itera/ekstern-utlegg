@@ -54,3 +54,17 @@ export const formatTlf = (tlf: string) => {
     return tlf;
   }
 };
+
+export const formatCost = (cost?: number | string) => {
+  let costValue: number = 0;
+
+  if (cost) {
+    if (typeof cost === 'string') {
+      costValue = +cost;
+    } else if (typeof cost === 'number') {
+      costValue = cost;
+    }
+  }
+
+  return costValue.toFixed(2);
+};

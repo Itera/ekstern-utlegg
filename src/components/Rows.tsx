@@ -27,6 +27,8 @@ import Valid from './Valid';
 
 import { addRow, clearRows, updateRow } from '../actions/rows';
 
+import { formatCost } from '../formatters';
+
 import '../styles/form-buttons.css';
 import { type } from 'os';
 
@@ -53,7 +55,7 @@ interface NumberFieldProps {
   id: number;
   inputType: InputType;
   name: keyof RowFieldProps;
-  fieldValue?: number;
+  fieldValue?: number | string;
   placeholder: string;
   onUpdate: UpdateRow;
   width: number;
@@ -189,7 +191,7 @@ const Details = (props: DetailsProps) => {
 
       <Row>
         <Col className="col-sm-2 offset-sm-8">
-          <p className="float-right">Sum: {sum.toFixed(2)} NOK</p>
+          <p className="float-right">Sum: {formatCost(sum)} NOK</p>
         </Col>
       </Row>
 
