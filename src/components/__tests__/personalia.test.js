@@ -9,8 +9,8 @@ describe('Personlia', () => {
   it('should render', () => {
     const { getByText } = render(<App />);
 
-    fireEvent.click(getByText('Utlegg'));
+    fireEvent.click(getByText('Mine detaljer'));
 
-    getByText(/Sum.*/);
+    getByText('Dine detaljer');
   });
 });
