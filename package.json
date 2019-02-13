@@ -36,13 +36,18 @@
     "serve": "yarn build && serve -s build",
     "package": "yarn build && docker build -t docker.mad.itera.no/itera/ekstern_utlegg:latest .",
     "run-package": "docker run -d -p5000:5000 --name utlegg docker.mad.itera.no/itera/ekstern_utlegg:latest",
-    "format": "prettier 'src/**/*.{js,ts,jsx,tsx,css,md}' --write",
-    "precommit": "lint-staged && CI=true yarn test"
+    "format": "prettier 'src/**/*.{js,ts,jsx,tsx,css,md}' --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "linters": {
       "*.{js,ts,jsx,tsx,css,md}": [
         "yarn run format",
+        "CI=true yarn test",
         "git add"
       ]
     }
