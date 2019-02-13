@@ -138,6 +138,7 @@ const Field = (props: InputFieldProps) => {
         onChange={event => onChange(props.field, event)}
         valid={valid}
         invalid={invalid}
+        data-testid={`personalia-${props.field}`}
       />
       {invalid && (
         <FormFeedback

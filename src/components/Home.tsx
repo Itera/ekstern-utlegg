@@ -36,9 +36,9 @@ const Home = () => {
           </li>
         </ul>
 
-        <Link to="/start">
-          <Button color="primary">Start</Button>
-        </Link>
+        <Button color="primary" tag={Link} to="/start">
+          Start
+        </Button>
       </Jumbotron>
     </Container>
   );
