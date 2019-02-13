@@ -20,46 +20,55 @@ describe('reducers', () => {
           name: {
             value: '',
             valid: false,
-            validReason: ''
+            validReason: '',
+            dirty: false
           },
           address: {
             value: '',
             valid: false,
-            validReason: ''
+            validReason: '',
+            dirty: false
           },
           postcode: {
             value: '',
             valid: false,
-            validReason: ''
+            validReason: '',
+            dirty: false
           },
           town: {
             value: '',
             valid: false,
-            validReason: ''
+            validReason: '',
+            dirty: false
           },
           telephone: {
             value: '',
             valid: false,
-            validReason: ''
+            validReason: '',
+            dirty: false
           },
           email: {
             value: '',
             valid: false,
-            validReason: ''
+            validReason: '',
+            dirty: false
           },
           event: {
             value: '',
             valid: false,
-            validReason: ''
+            validReason: '',
+            dirty: false
           },
           dept: {
             value: '110 410',
-            valid: true
+            valid: true,
+            dirty: false
           },
           account: {
             value: '',
             valid: false,
-            validReason: ''
+            validReason: '',
+            dirty: false
           }
         });
       });
@@ -83,46 +92,55 @@ describe('reducers', () => {
           name: {
             value: '',
             valid: false,
-            validReason: ''
+            validReason: '',
+            dirty: false
           },
           address: {
             value: '',
             valid: false,
-            validReason: ''
+            validReason: '',
+            dirty: false
           },
           postcode: {
             value: '',
             valid: false,
-            validReason: ''
+            validReason: '',
+            dirty: false
           },
           town: {
             value: '',
             valid: false,
-            validReason: ''
+            validReason: '',
+            dirty: false
           },
           telephone: {
             value: '',
             valid: false,
-            validReason: ''
+            validReason: '',
+            dirty: false
           },
           email: {
             value: '',
             valid: false,
-            validReason: ''
+            validReason: '',
+            dirty: false
           },
           dept: {
             value: '110 410',
-            valid: true
+            valid: true,
+            dirty: false
           },
           event: {
             value: '',
             valid: false,
-            validReason: ''
+            validReason: '',
+            dirty: false
           },
           account: {
             value: '',
             valid: false,
-            validReason: ''
+            validReason: '',
+            dirty: false
           }
         });
       });
@@ -137,41 +155,59 @@ describe('reducers', () => {
         const state = store.getState().personalia;
 
         expect(state).toEqual({
-          account: { valid: false, validReason: ['is invalid'], value: '' },
+          account: {
+            valid: false,
+            validReason: ['må være 11 siffer'],
+            value: '',
+            dirty: false
+          },
           address: {
             valid: false,
-            validReason: ['is too short (minimum is 3 characters)'],
-            value: ''
+            validReason: ['må være minst 3 tegn'],
+            value: '',
+            dirty: false
           },
-          dept: { valid: true, validReason: undefined, value: '110 410' },
+          dept: {
+            valid: true,
+            validReason: undefined,
+            value: '110 410',
+            dirty: false
+          },
           email: {
             valid: false,
-            validReason: ['is not a valid email'],
-            value: ''
+            validReason: ['må være en epost adresse'],
+            value: '',
+            dirty: false
           },
           event: {
             valid: false,
-            validReason: ['is too short (minimum is 3 characters)'],
-            value: ''
+            validReason: ['må være minst 3 tegn'],
+            value: '',
+            dirty: false
           },
           name: {
             valid: false,
-            validReason: ['is too short (minimum is 3 characters)'],
-            value: ''
+            validReason: ['må være minst 3 tegn'],
+            value: '',
+            dirty: false
           },
           postcode: {
             valid: false,
-            validReason: [
-              'is the wrong length (should be 4 characters)',
-              'is invalid'
-            ],
-            value: ''
+            validReason: ['må være 4 siffer'],
+            value: '',
+            dirty: false
           },
-          telephone: { valid: false, validReason: ['is invalid'], value: '' },
+          telephone: {
+            valid: false,
+            validReason: ['må være en norsk telefonnummer'],
+            value: '',
+            dirty: false
+          },
           town: {
             valid: false,
-            validReason: ['is too short (minimum is 2 characters)'],
-            value: ''
+            validReason: ['må være minst 2 tegn'],
+            value: '',
+            dirty: false
           }
         });
       });
@@ -182,31 +218,40 @@ describe('reducers', () => {
         store.dispatch(
           updatePersonalia({
             name: {
-              value: 'x'
+              value: 'x',
+              dirty: true
             },
             address: {
-              value: 'x'
+              value: 'x',
+              dirty: true
             },
             postcode: {
-              value: 'x'
+              value: 'x',
+              dirty: true
             },
             telephone: {
-              value: 'x'
+              value: 'x',
+              dirty: true
             },
             town: {
-              value: 'x'
+              value: 'x',
+              dirty: true
             },
             event: {
-              value: 'x'
+              value: 'x',
+              dirty: true
             },
             account: {
-              value: 'x'
+              value: 'x',
+              dirty: true
             },
             email: {
-              value: 'x'
+              value: 'x',
+              dirty: true
             },
             dept: {
-              value: '123'
+              value: '123',
+              dirty: true
             }
           })
         );
@@ -214,56 +259,62 @@ describe('reducers', () => {
         const state = store.getState().personalia;
 
         expect(state).toEqual({
-          name: {
-            value: 'x',
+          account: {
             valid: false,
-            validReason: ['is too short (minimum is 3 characters)']
+            validReason: ['må være 11 siffer'],
+            value: 'x',
+            dirty: true
           },
           address: {
-            value: 'x',
             valid: false,
-            validReason: ['is too short (minimum is 3 characters)']
-          },
-          postcode: {
+            validReason: ['må være minst 3 tegn'],
             value: 'x',
-            valid: false,
-            validReason: [
-              'is the wrong length (should be 4 characters)',
-              'is invalid'
-            ]
-          },
-          town: {
-            value: 'x',
-            valid: false,
-            validReason: ['is too short (minimum is 2 characters)']
-          },
-          telephone: {
-            value: 'x',
-            valid: false,
-            validReason: ['is invalid']
-          },
-          email: {
-            value: 'x',
-            valid: false,
-            validReason: ['is not a valid email']
+            dirty: true
           },
           dept: {
-            value: '123',
             valid: false,
             validReason: [
               'is the wrong length (should be 7 characters)',
               'is invalid'
-            ]
+            ],
+            value: '123',
+            dirty: true
+          },
+          email: {
+            valid: false,
+            validReason: ['må være en epost adresse'],
+            value: 'x',
+            dirty: true
           },
           event: {
-            value: 'x',
             valid: false,
-            validReason: ['is too short (minimum is 3 characters)']
+            validReason: ['må være minst 3 tegn'],
+            value: 'x',
+            dirty: true
           },
-          account: {
-            value: 'x',
+          name: {
             valid: false,
-            validReason: ['is invalid']
+            validReason: ['må være minst 3 tegn'],
+            value: 'x',
+            dirty: true
+          },
+          postcode: {
+            valid: false,
+            validReason: ['må være 4 siffer'],
+            value: 'x',
+            dirty: true
+          },
+          telephone: {
+            valid: false,
+            validReason: ['må være en norsk telefonnummer'],
+            value: 'x',
+            dirty: true
+          },
+          town: {
+            valid: false,
+            validReason: ['må være minst 2 tegn'],
+            value: 'x',
+            dirty: true
           }
         });
       });
@@ -274,31 +325,40 @@ describe('reducers', () => {
         store.dispatch(
           updatePersonalia({
             name: {
-              value: 'Alice'
+              value: 'Alice',
+              dirty: true
             },
             address: {
-              value: 'Sognsveien 77b'
+              value: 'Sognsveien 77b',
+              dirty: true
             },
             postcode: {
-              value: '0805'
+              value: '0805',
+              dirty: true
             },
             telephone: {
-              value: '23007650'
+              value: '23007650',
+              dirty: true
             },
             town: {
-              value: 'Oslo'
+              value: 'Oslo',
+              dirty: true
             },
             event: {
-              value: 'Test'
+              value: 'Test',
+              dirty: true
             },
             account: {
-              value: '12345678901'
+              value: '12345678901',
+              dirty: true
             },
             email: {
-              value: 'contact@itera.no'
+              value: 'contact@itera.no',
+              dirty: true
             },
             dept: {
-              value: '123 456'
+              value: '123 456',
+              dirty: true
             }
           })
         );
@@ -309,47 +369,56 @@ describe('reducers', () => {
           name: {
             value: 'Alice',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           },
           address: {
             value: 'Sognsveien 77b',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           },
           postcode: {
             value: '0805',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           },
           telephone: {
             value: '+47 23 00 76 50',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           },
           town: {
             value: 'Oslo',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           },
           event: {
             value: 'Test',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           },
           account: {
             value: '1234.56.78901',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           },
           dept: {
             value: '123 456',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           },
           email: {
             value: 'contact@itera.no',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           }
         });
       });
@@ -360,28 +429,36 @@ describe('reducers', () => {
         store.dispatch(
           updatePersonalia({
             name: {
-              value: 'Alice'
+              value: 'Alice',
+              dirty: true
             },
             address: {
-              value: 'Sognsveien 77b'
+              value: 'Sognsveien 77b',
+              dirty: true
             },
             postcode: {
-              value: '0805'
+              value: '0805',
+              dirty: true
             },
             telephone: {
-              value: '23007650'
+              value: '23007650',
+              dirty: true
             },
             town: {
-              value: 'Oslo'
+              value: 'Oslo',
+              dirty: true
             },
             event: {
-              value: 'Test'
+              value: 'Test',
+              dirty: true
             },
             account: {
-              value: '12345678901'
+              value: '12345678901',
+              dirty: true
             },
             email: {
-              value: 'contact@itera.no'
+              value: 'contact@itera.no',
+              dirty: true
             }
           })
         );
@@ -392,47 +469,56 @@ describe('reducers', () => {
           name: {
             value: 'Alice',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           },
           address: {
             value: 'Sognsveien 77b',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           },
           postcode: {
             value: '0805',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           },
           telephone: {
             value: '+47 23 00 76 50',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           },
           town: {
             value: 'Oslo',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           },
           event: {
             value: 'Test',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           },
           account: {
             value: '1234.56.78901',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           },
           dept: {
             value: '110 410',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           },
           email: {
             value: 'contact@itera.no',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           }
         });
       });
@@ -489,7 +575,8 @@ describe('reducers', () => {
               description: '',
               cost: 0,
               supplier: '',
-              valid: false
+              valid: false,
+              dirty: false
             }
           ],
           total: 0
@@ -519,7 +606,8 @@ describe('reducers', () => {
               description: '',
               cost: 0,
               supplier: '',
-              valid: false
+              valid: false,
+              dirty: false
             }
           ],
           total: 120
@@ -632,11 +720,9 @@ describe('reducers', () => {
               supplier: 'x',
               valid: false,
               validReason: {
-                date: [`Date must be no earlier than ${earliest}`],
-                description: [
-                  'Description is too short (minimum is 2 characters)'
-                ],
-                supplier: ['Supplier is too short (minimum is 2 characters)']
+                date: ['må være en gyldig dato som ikke er i fremtid'],
+                description: ['må være minst 2 tegn'],
+                supplier: ['må være minst 2 tegn']
               }
             }
           ],
@@ -654,7 +740,8 @@ describe('reducers', () => {
             description: 'desc',
             cost: 10,
             supplier: 'supplier',
-            valid: true
+            valid: true,
+            dirty: false
           },
           {
             id: 2,
@@ -662,7 +749,8 @@ describe('reducers', () => {
             description: 'desc2',
             cost: 20,
             supplier: 'supplier2',
-            valid: true
+            valid: true,
+            dirty: false
           }
         ],
         total: 30
@@ -680,7 +768,8 @@ describe('reducers', () => {
           date: lastMonth,
           description: 'Updated desc',
           cost: 40,
-          supplier: 'Updated supplier'
+          supplier: 'Updated supplier',
+          dirty: true
         })
       );
 
@@ -694,7 +783,8 @@ describe('reducers', () => {
             description: 'desc',
             cost: 10,
             supplier: 'supplier',
-            valid: true
+            valid: true,
+            dirty: false
           },
           {
             id: 2,
@@ -703,7 +793,8 @@ describe('reducers', () => {
             cost: 40,
             supplier: 'Updated supplier',
             valid: true,
-            validReason: undefined
+            validReason: undefined,
+            dirty: false
           }
         ],
         total: 50
