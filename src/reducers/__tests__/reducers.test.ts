@@ -616,19 +616,6 @@ describe('reducers', () => {
     });
 
     describe('updateRow', () => {
-      it('returns empty row set if no state present', () => {
-        const store = createStore(reducers);
-
-        store.dispatch(updateRow());
-
-        const state = store.getState().rows;
-
-        expect(state).toEqual({
-          rows: [],
-          total: 0
-        });
-      });
-
       it('returns state untouched if row is not present', () => {
         const initialState = {
           rows: [
