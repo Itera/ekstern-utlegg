@@ -15,10 +15,33 @@ const initialState = () => {
   };
 };
 
+const getCost = (row: RowFieldProps): number => {
+  if (row.cost) {
+    if (typeof row.cost === 'string') {
+      return +row.cost;
+    } else if (typeof row.cost === 'number') {
+      return row.cost;
+    }
+  }
+  return 0;
+};
+
+const calculateSum = (rows: RowFieldProps[]) => {
+  let sum: number = 0;
+
+  for (const idx in rows) {
+    const row = rows[idx];
+
+    if (row.valid) {
+      sum += getCost(row);
+    }
+  }
+
+  return sum;
+};
+
 const updateState = (state: RowsFormProps, action: UpdateRowAction) => {
   const newState = { ...state };
-
-  let sum: number = 0;
 
   for (const idx in newState.rows) {
     let row = newState.rows[idx];
@@ -79,23 +102,14 @@ const updateState = (state: RowsFormProps, action: UpdateRowAction) => {
     }
 
     if (row.valid) {
-      let cost: number = 0;
+      const cost = getCost(row);
 
-      if (row.cost) {
-        if (typeof row.cost === 'string') {
-          cost = +row.cost;
-        } else if (typeof row.cost === 'number') {
-          cost = row.cost;
-        }
-      }
-
+      // Force to number
       row.cost = cost;
-
-      sum += cost;
     }
   }
 
-  newState.total = sum as number;
+  newState.total = calculateSum(newState.rows);
 
   return newState;
 };
@@ -129,19 +143,10 @@ const deleteRow = (state: RowsFormProps, action: DeleteRowAction) => {
 
     if (row.id !== action.id) {
       if (row.valid) {
-        let cost: number = 0;
+        const cost = getCost(row);
 
-        if (row.cost) {
-          if (typeof row.cost === 'string') {
-            cost = +row.cost;
-          } else if (typeof row.cost === 'number') {
-            cost = row.cost;
-          }
-        }
-
+        // Force cost to number
         row.cost = cost;
-
-        sum += cost;
       }
 
       keepRows.push(row);
@@ -150,7 +155,7 @@ const deleteRow = (state: RowsFormProps, action: DeleteRowAction) => {
 
   return {
     rows: keepRows,
-    total: sum
+    total: calculateSum(keepRows)
   };
 };
 
