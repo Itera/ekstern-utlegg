@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, cleanup } from 'react-testing-library';
 
-import Valid from '../Valid';
+import { Valid } from '../Icons';
 
 afterEach(cleanup);
 

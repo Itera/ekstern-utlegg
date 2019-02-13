@@ -58,8 +58,14 @@ export interface UpdateRowAction extends Action {
   row: RowFieldProps;
 }
 
+export interface DeleteRowAction extends Action {
+  id: number;
+}
+
 export type UpdateRow = (personalia: RowFieldProps) => UpdateRowAction;
 
 export type AddRow = () => Action;
 
 export type ClearRows = () => Action;
+
+export type DeleteRow = (id: number) => DeleteRowAction;

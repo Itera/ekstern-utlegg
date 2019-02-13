@@ -4,7 +4,7 @@ import moment from 'moment';
 import reducers from '../index';
 
 import { clearPersonalia, updatePersonalia } from '../../actions/personalia';
-import { addRow, clearRows, updateRow } from '../../actions/rows';
+import { addRow, clearRows, updateRow, deleteRow } from '../../actions/rows';
 
 describe('reducers', () => {
   describe('personalia', () => {
@@ -785,6 +785,145 @@ describe('reducers', () => {
           }
         ],
         total: 50
+      });
+    });
+
+    it('handles deletion where row is found', () => {
+      const initialState = {
+        rows: [
+          {
+            id: 1,
+            date: 'date',
+            description: 'desc',
+            cost: 10,
+            supplier: 'supplier',
+            valid: true,
+            dirty: false
+          },
+          {
+            id: 2,
+            date: 'date2',
+            description: 'desc2',
+            cost: 20,
+            supplier: 'supplier2',
+            valid: true,
+            dirty: false
+          },
+          {
+            id: 3,
+            date: 'date3',
+            description: 'desc3',
+            cost: 30,
+            supplier: 'supplier3',
+            valid: true,
+            dirty: false
+          }
+        ],
+        total: 60
+      };
+
+      const store = createStore(reducers, { rows: initialState });
+
+      store.dispatch(deleteRow(2));
+
+      const state = store.getState().rows;
+
+      expect(state).toEqual({
+        rows: [
+          {
+            id: 1,
+            date: 'date',
+            description: 'desc',
+            cost: 10,
+            supplier: 'supplier',
+            valid: true,
+            dirty: false
+          },
+          {
+            id: 3,
+            date: 'date3',
+            description: 'desc3',
+            cost: 30,
+            supplier: 'supplier3',
+            valid: true,
+            dirty: false
+          }
+        ],
+        total: 40
+      });
+    });
+
+    it('handles deletion where no row is found', () => {
+      const initialState = {
+        rows: [
+          {
+            id: 1,
+            date: 'date',
+            description: 'desc',
+            cost: 10,
+            supplier: 'supplier',
+            valid: true,
+            dirty: false
+          },
+          {
+            id: 2,
+            date: 'date2',
+            description: 'desc2',
+            cost: 20,
+            supplier: 'supplier2',
+            valid: true,
+            dirty: false
+          },
+          {
+            id: 3,
+            date: 'date3',
+            description: 'desc3',
+            cost: 30,
+            supplier: 'supplier3',
+            valid: true,
+            dirty: false
+          }
+        ],
+        total: 60
+      };
+
+      const store = createStore(reducers, { rows: initialState });
+
+      store.dispatch(deleteRow(7));
+
+      const state = store.getState().rows;
+
+      expect(state).toEqual({
+        rows: [
+          {
+            id: 1,
+            date: 'date',
+            description: 'desc',
+            cost: 10,
+            supplier: 'supplier',
+            valid: true,
+            dirty: false
+          },
+          {
+            id: 2,
+            date: 'date2',
+            description: 'desc2',
+            cost: 20,
+            supplier: 'supplier2',
+            valid: true,
+            dirty: false
+          },
+          {
+            id: 3,
+            date: 'date3',
+            description: 'desc3',
+            cost: 30,
+            supplier: 'supplier3',
+            valid: true,
+            dirty: false
+          }
+        ],
+        total: 60
       });
     });
   });

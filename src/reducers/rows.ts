@@ -1,6 +1,12 @@
 import validate from 'validate.js';
 import moment from 'moment';
-import { Action, RowsFormProps, UpdateRowAction } from '../types';
+import {
+  Action,
+  RowsFormProps,
+  UpdateRowAction,
+  DeleteRowAction,
+  RowFieldProps
+} from '../types';
 
 const initialState = () => {
   return {
@@ -114,6 +120,40 @@ const clearState = () => {
   return initialState();
 };
 
+const deleteRow = (state: RowsFormProps, action: DeleteRowAction) => {
+  const keepRows: RowFieldProps[] = [];
+  let sum: number = 0;
+
+  for (const idx in state.rows) {
+    const row = state.rows[idx];
+
+    if (row.id !== action.id) {
+      if (row.valid) {
+        let cost: number = 0;
+
+        if (row.cost) {
+          if (typeof row.cost === 'string') {
+            cost = +row.cost;
+          } else if (typeof row.cost === 'number') {
+            cost = row.cost;
+          }
+        }
+
+        row.cost = cost;
+
+        sum += cost;
+      }
+
+      keepRows.push(row);
+    }
+  }
+
+  return {
+    rows: keepRows,
+    total: sum
+  };
+};
+
 const updateRows = (state: RowsFormProps = initialState(), action: Action) => {
   switch (action.type) {
     case 'UPDATE_ROW':
@@ -122,6 +162,8 @@ const updateRows = (state: RowsFormProps = initialState(), action: Action) => {
       return addRow(state);
     case 'CLEAR_ROWS':
       return clearState();
+    case 'DELETE_ROW':
+      return deleteRow(state, action as DeleteRowAction);
     default:
       return state;
   }

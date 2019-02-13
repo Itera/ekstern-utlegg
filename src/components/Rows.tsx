@@ -22,12 +22,13 @@ import {
   RowFieldProps,
   RowsFormProps,
   UpdateRow,
-  RowValidationReason
+  RowValidationReason,
+  DeleteRow
 } from '../types';
 
-import Valid from './Valid';
+import { Valid, Trash } from './Icons';
 
-import { addRow, clearRows, updateRow } from '../actions/rows';
+import { addRow, clearRows, updateRow, deleteRow } from '../actions/rows';
 
 import { formatCost } from '../formatters';
 
@@ -38,6 +39,7 @@ interface DetailsProps {
   onAdd: AddRow;
   onClear: ClearRows;
   onUpdate: UpdateRow;
+  onDelete: DeleteRow;
 }
 
 interface RowsProps {
@@ -45,11 +47,13 @@ interface RowsProps {
   onAdd: AddRow;
   onClear: ClearRows;
   onUpdate: UpdateRow;
+  onDelete: DeleteRow;
 }
 
 interface EntryProps {
   row: RowFieldProps;
   onUpdate: UpdateRow;
+  onDelete: DeleteRow;
 }
 
 interface EntryFieldProps {
@@ -163,6 +167,10 @@ const Entry = (props: EntryProps) => {
       />
 
       <Valid valid={row.valid} />
+
+      <div onClick={() => props.onDelete(row.id)}>
+        <Trash />
+      </div>
     </FormGroup>
   );
 };
@@ -172,7 +180,12 @@ const Details = (props: DetailsProps) => {
   return (
     <Form>
       {props.rows.rows.map(row => (
-        <Entry key={`row_${row.id}`} row={row} onUpdate={props.onUpdate} />
+        <Entry
+          key={`row_${row.id}`}
+          row={row}
+          onUpdate={props.onUpdate}
+          onDelete={props.onDelete}
+        />
       ))}
 
       <Row>
@@ -233,7 +246,8 @@ const mapStateToProps = (state: any) => ({
 const mapDispatchToProps = {
   onAdd: addRow,
   onClear: clearRows,
-  onUpdate: updateRow
+  onUpdate: updateRow,
+  onDelete: deleteRow
 };
 
 export default connect(

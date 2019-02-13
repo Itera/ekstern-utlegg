@@ -23,10 +23,7 @@ import {
 
 import { clearPersonalia, updatePersonalia } from '../actions/personalia';
 
-import Valid from './Valid';
-
 import '../styles/form-buttons.css';
-import { type } from 'os';
 
 interface PersonaliaProps {
   personalia: PersonaliaFormProps;
