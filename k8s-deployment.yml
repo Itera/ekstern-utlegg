@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ekstern-utlegg
+  namespace: ekstern-utlegg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      application: utlegg
+  template:
+    metadata:
+      labels:
+        application: utlegg
+    spec:
+      containers:
+        - name: utlegg
+          image: docker.mad.itera.no/itera/ekstern_utlegg:latest
+      imagePullSecrets:
+        - name: regcred
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ekstern-utlegg
+  namespace: ekstern-utlegg
+  labels:
+    application: utlegg
+spec:
+  selector:
+    application: utlegg
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 5000
