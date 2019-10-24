@@ -1,71 +1,62 @@
-export interface FieldProps {
-  value: string;
-  validReason?: string | string[];
-  valid?: boolean;
-  dirty?: boolean;
-}
+import { Dispatch } from "react";
 
-export interface PersonaliaFormProps {
-  name?: FieldProps;
-  address?: FieldProps;
-  postcode?: FieldProps;
-  town?: FieldProps;
-  telephone?: FieldProps;
-  email?: FieldProps;
-  event?: FieldProps;
-  account?: FieldProps;
-  dept?: FieldProps;
-}
+export type ActionType =
+  | { type: "clear_person" }
+  | { type: "update_person"; person: Person }
+  | { type: "clear_rows" }
+  | { type: "add_row" }
+  | { type: "update_row"; row: Row };
 
-export type RowValidationReason = {
-  date: string[];
-  description: string[];
-  supplier: string[];
-  cost: string[];
+export type DeptType = "110 410" | "110 420" | "110 460";
+
+export type Dept = {
+  value: DeptType;
+  name: string;
 };
 
-export interface RowFieldProps {
+export const depts: Dept[] = [
+  {
+    value: "110 410",
+    name: "Teknologi"
+  },
+  {
+    value: "110 420",
+    name: "Prosjekt- og Testledelse"
+  },
+  {
+    value: "110 460",
+    name: "DBX"
+  }
+];
+
+export type Person = {
+  name: string;
+  address: string;
+  postcode: string;
+  town: string;
+  tel: string;
+  email: string;
+  event: string;
+  dept: DeptType;
+  account: string;
+};
+
+export type Row = {
   id: number;
-  date?: string;
-  description?: string;
-  cost?: number | string;
-  supplier?: string;
+  date: Date;
+  company: string;
+  description: string;
+  amount: number;
   valid?: boolean;
-  validReason?: RowValidationReason;
-  dirty?: boolean;
-}
+};
 
-export interface RowsFormProps {
-  rows: RowFieldProps[];
-  total: number;
-}
+export type StateType = {
+  person: Person;
+  rows: Row[];
+  total?: number;
+};
 
-export interface Action {
-  type: string;
-}
-
-export interface UpdatePersonaliaAction extends Action {
-  personalia: PersonaliaFormProps;
-}
-
-export type UpdatePersonalia = (
-  personalia: PersonaliaFormProps
-) => UpdatePersonaliaAction;
-
-export type ClearPersonalia = () => Action;
-
-export interface UpdateRowAction extends Action {
-  row: RowFieldProps;
-}
-
-export interface DeleteRowAction extends Action {
-  id: number;
-}
-
-export type UpdateRow = (personalia: RowFieldProps) => UpdateRowAction;
-
-export type AddRow = () => Action;
-
-export type ClearRows = () => Action;
-
-export type DeleteRow = (id: number) => DeleteRowAction;
+export type Page = {
+  state: StateType;
+  dispatch: Dispatch<ActionType>;
+};

@@ -1,7 +1,7 @@
 export const tlfregex = /^(\+[0-9]{2} ?)?(([0-9]{3}[ -]?[0-9]{2}[ -]?[0-9]{3})|([0-9]{2}[ -]?[0-9]{2}[ -]?[0-9]{2}[ -]?[0-9]{2}))$/;
 export const accountregex = /^([0-9]{4})[. ]?([0-9]{2})[. ]?([0-9]{5})$/;
 
-export const formatAccount = (account: string) => {
+export const formatAccount = (account?: string) => {
   if (!account) {
     return account;
   }
@@ -15,13 +15,13 @@ export const formatAccount = (account: string) => {
   }
 };
 
-export const formatTlf = (tlf: string) => {
+export const formatTlf = (tlf?: string) => {
   const format = (number: string) => {
     const prefix = number.substring(0, 1);
 
     let re;
 
-    if (prefix === '4' || prefix === '8' || prefix === '9') {
+    if (prefix === "4" || prefix === "8" || prefix === "9") {
       re = /([0-9]{3})([0-9]{2})([0-9]{3})/;
     } else {
       re = /([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/;
@@ -29,7 +29,7 @@ export const formatTlf = (tlf: string) => {
 
     const numberParts = re.exec(number);
 
-    return numberParts!.slice(1).join(' ');
+    return numberParts!.slice(1).join(" ");
   };
 
   if (!tlf) {
@@ -43,28 +43,14 @@ export const formatTlf = (tlf: string) => {
     let number = parts![2];
 
     if (!land) {
-      land = '+47';
+      land = "+47";
     }
 
-    land = land.replace(/ /g, '');
-    number = number.replace(/ /g, '');
+    land = land.replace(/ /g, "");
+    number = number.replace(/ /g, "");
 
     return `${land} ${format(number)}`;
   } else {
     return tlf;
   }
-};
-
-export const formatCost = (cost?: number | string) => {
-  let costValue: number = 0;
-
-  if (cost) {
-    if (typeof cost === 'string') {
-      costValue = +cost;
-    } else if (typeof cost === 'number') {
-      costValue = cost;
-    }
-  }
-
-  return costValue.toFixed(2);
 };
