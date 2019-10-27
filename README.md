@@ -1,3 +1,8 @@
+[![CircleCI](https://circleci.com/gh/Itera/ekstern-utlegg/tree/master.svg?style=svg)](https://circleci.com/gh/Itera/ekstern-utlegg/tree/master)
+[![codecov](https://codecov.io/gh/Itera/ekstern-utlegg/branch/master/graph/badge.svg)](https://codecov.io/gh/Itera/ekstern-utlegg)
+
+
+
 # Itera External Expenses
 
 A very simple react/redux app that allows external/students to provide a standard cover page for expenses.
