@@ -13,8 +13,9 @@ import Intro from "./intro";
 import Personal from "./personal";
 import Rows from "./rows";
 import Report from "./report";
+import Print from "./report/print";
 
-import { Page } from "./types";
+import { Page, ViewPage } from "./types";
 import { getInitialState, reducer } from "./reducer";
 
 const theme = createMuiTheme({
@@ -45,6 +46,10 @@ const Done: React.FC<RouteComponentProps & Page> = ({ state, dispatch }) => {
   return <Report state={state} dispatch={dispatch} />;
 };
 
+const PrintReport: React.FC<RouteComponentProps & ViewPage> = ({ state }) => {
+  return <Print state={state} />;
+};
+
 const App: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, getInitialState());
 
@@ -59,6 +64,7 @@ const App: React.FC = () => {
             <Info path="/who" state={state} dispatch={dispatch} />
             <Payments path="/rows" state={state} dispatch={dispatch} />
             <Done path="/done" state={state} dispatch={dispatch} />
+            <PrintReport path="/print" state={state} />
           </Router>
         </Container>
       </ThemeProvider>

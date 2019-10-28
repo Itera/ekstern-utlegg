@@ -60,3 +60,7 @@ export type Page = {
   state: StateType;
   dispatch: Dispatch<ActionType>;
 };
+
+export type ViewPage = {
+  state: StateType;
+};
