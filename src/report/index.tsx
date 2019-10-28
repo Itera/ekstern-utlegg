@@ -53,7 +53,9 @@ const Report: React.FC<Page> = ({ state, dispatch }) => {
   });
 
   useEffect(() => {
-    document.title = `${moment().format("YYYY-MM-DD")} - NAME - extern utlegg`;
+    document.title = `${moment().format("YYYY-MM-DD")} - ${
+      state.person.name
+    } - extern utlegg`;
   });
 
   const classes = useStyles();
