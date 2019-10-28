@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 
 import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
 import Grid from "@material-ui/core/Grid";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
@@ -88,101 +84,95 @@ const Rows: React.FC<Page> = ({ state, dispatch }) => {
 
   return (
     <React.Fragment>
-      <Card>
-        <CardHeader title="Utlegg" />
-        <CardContent>
-          <Typography paragraph>
-            Legg til rader - en per utlegg. Tomme/uferdige/ugyldige rader blir
-            ikke med videre
-          </Typography>
-        </CardContent>
-      </Card>
+      <Typography paragraph variant="h3">
+        Utlegg
+      </Typography>
+
+      <Typography paragraph>
+        Legg til rader - en per utlegg. Tomme/uferdige/ugyldige rader blir ikke
+        med videre
+      </Typography>
 
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <Card>
-          <CardContent>
-            <Grid container>
-              {state.rows.map(row => (
-                <Grid item container key={`row_${row.id} spacing={2}`}>
-                  <Grid item xs={2} style={{ paddingRight: 8 }}>
-                    <DatePicker
-                      disableToolbar
-                      variant="inline"
-                      format="dd/MM/yyyy"
-                      margin="normal"
-                      disableFuture
-                      autoOk
-                      id={`date-picker-${row.id}`}
-                      onChange={(date: MaterialUiPickersDate) =>
-                        updateDate(row.id, date)
-                      }
-                      value={row.date}
-                    />
-                  </Grid>
-                  <Grid item xs={2} style={{ paddingRight: 8 }}>
-                    <TextField
-                      id={`company_${row.id}`}
-                      name={`company_${row.id}`}
-                      label="Leverandør"
-                      value={row.company}
-                      fullWidth
-                      onChange={event =>
-                        updateCompany(row.id, event.target.value)
-                      }
-                    />
-                  </Grid>
-                  <Grid item xs={4} style={{ paddingRight: 8 }}>
-                    <TextField
-                      id={`description_${row.id}`}
-                      name={`description_${row.id}`}
-                      label="Beskrivelse"
-                      value={row.description}
-                      fullWidth
-                      onChange={event =>
-                        updateDescription(row.id, event.target.value)
-                      }
-                    />
-                  </Grid>
-                  <Grid item xs={2}>
-                    <TextField
-                      id={`amount_${row.id}`}
-                      name={`amount_${row.id}`}
-                      value={row.amount}
-                      type="number"
-                      margin="normal"
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">NOK</InputAdornment>
-                        )
-                      }}
-                      fullWidth
-                      onChange={event =>
-                        updateAmount(row.id, event.target.value)
-                      }
-                    />
-                  </Grid>
-                </Grid>
-              ))}
+        <Grid container>
+          {state.rows.map(row => (
+            <Grid item container key={`row_${row.id} spacing={2}`}>
+              <Grid item xs={2} style={{ paddingRight: 8 }}>
+                <DatePicker
+                  disableToolbar
+                  variant="inline"
+                  format="dd/MM/yyyy"
+                  margin="normal"
+                  disableFuture
+                  autoOk
+                  id={`date-picker-${row.id}`}
+                  onChange={(date: MaterialUiPickersDate) =>
+                    updateDate(row.id, date)
+                  }
+                  value={row.date}
+                />
+              </Grid>
+              <Grid item xs={2} style={{ paddingRight: 8 }}>
+                <TextField
+                  id={`company_${row.id}`}
+                  name={`company_${row.id}`}
+                  label="Leverandør"
+                  value={row.company}
+                  fullWidth
+                  onChange={event => updateCompany(row.id, event.target.value)}
+                />
+              </Grid>
+              <Grid item xs={4} style={{ paddingRight: 8 }}>
+                <TextField
+                  id={`description_${row.id}`}
+                  name={`description_${row.id}`}
+                  label="Beskrivelse"
+                  value={row.description}
+                  fullWidth
+                  onChange={event =>
+                    updateDescription(row.id, event.target.value)
+                  }
+                />
+              </Grid>
+              <Grid item xs={2}>
+                <TextField
+                  id={`amount_${row.id}`}
+                  name={`amount_${row.id}`}
+                  value={row.amount}
+                  type="number"
+                  margin="normal"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">NOK</InputAdornment>
+                    )
+                  }}
+                  fullWidth
+                  onChange={event => updateAmount(row.id, event.target.value)}
+                />
+              </Grid>
             </Grid>
-          </CardContent>
-        </Card>
+          ))}
+          <Grid item container spacing={2}>
+            <Grid item xs={2}>
+              <Link className={classes.link} to="/done">
+                <Button color="secondary" variant="contained">
+                  Fortsett
+                </Button>
+              </Link>
+            </Grid>
+            <Grid item xs={2}>
+              <Button variant="contained" onClick={addRow}>
+                Ny rad
+              </Button>
+            </Grid>
+            <Grid item xs={2}>
+              <Button variant="contained" onClick={clearRows}>
+                Fjern alle
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
       </MuiPickersUtilsProvider>
-
-      <Card>
-        <CardActions>
-          <Link className={classes.link} to="/done">
-            <Button color="secondary" variant="contained">
-              Fortsett
-            </Button>
-          </Link>
-          <Button variant="contained" onClick={addRow}>
-            Ny rad
-          </Button>
-          <Button variant="contained" onClick={clearRows}>
-            Fjern alle
-          </Button>
-        </CardActions>
-      </Card>
     </React.Fragment>
   );
 };

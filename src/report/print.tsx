@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
 
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+
 import moment from "moment";
 
 import { ViewPage } from "../types";
@@ -16,9 +21,30 @@ const Report: React.FC<ViewPage> = ({ state }) => {
     } - extern utlegg`;
   });
 
+  const theme = useTheme();
+
+  const useStyles = makeStyles({
+    instructions: {
+      color: "white",
+      backgroundColor: theme.palette.secondary.light,
+      marginBottom: 20,
+      padding: 10
+    },
+    button: {
+      color: theme.palette.secondary.dark,
+      backgroundColor: "white"
+    }
+  });
+
+  const classes = useStyles();
+
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <React.Fragment>
-      <div className="noprint">
+      <Box className={`${classes.instructions} noprint`}>
         <h1>Utskrift</h1>
 
         <p>Dette må sendes til Itera som en PDF fil. For å lage PDF:</p>
@@ -33,14 +59,14 @@ const Report: React.FC<ViewPage> = ({ state }) => {
         </ul>
 
         <p>
-          Når man skriver ut denne siden så husk å krysse av i print dialog for
-          bakgrunnsfarger ellers vil ikke fargene på tabellen dukke opp.
-        </p>
-        <p>
           Husk at du må sende resultat som PDF til din kontakt hos Itera via
           e-post.
         </p>
-      </div>
+
+        <Button className={classes.button} onClick={handlePrint}>
+          Skriv ut
+        </Button>
+      </Box>
 
       <img className="logo" src={logo} alt="Itera logo" />
       <h1>Utlegg for eksterne</h1>
