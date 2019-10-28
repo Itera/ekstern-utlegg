@@ -29,12 +29,12 @@ jobs:
       - run:
           name: build
           command: yarn build
-#      - setup_remote_docker:
-#          docker_layer_caching: true
-#      - run: |
-#          TAG=$CIRCLE_SHA1
-#          docker login -u $DOCKER_USER -p $DOCKER_PASS docker.mad.itera.no
-#          docker build -t docker.mad.itera.no/itera/ekstern_utlegg:$TAG .
-#          docker push docker.mad.itera.no/itera/ekstern_utlegg:$TAG
-#          docker build -t docker.mad.itera.no/itera/ekstern_utlegg:latest .
-#          docker push docker.mad.itera.no/itera/ekstern_utlegg:latest
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run: |
+          TAG=$CIRCLE_SHA1
+          docker login -u $DOCKER_USER -p $DOCKER_PASS docker.mad.itera.no
+          docker build -t docker.mad.itera.no/itera/ekstern_utlegg:$TAG .
+          docker push docker.mad.itera.no/itera/ekstern_utlegg:$TAG
+          docker build -t docker.mad.itera.no/itera/ekstern_utlegg:latest .
+          docker push docker.mad.itera.no/itera/ekstern_utlegg:latest
