@@ -58,7 +58,7 @@ const Report: React.FC<Page> = ({ state, dispatch }) => {
   return (
     <React.Fragment>
       <Grid container spacing={3}>
-        <Grid item xs={8}>
+        <Grid data-testid="report-grid" item xs={8}>
           <Typography className={classes.title}>Utlegg for eksterne</Typography>
           <Typography className={classes.subtitle}>
             Refusjon av flere utlegg

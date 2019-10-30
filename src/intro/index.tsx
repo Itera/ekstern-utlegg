@@ -25,12 +25,12 @@ const Intro: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <Card>
+    <Card data-testid="intro-card">
       <CardHeader title="Utlegg for eksterne" />
       <CardContent>
         <Typography paragraph>Vennligst fyll ut følgende skjema</Typography>
 
-        <Typography paragraph color="secondary">
+        <Typography paragraph color="secondary" component="div">
           <Box fontWeight="fontWeightBold">
             Når du er ferdig så må du sende resultat som PDF til din kontakt hos
             Itera via e-post.

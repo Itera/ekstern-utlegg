@@ -94,7 +94,7 @@ const Rows: React.FC<Page> = ({ state, dispatch }) => {
       </Typography>
 
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <Grid container>
+        <Grid data-testid="rows-grid" container>
           {state.rows.map(row => (
             <Grid item container key={`row_${row.id} spacing={2}`}>
               <Grid item xs={2} style={{ paddingRight: 8 }}>

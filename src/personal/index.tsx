@@ -55,7 +55,7 @@ const Personal: React.FC<Page> = ({ state, dispatch }) => {
 
       <Typography paragraph>Alle felter nedenfor er påkrevd</Typography>
 
-      <form noValidate autoComplete="off">
+      <form data-testid="person-form" noValidate autoComplete="off">
         <div>
           <Field
             id="name"
