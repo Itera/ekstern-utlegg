@@ -6,7 +6,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/node:12.12-stretch
+      - image: circleci/node:12.12
 
     steps:
       - checkout
