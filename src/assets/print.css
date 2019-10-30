@@ -24,3 +24,11 @@ td {
   padding: 4px;
   border: solid 1px #dee2e6;
 }
+
+td.MuiTableCell-footer {
+  font-size: 1rem;
+}
+
+.right {
+  text-align: right;
+}

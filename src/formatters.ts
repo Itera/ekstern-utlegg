@@ -54,3 +54,14 @@ export const formatTlf = (tlf?: string) => {
     return tlf;
   }
 };
+
+export const formatAmount = (amount: number) => {
+  if (!amount) {
+    return "";
+  }
+
+  return new Intl.NumberFormat("nb-NO", {
+    style: "currency",
+    currency: "NOK"
+  }).format(amount);
+};

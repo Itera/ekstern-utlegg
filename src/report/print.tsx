@@ -8,7 +8,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import moment from "moment";
 
 import { ViewPage } from "../types";
-import { formatTlf, formatAccount } from "../formatters";
+import { formatTlf, formatAccount, formatAmount } from "../formatters";
 
 import logo from "../assets/itera_logo.png";
 
@@ -121,7 +121,9 @@ const Report: React.FC<ViewPage> = ({ state }) => {
                 <td>
                   {row.company} / {row.description}
                 </td>
-                <td>NOK {row.amount.toFixed(2)}</td>
+                <td className="right">
+                  {row.amount && formatAmount(row.amount)}
+                </td>
                 <td className="fixed">{state.person.dept}</td>
               </tr>
             ))}
@@ -134,8 +136,8 @@ const Report: React.FC<ViewPage> = ({ state }) => {
             <td className="fixed" colSpan={2}>
               Sum utlegg:
             </td>
-            <td className="fixed">
-              NOK {state.total && state.total.toFixed(2)}
+            <td className="fixed right">
+              {state.total && formatAmount(state.total)}
             </td>
             <td></td>
           </tr>

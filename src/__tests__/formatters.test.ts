@@ -1,4 +1,4 @@
-import { formatAccount, formatTlf } from "../formatters";
+import { formatAccount, formatTlf, formatAmount } from "../formatters";
 
 describe("formatters", () => {
   describe("formatAccount", () => {
@@ -134,6 +134,14 @@ describe("formatters", () => {
       expect(tlf5).toBe("+47 52 34 56 78");
       expect(tlf6).toBe("+47 62 34 56 78");
       expect(tlf7).toBe("+47 72 34 56 78");
+    });
+  });
+
+  describe("formatAmount", () => {
+    it("formats amount", () => {
+      const amount = formatAmount("1234");
+
+      expect(amount).toBe("kr 1 234,00");
     });
   });
 });

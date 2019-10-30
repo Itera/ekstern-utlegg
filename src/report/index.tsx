@@ -16,6 +16,8 @@ import moment from "moment";
 
 import { Page } from "../types";
 
+import { formatAmount } from "../formatters";
+
 import PersonTable from "./person";
 
 import logo from "../assets/itera_logo.png";
@@ -91,7 +93,9 @@ const Report: React.FC<Page> = ({ state, dispatch }) => {
                     <TableCell>
                       {row.company} / {row.description}
                     </TableCell>
-                    <TableCell>NOK {row.amount.toFixed(2)}</TableCell>
+                    <TableCell className={classes.right}>
+                      {row.amount && formatAmount(row.amount)}
+                    </TableCell>
                     <TableCell className={classes.fixed}>
                       {state.person.dept}
                     </TableCell>
@@ -103,9 +107,10 @@ const Report: React.FC<Page> = ({ state, dispatch }) => {
                 <TableCell className={classes.fixed} colSpan={2}>
                   Sum utlegg:
                 </TableCell>
-                <TableCell className={classes.fixed} colSpan={2}>
-                  NOK {state.total && state.total.toFixed(2)}
+                <TableCell className={`${classes.fixed} ${classes.right}`}>
+                  {state.total && formatAmount(state.total)}
                 </TableCell>
+                <TableCell className={classes.fixed} />
               </TableRow>
             </TableFooter>
           </Table>
