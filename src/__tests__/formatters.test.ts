@@ -141,13 +141,8 @@ describe("formatters", () => {
     it("formats amount", () => {
       const amount = formatAmount("1234");
 
-      // CircleCI's node image doesn't seem to have knowledge of the norwegian locale.
-      if (process.env.CIRCLECI) {
-        expect(amount).toBe("NOK 1,234.00");
-      } else {
-        // Non-breaking spaces
-        expect(amount).toBe("kr 1 234,00");
-      }
+      // Non-breaking spaces
+      expect(amount).toBe("kr 1 234,00");
     });
   });
 });
