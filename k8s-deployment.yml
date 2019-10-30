@@ -35,3 +35,19 @@ spec:
     - protocol: TCP
       port: 8080
       targetPort: 5000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ekstern-utlegg
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+    - host: ekstern-utlegg.e74c370edf4345d39982.westeurope.aksapp.io
+      http:
+        paths:
+          - backend:
+              serviceName: ekstern-utlegg
+              servicePort: 8080
+            path: /
