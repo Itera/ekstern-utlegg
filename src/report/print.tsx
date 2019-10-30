@@ -108,7 +108,7 @@ const Report: React.FC<ViewPage> = ({ state }) => {
           </tr>
           <tr>
             <td className="fixed">Dato</td>
-            <td className="fixed">Anskaffet - brukt til hva?</td>
+            <td className="fixed">Leverandør / Beskrivelse</td>
             <td className="fixed">Beløp inkl. mva</td>
             <td className="fixed">Avdeling</td>
           </tr>
@@ -119,7 +119,7 @@ const Report: React.FC<ViewPage> = ({ state }) => {
               <tr key={`report_row_${row.id}`}>
                 <td>{moment(row.date).format("DD/MM/YY")}</td>
                 <td>
-                  {row.company} - {row.description}
+                  {row.company} / {row.description}
                 </td>
                 <td>NOK {row.amount.toFixed(2)}</td>
                 <td className="fixed">{state.person.dept}</td>
@@ -127,6 +127,9 @@ const Report: React.FC<ViewPage> = ({ state }) => {
             ))}
         </tbody>
         <tfoot>
+          <tr>
+            <td colSpan={4}>&nbsp;</td>
+          </tr>
           <tr>
             <td className="fixed" colSpan={2}>
               Sum utlegg:

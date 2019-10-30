@@ -7,7 +7,7 @@ export type ActionType =
   | { type: "add_row" }
   | { type: "update_row"; row: Row };
 
-export type DeptType = "110 410" | "110 420" | "110 460";
+export type DeptType = "110 410" | "110 420" | "110 460" | "110 710";
 
 export type Dept = {
   value: DeptType;
@@ -26,6 +26,10 @@ export const depts: Dept[] = [
   {
     value: "110 460",
     name: "DBX"
+  },
+  {
+    value: "110 710",
+    name: "MCS"
   }
 ];
 

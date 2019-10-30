@@ -78,7 +78,7 @@ const Report: React.FC<Page> = ({ state, dispatch }) => {
               <TableRow>
                 <TableCell className={classes.fixed}>Dato</TableCell>
                 <TableCell className={classes.fixed}>
-                  Anskaffet - brukt til hva?
+                  Leverandør / Beskrivelse
                 </TableCell>
                 <TableCell className={classes.fixed}>Beløp inkl. mva</TableCell>
                 <TableCell className={classes.fixed}>Avdeling</TableCell>
@@ -89,7 +89,7 @@ const Report: React.FC<Page> = ({ state, dispatch }) => {
                   <TableRow key={`report_row_${row.id}`}>
                     <TableCell>{moment(row.date).format("DD/MM/YY")}</TableCell>
                     <TableCell>
-                      {row.company} - {row.description}
+                      {row.company} / {row.description}
                     </TableCell>
                     <TableCell>NOK {row.amount.toFixed(2)}</TableCell>
                     <TableCell className={classes.fixed}>
