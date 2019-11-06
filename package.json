@@ -28,7 +28,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "package": "yarn build && docker build -t docker.mad.itera.no/itera/ekstern_utlegg:latest ."
+    "package": "yarn build && docker build -t docker.mad.itera.no/itera/ekstern_utlegg:latest .",
+    "package-aks": "yarn build && docker build -t itetechmadacr.azurecr.io/ekstern_utlegg:latest ."
   },
   "eslintConfig": {
     "extends": "react-app"
