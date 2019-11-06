@@ -13,16 +13,13 @@ Running instance: [https://utlegg.mad.itera.no/](https://utlegg.mad.itera.no/)
 
 ## Kubernetes
 
-To deploy to kubernetes. We need to do two things initially:
+To deploy to kubernetes - we need a namespace then we will use helm (v3) to deploy the actual application.
 
 First the namespace:
 
     kubectl apply -f k8s-namespace.yml
 
-Now a secret:
+Finally we can deploy the rest:
 
-    kubectl create secret docker-registry regcred --docker-server=docker.mad.itera.no --docker-username=<username> --docker-password=<password> -n ekstern-utlegg
-
-Finally we can deploy the rest (this can be run for each update):
-
-    kubectl apply -f k8s-deployment.yml
+    cd chart
+    helm install ekstern-utlegg --namespace ekstern-utlegg ./ekstern-utlegg
