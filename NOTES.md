@@ -10,8 +10,8 @@ To build for MAD Azure:
 
 ```
 yarn build
-docker build -t itetechmadacr.azurecr.io/ekstern_utlegg .
-docker push itetechmadacr.azurecr.io/ekstern_utlegg
+docker build -t itetechmadacr.azurecr.io/ekstern_utlegg:latest .
+docker push itetechmadacr.azurecr.io/ekstern_utlegg:latest
 ```
 
 If you need to login to the repo:
