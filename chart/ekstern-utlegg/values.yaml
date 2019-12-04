@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: itetechmadacr.azurecr.io/ekstern_utlegg
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   containerPort: 5000
 
 imagePullSecrets: []

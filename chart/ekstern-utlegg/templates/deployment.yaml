@@ -27,6 +27,9 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: GIT_SHA
+              value: {{ .Values.image.sha }}
           ports:
             - name: http
               containerPort: {{ .Values.image.containerPort }}
