@@ -1,0 +1,34 @@
+name: Build
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 11
+
+      - name: Dependencies
+        run: yarn
+
+      - name: Build
+        run: yarn build
+
+      - uses: azure/docker-login@v1
+        with:
+          login-server: contoso.azurecr.io
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build image
+        run: docker build -t itetechmadacr.azurecr.io/ekstern_utlegg:${{ github.sha }} build
+
+      - name: Push image
+        run: docker push itetechmadacr.azurecr.io/ekstern_utlegg:${{ github.sha }}
