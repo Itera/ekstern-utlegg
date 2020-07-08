@@ -1,12 +1,6 @@
-## MAD VM
+## MAD Platform
 
-CircleCI will build any push to master and push it to docker.mad.itera.no/itera/ekstern_utlegg
-
-To update the server - run the containers playbook in the madness_ansible repo (if you don't have access - then ask someone who does to run it for you).
-
-## Azure
-
-To build for MAD Azure:
+To build for MAD Platform:
 
 ```
 yarn build
