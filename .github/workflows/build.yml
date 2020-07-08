@@ -28,7 +28,7 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
       - name: Build image
-        run: docker build -t itetechmadacr.azurecr.io/ekstern_utlegg:${{ github.sha }} build
+        run: docker build -t itetechmadacr.azurecr.io/ekstern_utlegg:${{ github.sha }} .
 
       - name: Push image
         run: docker push itetechmadacr.azurecr.io/ekstern_utlegg:${{ github.sha }}
