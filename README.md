@@ -1,8 +1,6 @@
 [![CircleCI](https://circleci.com/gh/Itera/ekstern-utlegg/tree/master.svg?style=svg)](https://circleci.com/gh/Itera/ekstern-utlegg/tree/master)
 [![codecov](https://codecov.io/gh/Itera/ekstern-utlegg/branch/master/graph/badge.svg)](https://codecov.io/gh/Itera/ekstern-utlegg)
 
-
-
 # Itera External Expenses
 
 A very simple react/redux app that allows external/students to provide a standard cover page for expenses.
@@ -22,4 +20,9 @@ First the namespace:
 Finally we can deploy the rest:
 
     cd chart
-    helm install ekstern-utlegg --namespace ekstern-utlegg ./ekstern-utlegg
+    helm install ekstern-utlegg --set image.sha=`git rev-parse --short HEAD` --namespace ekstern-utlegg ./ekstern-utlegg
+
+Update:
+
+    cd chart
+    helm upgrade ekstern-utlegg --set image.sha=`git rev-parse --short HEAD` --namespace ekstern-utlegg ./ekstern-utlegg

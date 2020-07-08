@@ -5,7 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: itetechmadacr.azurecr.io/ekstern_utlegg
+  url: itetechmadacr.azurecr.io/ekstern_utlegg
+  version: latest
   pullPolicy: Always
   containerPort: 5000
 
