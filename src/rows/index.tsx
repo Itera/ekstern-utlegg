@@ -1,26 +1,21 @@
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { Page, Row } from "../types";
 import React, { useEffect } from "react";
 
 import Button from "@material-ui/core/Button";
+import DateFnsUtils from "@date-io/date-fns";
 import Grid from "@material-ui/core/Grid";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import { Link } from "@reach/router";
+import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import DateFnsUtils from "@date-io/date-fns";
-import {
-  MuiPickersUtilsProvider,
-  MaterialUiPickersDate,
-  DatePicker
-} from "@material-ui/pickers";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { Link } from "@reach/router";
-
-import { Page, Row } from "../types";
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   link: {
-    textDecoration: "none"
-  }
+    textDecoration: "none",
+  },
 }));
 
 const Rows: React.FC<Page> = ({ state, dispatch }) => {
@@ -31,24 +26,24 @@ const Rows: React.FC<Page> = ({ state, dispatch }) => {
 
   const addRow = () => {
     dispatch({
-      type: "add_row"
+      type: "add_row",
     });
   };
 
   const clearRows = () => {
     dispatch({
-      type: "clear_rows"
+      type: "clear_rows",
     });
   };
 
   const getRowById = (id: number) => {
-    return state.rows.filter(row => row.id === id)[0];
+    return state.rows.filter((row) => row.id === id)[0];
   };
 
   const updateRow = (row: Row) => {
     dispatch({
       type: "update_row",
-      row: row
+      row: row,
     });
   };
 
@@ -56,7 +51,7 @@ const Rows: React.FC<Page> = ({ state, dispatch }) => {
     if (date) {
       updateRow({
         ...getRowById(id),
-        date: date
+        date: date,
       });
     }
   };
@@ -64,21 +59,21 @@ const Rows: React.FC<Page> = ({ state, dispatch }) => {
   const updateAmount = (id: number, amount: string) => {
     updateRow({
       ...getRowById(id),
-      amount: Number(amount)
+      amount: Number(amount),
     });
   };
 
   const updateCompany = (id: number, company: string) => {
     updateRow({
       ...getRowById(id),
-      company: company
+      company: company,
     });
   };
 
   const updateDescription = (id: number, description: string) => {
     updateRow({
       ...getRowById(id),
-      description: description
+      description: description,
     });
   };
 
@@ -95,7 +90,7 @@ const Rows: React.FC<Page> = ({ state, dispatch }) => {
 
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <Grid data-testid="rows-grid" container>
-          {state.rows.map(row => (
+          {state.rows.map((row) => (
             <Grid item container key={`row_${row.id} spacing={2}`}>
               <Grid item xs={2} style={{ paddingRight: 8 }}>
                 <DatePicker
@@ -119,7 +114,9 @@ const Rows: React.FC<Page> = ({ state, dispatch }) => {
                   label="Leverandør"
                   value={row.company}
                   fullWidth
-                  onChange={event => updateCompany(row.id, event.target.value)}
+                  onChange={(event) =>
+                    updateCompany(row.id, event.target.value)
+                  }
                 />
               </Grid>
               <Grid item xs={4} style={{ paddingRight: 8 }}>
@@ -129,7 +126,7 @@ const Rows: React.FC<Page> = ({ state, dispatch }) => {
                   label="Beskrivelse"
                   value={row.description}
                   fullWidth
-                  onChange={event =>
+                  onChange={(event) =>
                     updateDescription(row.id, event.target.value)
                   }
                 />
@@ -144,10 +141,10 @@ const Rows: React.FC<Page> = ({ state, dispatch }) => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">NOK</InputAdornment>
-                    )
+                    ),
                   }}
                   fullWidth
-                  onChange={event => updateAmount(row.id, event.target.value)}
+                  onChange={(event) => updateAmount(row.id, event.target.value)}
                 />
               </Grid>
             </Grid>

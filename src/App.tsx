@@ -1,30 +1,26 @@
-import React, { useReducer } from "react";
-
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import red from "@material-ui/core/colors/red";
-
-import Container from "@material-ui/core/Container";
-
-import { Router, RouteComponentProps } from "@reach/router";
-
-import Bar from "./bar";
-import Intro from "./intro";
-import Personal from "./personal";
-import Rows from "./rows";
-import Report from "./report";
-import Print from "./report/print";
-
 import { Page, ViewPage } from "./types";
+import React, { useReducer } from "react";
+import { RouteComponentProps, Router } from "@reach/router";
+import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import { getInitialState, reducer } from "./reducer";
 
-const theme = createMuiTheme({
+import Bar from "./bar";
+import Container from "@material-ui/core/Container";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Intro from "./intro";
+import Personal from "./personal";
+import Print from "./report/print";
+import Report from "./report";
+import Rows from "./rows";
+import red from "@material-ui/core/colors/red";
+
+const theme = createTheme({
   palette: {
     primary: {
-      main: "#ffffff"
+      main: "#ffffff",
     },
-    secondary: red
-  }
+    secondary: red,
+  },
 });
 
 const Home: React.FC<RouteComponentProps> = () => {
@@ -37,7 +33,7 @@ const Info: React.FC<RouteComponentProps & Page> = ({ state, dispatch }) => {
 
 const Payments: React.FC<RouteComponentProps & Page> = ({
   state,
-  dispatch
+  dispatch,
 }) => {
   return <Rows state={state} dispatch={dispatch} />;
 };

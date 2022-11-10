@@ -1,4 +1,4 @@
-FROM node:12.14.1-slim
+FROM node:19.0.1-slim
 
 RUN npm i -g serve
 
