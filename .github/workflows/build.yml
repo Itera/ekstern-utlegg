@@ -24,8 +24,8 @@ jobs:
       - uses: azure/docker-login@v1
         with:
           login-server: itetechmadacr.azurecr.io
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
+          username: ${{ secrets.MAD_DOCKER_PUSH_USERNAME }}
+          password: ${{ secrets.MAD_DOCKER_PUSH_PASSWORD }}
 
       - name: Build image
         run: docker build -t itetechmadacr.azurecr.io/ekstern_utlegg:${{ github.sha }} .
