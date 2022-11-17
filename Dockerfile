@@ -6,4 +6,4 @@ WORKDIR /app
 
 COPY build .
 
-ENTRYPOINT ["serve", "--single", "/app"]
+ENTRYPOINT ["serve", "-p", "3000", "--single", "/app"]
