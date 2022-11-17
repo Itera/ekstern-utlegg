@@ -1,9 +1,0 @@
-apiVersion: v2
-name: ekstern-utlegg
-version: 0.1.4
-description: Itera External Expenses
-type: application
-home: https://utlegg.mad.itera.no/
-source:
-  - https://github.com/itera/ekstern-utlegg
-
