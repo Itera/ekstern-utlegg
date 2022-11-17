@@ -28,7 +28,10 @@ jobs:
           password: ${{ secrets.MAD_DOCKER_PUSH_PASSWORD }}
 
       - name: Build image
-        run: docker build -t itetechmadacr.azurecr.io/ekstern_utlegg:${{ github.sha }} .
+        run: docker build -t itetechmadacr.azurecr.io/ekstern_utlegg:${{ github.sha }}  -t itetechmadacr.azurecr.io/ekstern_utlegg:latest .
 
-      - name: Push image
+      - name: Push image tag
         run: docker push itetechmadacr.azurecr.io/ekstern_utlegg:${{ github.sha }}
+
+      - name: Push image latest
+        run: docker push itetechmadacr.azurecr.io/ekstern_utlegg:latest
